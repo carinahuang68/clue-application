@@ -1,10 +1,21 @@
-# My Personal Project
+# My Personal Project -- Clue Helper
 
-## A subtitle
+- What is Clue?
+- What will the application do?
+- Who will use it?
+- Why is this project of interest to me?
 
-A *bulleted* list:
-- item 1
-- item 2
-- item 3
 
-An example of text with **bold** and *italic* fonts.  
+## What is Clue?
+
+Clue, also known as Cluedo, is a **strategic logic game** in which players have to determine the correct suspect, weapon, and room card hidden in the envelope at the start of the game. There are a total of 6 suspect cards, 6 weapon cards, and 9 room cards. There can be 3-6 players, and each player gets 3 cards. If there are remaining cards, they will each be hidden on the board in different rooms. Players have to take turns rolling the dice and get into a room. If a card is hidden in the room, players who are located in the room can reveal the card themselves. Moreover, when a player is in a room, they can guess/say a suspect name, a weapon, and the room they are in and ask other players if they have at least one of the cards they said, one by one, until a player says yes. For example, player 1 asks “Mr. Green, Knife, and Kitchen” (player 1 is located in the Kitchen) and first asks player 2 “Do you have one?”. If player 2 answers no, that means player 2 does not have Mr. Green, Knife, or Kitchen, and player 1 proceeds to the next player he/she chooses until a player has at least one of the cards player 1 said. Let's say player 3 has it, then player 3 has to reveal the card to player 1 secretly (make sure other players don't see it). Other players can take notes of clues when other players ask questions and who has it or who doesn’t. The game ends when a player correctly yells the three cards in the envelope. If a player did not guess correctly, then the player is eliminated and the game continues.
+
+
+## What will the application do? Who will use it?
+
+For my term project I want to build a **helper application for Clue** that a player can use to help keep track and win the game. Users, ideally a player of an actual Clue game, will input information from the game to the program. The program will keep track of all the information, including the user’s record of what cards other players have and don’t have, and known cards in the user/player’s hand and revealed cards on the board by the user/player. There are some strategies of the game that could be implemented in the program. For example, keeping track of what cards other players can potentially have as other players asked (only the player who asked will know which card a player has) then eliminating some cards from the “potential card” of a player whenever a player answers “no” to a question. When a card (Rope etc.) is eliminated by every player (no one has the card) and is not one of the “hidden cards on the board”, then one can be certain that the card (Rope etc.) is one of the cards in the envelope. The program will tell the user the answer when it is certain about all three cards in the envelope. 
+
+
+## Interest and Incentive
+
+I’m interested in this project because I like playing Clue. The idea of building a Clue helper using Java actually came up to me before I took CPSC 210 and after I learned the basic strategy of playing the game — *keeping track of what cards each player have, don’t have, and “potentially have”*. The answer will slowly be revealed through the process of elimination. However, I found it difficult to keep track of every single information from every players’ questions and answers without properly using the tables that the board game provides. Instead of using the standard way (using a table), I only used one column from the table and wrote information in a non standard way. I realized that this way of taking notes is insufficient and easy to miss information, while it is very brain burning. Therefore, I wanted to create this program to help players/users play the game at ease and potentially win the game without using too much brain cells. However, this application is mostly for practicing building a Java project for fun because I think it would be very suitable in Java especially since it has Classes and Objects. 
