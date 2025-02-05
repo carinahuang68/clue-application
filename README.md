@@ -19,3 +19,13 @@ For my term project I want to build a **helper application for Clue** that a pla
 ## Interest and Incentive
 
 I’m interested in this project because I like playing Clue. The idea of building a Clue helper using Java actually came up to me before I took CPSC 210 and after I learned the basic strategy of playing the game — *keeping track of what cards each player have, don’t have, and “potentially have”*. The answer will slowly be revealed through the process of elimination. However, I found it difficult to keep track of every single information from every players’ questions and answers without properly using the tables that the board game provides. Instead of using the standard way (using a table), I only used one column from the table and wrote information in a non standard way. I realized that this way of taking notes is insufficient and easy to miss information, while it is very brain burning. Therefore, I wanted to create this program to help players/users play the game at ease and potentially win the game without using too much brain cells. However, this application is mostly for practicing building a Java project for fun because I think it would be very suitable in Java especially since it has Classes and Objects. 
+
+
+## User Stories
+
+- I want to be able to remove suspects, weapons, and rooms from each of the corresponding list of potential murder cards
+- I want to be able to add cards to a player's list of cards they have and list of cards they don't have
+- I want to be able to add 3-card sets to the list of sets of cards a player can potentially have when a player answers 'yes' to another player's question
+- I want to be able to view players' lists of cards (cards they don't have, have, and may have) and the list of potential murder cards
+- I want to be able to select the suspect, weapon, and room when a player states their three suspecting objects 
+- I want to be able to select the player who has been asked and enter 'yes' or 'no' depending on what the player answered 
