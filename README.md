@@ -25,7 +25,8 @@ I’m interested in this project because I like playing Clue. The idea of buildi
 
 - I want to be able to remove suspects, weapons, and rooms from each of the corresponding list of potential murder cards
 - I want to be able to add cards to a player's list of cards they have and list of cards they don't have
-- I want to be able to add 3-card sets to the list of sets of cards a player can potentially have when a player answers 'yes' to another player's question
+- I want to be able to add cards to a player's list of cards they can potentially have when a player answers 'yes' to another player's question
 - I want to be able to view players' lists of cards (cards they don't have, have, and may have) and the list of potential murder cards
 - I want to be able to select the suspect, weapon, and room when a player states their three suspecting objects 
 - I want to be able to select the player who has been asked and enter 'yes' or 'no' depending on what the player answered 
+- I want to be able to check if the suspect, weapon, or room is found (Ex. the suspect is found when there is only one suspect left in the list of potential suspect cards)
