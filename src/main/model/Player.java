@@ -2,6 +2,8 @@ package model;
 
 import java.util.*;
 
+import exception.InvalidCardName;
+
 // Specification template:
     /* 
      * REQUIRES:
@@ -21,6 +23,7 @@ public class Player {
         this.name = name;
         handCards = new ArrayList<>();
         noCards = new ArrayList<>();
+        uncheckedCards = new ArrayList<>();
     }
 
     /* 
@@ -28,7 +31,7 @@ public class Player {
      * EFFECTS: adds the card with name to handCards if card in in Card.names
      * Throws InvalidCardName if name is not found in Card.names
      */
-    public void addHandCard(String name){
+    public void addHandCard(String name) throws InvalidCardName{
 
     }
 
@@ -37,7 +40,7 @@ public class Player {
      * EFFECTS: adds the card with name to noCards if card in in Card.names
      * Throws InvalidCardName if name is not found in Card.names
      */
-    public void addNoCard(String name){
+    public void addNoCard(String name) throws InvalidCardName{
         
     }
 
@@ -46,7 +49,16 @@ public class Player {
      * EFFECTS: adds the card with name to uncheckedCards if card in in Card.names
      * Throws InvalidCardName if name is not found in Card.names
      */
-    public void addUncheckedCards(String name){
+    public void addUncheckedCard(String name) throws InvalidCardName{
+        
+    }
+
+    /* 
+     * MODIFIES: this
+     * EFFECTS: removes the card with name to uncheckedCards if card in in Card.names
+     * Throws InvalidCardName if name is not found in Card.names
+     */
+    public void removeUncheckedCard(String name) throws InvalidCardName{
         
     }
 
@@ -62,7 +74,7 @@ public class Player {
         return noCards;
     }
 
-    public List<Card> getUncheckeCards(){
+    public List<Card> getUncheckedCards(){
         return uncheckedCards;
     }
 

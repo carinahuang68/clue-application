@@ -18,7 +18,7 @@ public class Room extends Card{
     }
 
     // EFFECTS: return true if name is in Room.names, else false
-    public boolean contains(String name){
+    public static boolean contains(String name){
         // stub
         return false;
     }

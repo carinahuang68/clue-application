@@ -11,6 +11,9 @@ public class Card {
      "Knife", "Candlestick", "Revolver", "Rope", "Lead Pipe", "Wrench",
      "Hall", "Lounge", "Dining Room", "Kitchen", "Ball Room", "Conservatory", "Billiard Room", "Library", "Study"};
 
+     /*
+      * REQUIRE: name must be in Card.names
+      */
     public Card(String name){
         this.name = name;
     }
@@ -20,7 +23,7 @@ public class Card {
     }
 
     // EFFECTS: return true if name is in Card.names, else false
-    public boolean contains(String name){
+    public static boolean contains(String name){
         // stub
         return false;
     }

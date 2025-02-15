@@ -1,5 +1,5 @@
 package exception;
 
-public class InvalidCardName extends Exception{
+public class InvalidCardName extends Exception {
 
 }
