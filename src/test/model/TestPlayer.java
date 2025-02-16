@@ -256,4 +256,10 @@ public class TestPlayer {
         }
     }
 
+    @Test
+    public void testToString() {
+        Player p = new Player("Me");
+        assertEquals("Me", p.toString());
+    }
+
 }
