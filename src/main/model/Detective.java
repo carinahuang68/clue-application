@@ -43,18 +43,18 @@ public class Detective {
             rooms.add(new Room(s));
         }
 
-        for (String name: handCards){
+        for (String name : handCards) {
             eliminateCard(name);
         }
     }
 
     /*
      * MODIFIES: this
-     * EFFECT: 
+     * EFFECT:
      */
     public void eliminateCard(String name) throws InvalidCardName {
-        if (Card.contains(name)){
-            if (Suspect.contains(name)){
+        if (Card.contains(name)) {
+            if (Suspect.contains(name)) {
                 removeSuspect(name);
             } else if (Weapon.contains(name)) {
                 removeWeapon(name);
@@ -151,9 +151,9 @@ public class Detective {
      * REQUIRE: Suspect.contains(name)
      * EFFECTS: returns the suspect with the given name
      */
-    public Suspect getSuspect(String name){
-        for (Suspect s: suspects){
-            if (s.getName().equals(name)){
+    public Suspect getSuspect(String name) {
+        for (Suspect s : suspects) {
+            if (s.getName().equals(name)) {
                 return s;
             }
         }
@@ -164,9 +164,9 @@ public class Detective {
      * REQUIRE: Weapon.contains(name)
      * EFFECTS: returns the weapon with the given name
      */
-    public Weapon getWeapon(String name){
-        for (Weapon w: weapons){
-            if (w.getName().equals(name)){
+    public Weapon getWeapon(String name) {
+        for (Weapon w : weapons) {
+            if (w.getName().equals(name)) {
                 return w;
             }
         }
@@ -177,9 +177,9 @@ public class Detective {
      * REQUIRE: Room.contains(name)
      * EFFECTS: returns the room with the given name
      */
-    public Room getRoom(String name){
-        for (Room r: rooms){
-            if (r.getName().equals(name)){
+    public Room getRoom(String name) {
+        for (Room r : rooms) {
+            if (r.getName().equals(name)) {
                 return r;
             }
         }
@@ -198,11 +198,11 @@ public class Detective {
         return rooms;
     }
 
-    public List<String> getHandcards(){
+    public List<String> getHandcards() {
         return handCards;
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 }

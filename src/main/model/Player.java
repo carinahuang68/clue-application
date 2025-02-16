@@ -70,7 +70,7 @@ public class Player {
      */
     public void addNoCard(String name) throws InvalidCardName {
         if (Card.contains(name)) {
-            if (!noCards.contains(name)){
+            if (!noCards.contains(name)) {
                 noCards.add(name);
                 removeUncheckedCard(name);
             }
@@ -80,9 +80,11 @@ public class Player {
     }
 
     /*
-     * REQUIRE: one parameter is suspect, one is weapon, and one is room (no duplicates)
+     * REQUIRE: one parameter is suspect, one is weapon, and one is room (no
+     * duplicates)
      * MODIFIES: this
-     * EFFECTS: adds a list of the given Strings that is not in noCards to uncheckedCards 
+     * EFFECTS: adds a list of the given Strings that is not in noCards to
+     * uncheckedCards
      * Throws InvalidCardName if at least one name is not found in Card.names
      */
     public void addUncheckedCards(String suspect, String weapon, String room) throws InvalidCardName {
@@ -91,10 +93,10 @@ public class Player {
         newUncheckedCards.add(weapon);
         newUncheckedCards.add(room);
         int i = 0;
-        while (i < newUncheckedCards.size()){
+        while (i < newUncheckedCards.size()) {
             String currentCard = newUncheckedCards.get(i);
             if (Card.contains(currentCard)) {
-                if (noCards.contains(currentCard)){
+                if (noCards.contains(currentCard)) {
                     newUncheckedCards.remove(currentCard);
                 } else {
                     i++;
@@ -113,10 +115,10 @@ public class Player {
      * Throws InvalidCardName if name is not found in Card.names
      */
     public void removeUncheckedCard(String name) throws InvalidCardName {
-        if (Card.contains(name)){
-            for (List<String> uncheckedSet: uncheckedCards){
-                for (String s: uncheckedSet){
-                    if (s.equals(name)){
+        if (Card.contains(name)) {
+            for (List<String> uncheckedSet : uncheckedCards) {
+                for (String s : uncheckedSet) {
+                    if (s.equals(name)) {
                         uncheckedSet.remove(s);
                         break;
                     }
@@ -133,10 +135,10 @@ public class Player {
      * add the Card with name to handCards and removes the list in uncheckedCard
      * returns true if progress has been made
      */
-    public boolean checkUncheckedCards(Detective c) throws EmptyUncheckedSet, InvalidCardName{
+    public boolean checkUncheckedCards(Detective c) throws EmptyUncheckedSet, InvalidCardName {
         boolean hasProgress = false;
         int i = 0;
-        while (i < uncheckedCards.size()){
+        while (i < uncheckedCards.size()) {
             List<String> uncheckedSet = uncheckedCards.get(i);
             if (uncheckedSet.size() == 0) {
                 throw new EmptyUncheckedSet();
@@ -169,6 +171,10 @@ public class Player {
 
     public List<List<String>> getUncheckedCards() {
         return uncheckedCards;
+    }
+
+    public String toString() {
+        return name;
     }
 
 }

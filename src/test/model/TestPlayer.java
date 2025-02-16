@@ -1,4 +1,5 @@
 package model;
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -13,14 +14,13 @@ import org.junit.jupiter.api.Test;
 import exception.EmptyUncheckedSet;
 import exception.InvalidCardName;
 
-
 public class TestPlayer {
 
     Player p;
     Detective c;
 
     @BeforeEach
-    public void runBefore(){
+    public void runBefore() {
         p = new Player("John");
         List<String> emptyList = new ArrayList<>();
         try {
@@ -31,7 +31,7 @@ public class TestPlayer {
     }
 
     @Test
-    public void testInit(){
+    public void testInit() {
         assertEquals("John", p.getName());
         assertEquals(0, p.getHandCards().size());
         assertEquals(0, p.getNoCards().size());
@@ -39,7 +39,7 @@ public class TestPlayer {
     }
 
     @Test
-    public void testAddMultipleHandCards(){
+    public void testAddMultipleHandCards() {
         // add weapon hand card
         try {
             assertTrue(p.addHandCard("Knife", c));
@@ -75,7 +75,7 @@ public class TestPlayer {
     }
 
     @Test
-    public void addOneHandCardTwice(){
+    public void addOneHandCardTwice() {
         try {
             assertTrue(p.addHandCard("Wrench", c));
             assertFalse(p.addHandCard("Wrench", c));
@@ -88,7 +88,7 @@ public class TestPlayer {
     }
 
     @Test
-    public void testAddInvalidHandCard(){
+    public void testAddInvalidHandCard() {
         try {
             p.addHandCard("??", c);
             fail();
@@ -99,7 +99,7 @@ public class TestPlayer {
     }
 
     @Test
-    public void testAddNoCard(){
+    public void testAddNoCard() {
         try {
             p.addNoCard("Green");
         } catch (InvalidCardName e) {
@@ -110,7 +110,7 @@ public class TestPlayer {
     }
 
     @Test
-    public void testAddOneNoCardTwice(){
+    public void testAddOneNoCardTwice() {
         try {
             p.addNoCard("Green");
             p.addNoCard("Green");
@@ -122,7 +122,7 @@ public class TestPlayer {
     }
 
     @Test
-    public void testAddInvalidNoCard(){
+    public void testAddInvalidNoCard() {
         try {
             p.addNoCard("Billiard");
             fail();
@@ -133,7 +133,7 @@ public class TestPlayer {
     }
 
     @Test
-    public void testAddUncheckedCards(){
+    public void testAddUncheckedCards() {
         // add all
         try {
             p.addUncheckedCards("Mustard", "Wrench", "Kitchen");
@@ -160,7 +160,7 @@ public class TestPlayer {
     }
 
     @Test
-    public void testAddInvalidUncheckedCard(){
+    public void testAddInvalidUncheckedCard() {
         try {
             p.addUncheckedCards("Scarlett", "Knife", "Hal");
             fail();
@@ -210,7 +210,7 @@ public class TestPlayer {
     }
 
     @Test
-    public void testCheckUncheckedCards(){
+    public void testCheckUncheckedCards() {
         try {
             assertFalse(p.checkUncheckedCards(c));
             p.addUncheckedCards("Peacock", "Revolver", "Lounge");
@@ -240,7 +240,7 @@ public class TestPlayer {
     }
 
     @Test
-    public void testCheckUncheckedCardsHaveEmptySet(){
+    public void testCheckUncheckedCardsHaveEmptySet() {
         try {
             p.addUncheckedCards("Peacock", "Revolver", "Lounge");
             p.addUncheckedCards("White", "Revolver", "Lounge");

@@ -1,21 +1,25 @@
 package model;
 
-public class Weapon extends Card{
+public class Weapon extends Card {
 
-    public static String[] names = {"Knife", "Candlestick", "Revolver", "Rope", "Lead Pipe", "Wrench"};
+    public static String[] names = { "Knife", "Candlestick", "Revolver", "Rope", "Lead Pipe", "Wrench" };
 
-    public Weapon(String name){
+    public Weapon(String name) {
         super(name);
     }
 
     // EFFECTS: return true if name is in Weapon.names, else false
-    public static boolean contains(String name){
-        for (String n: names){
-            if (n.equals(name)){
+    public static boolean contains(String name) {
+        for (String n : names) {
+            if (n.equals(name)) {
                 return true;
             }
         }
         return false;
+    }
+
+    public static String names() {
+        return "Knife, Candlestick, Revolver, Rope, Lead Pipe, Wrench";
     }
 
 }

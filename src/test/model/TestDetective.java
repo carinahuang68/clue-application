@@ -1,4 +1,5 @@
 package model;
+
 import java.util.*;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
@@ -19,7 +20,7 @@ public class TestDetective {
     List<String> mycards;
 
     @BeforeEach
-    public void runBefore(){
+    public void runBefore() {
         mycards = new ArrayList<>();
         mycards.add("Mustard");
         mycards.add("Green");
@@ -33,7 +34,7 @@ public class TestDetective {
     }
 
     @Test
-    public void testInit(){
+    public void testInit() {
         // test init
         assertEquals("Carina", d.getName());
         assertEquals(mycards, d.getHandcards());
@@ -51,7 +52,7 @@ public class TestDetective {
     }
 
     @Test
-    public void testEliminateCard(){
+    public void testEliminateCard() {
         try {
             d.eliminateCard("Knife");
             assertEquals(4, d.getWeapons().size());
@@ -71,7 +72,7 @@ public class TestDetective {
     }
 
     @Test
-    public void testEliminateInvalidCard(){
+    public void testEliminateInvalidCard() {
         try {
             d.eliminateCard("rope");
             fail();
@@ -82,7 +83,7 @@ public class TestDetective {
 
     // Tests for removeSuspect()
     @Test
-    public void testTrueRemoveSuspect(){
+    public void testTrueRemoveSuspect() {
         Suspect plum = d.getSuspect("Plum");
         try {
             assertEquals(plum, d.removeSuspect("Plum"));
@@ -103,7 +104,7 @@ public class TestDetective {
     }
 
     @Test
-    public void testFalseRemoveSuspect(){
+    public void testFalseRemoveSuspect() {
         try {
             assertNull(d.removeSuspect("Green"));
         } catch (InvalidSuspectName e) {
@@ -113,7 +114,7 @@ public class TestDetective {
     }
 
     @Test
-    public void testInvalidRemoveSuspect(){
+    public void testInvalidRemoveSuspect() {
         try {
             d.removeSuspect("Hall");
             fail("not expected to reach this line");
@@ -123,10 +124,9 @@ public class TestDetective {
         assertEquals(4, d.getSuspects().size());
     }
 
-
     // Tests for removeWeapon()
     @Test
-    public void testTrueRemoveWeapon(){
+    public void testTrueRemoveWeapon() {
         Weapon knife = d.getWeapon("Knife");
         try {
             assertEquals(knife, d.removeWeapon("Knife"));
@@ -147,7 +147,7 @@ public class TestDetective {
     }
 
     @Test
-    public void testFalseRemoveWeapon(){
+    public void testFalseRemoveWeapon() {
         try {
             assertNull(d.removeWeapon("Revolver"));
         } catch (InvalidWeaponName e) {
@@ -158,7 +158,7 @@ public class TestDetective {
     }
 
     @Test
-    public void testInvalidRemoveWeapon(){
+    public void testInvalidRemoveWeapon() {
         try {
             d.removeWeapon("rope");
             fail();
@@ -170,7 +170,7 @@ public class TestDetective {
 
     // Tests for removeRoom()
     @Test
-    public void testTrueRemoveRoom(){
+    public void testTrueRemoveRoom() {
         Room dining = d.getRoom("Dining Room");
         try {
             assertEquals(dining, d.removeRoom("Dining Room"));
@@ -191,7 +191,7 @@ public class TestDetective {
     }
 
     @Test
-    public void testFalseRemoveRoom(){
+    public void testFalseRemoveRoom() {
         try {
             assertNull(d.removeRoom("Ball Room"));
         } catch (InvalidRoomName e) {
@@ -201,7 +201,7 @@ public class TestDetective {
     }
 
     @Test
-    public void testInvalidRemoveRoom(){
+    public void testInvalidRemoveRoom() {
         try {
             d.removeRoom("Dining");
             fail();
@@ -212,7 +212,7 @@ public class TestDetective {
     }
 
     @Test
-    public void testFoundSuspectTrue(){
+    public void testFoundSuspectTrue() {
         try {
             d.removeSuspect("Mustard");
             d.removeSuspect("Plum");
@@ -226,7 +226,7 @@ public class TestDetective {
     }
 
     @Test
-    public void testFoundSuspectFalse(){
+    public void testFoundSuspectFalse() {
         try {
             d.removeSuspect("Mustard");
             d.removeSuspect("Green");
@@ -239,7 +239,7 @@ public class TestDetective {
     }
 
     @Test
-    public void testFoundWeaponTrue(){
+    public void testFoundWeaponTrue() {
         try {
             d.removeWeapon("Knife");
             d.removeWeapon("Candlestick");
@@ -253,7 +253,7 @@ public class TestDetective {
     }
 
     @Test
-    public void testFoundWeaponFalse(){
+    public void testFoundWeaponFalse() {
         try {
             d.removeWeapon("Knife");
             d.removeWeapon("Revolver");
@@ -265,7 +265,7 @@ public class TestDetective {
     }
 
     @Test
-    public void testFoundRoomTrue(){
+    public void testFoundRoomTrue() {
         try {
             d.removeRoom("Hall");
             d.removeRoom("Lounge");
@@ -282,7 +282,7 @@ public class TestDetective {
     }
 
     @Test
-    public void testFoundRoomFalse(){
+    public void testFoundRoomFalse() {
         try {
             d.removeRoom("Lounge");
             d.removeRoom("Kitchen");
@@ -298,17 +298,17 @@ public class TestDetective {
     }
 
     @Test
-    public void testGetSuspect(){
+    public void testGetSuspect() {
         assertEquals(d.getSuspects().get(2), d.getSuspect("Scarlett"));
     }
 
     @Test
-    public void testGetWeapon(){
+    public void testGetWeapon() {
         assertEquals(d.getWeapons().get(4), d.getWeapon("Wrench"));
     }
 
     @Test
-    public void testGetRoom(){
+    public void testGetRoom() {
         assertEquals(d.getRooms().get(7), d.getRoom("Study"));
     }
 

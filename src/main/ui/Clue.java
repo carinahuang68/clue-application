@@ -24,6 +24,14 @@ public class Clue {
     private int numPlayers;
     private String myName;
     private List<String> orderedPlayers;
+    private String currentCard;
+    private String currentAnswer;
+    private String currentSuspect;
+    private String currentWeapon;
+    private String currentRoom;
+    private String currentAskedPlayer;
+    private String currentPlayer;
+    private boolean viewedCurrentPlayersCard;
     Scanner ui;
 
     /*
@@ -70,45 +78,13 @@ public class Clue {
         System.out.println();
     }
 
-    public void printCardNames() {
-        String suspectNames = "";
-        for (String s : Suspect.names) {
-            suspectNames = suspectNames + s + ", ";
-        }
-        String weaponNames = "";
-        for (String w : Weapon.names) {
-            weaponNames = weaponNames + w + ", ";
-        }
-        String roomNames = "";
-        for (String r : Room.names) {
-            roomNames = roomNames + r + ", ";
-        }
-        System.out.println("Card names reference: ");
-        System.out.println("Suspects: " + suspectNames);
-        System.out.println("Weapons: " + weaponNames);
-        System.out.println("Rooms: " + roomNames);
-        System.out.println();
-    }
-
-    public void printInstructions() {
-        System.out.println("Set up instructions:");
-        System.out
-                .println("1. Randomly pick one secret suspect card, one secret weapon card, and one secret room card.");
-        System.out.println("2. Place the 3 secret cards in the confidential folder, without looking at the cards!");
-        System.out.println("3. Shuffle the remaining cards.");
-        System.out.println("4. Distribute " + numHandCardsPerPlayer + " cards to each player, including you.");
-        if (numCardsInRooms != 0) {
-            System.out.println("5. Hide each of the " + numCardsInRooms + " remaining cards in a room.");
-        }
-        System.out.println();
-    }
-
     public void manageMyHandCards() {
         List<String> myHandCards = new ArrayList<>();
         for (int i = 1; i <= numHandCardsPerPlayer; i++) {
             System.out.print("Enter your hand card #" + i + ": ");
-            String card = ui.nextLine();
-            myHandCards.add(card);
+            currentCard = ui.nextLine();
+            checkValidCardName(currentCard);
+            myHandCards.add(currentCard);
             System.out.println();
         }
         try {
@@ -131,27 +107,27 @@ public class Clue {
         orderedPlayers = new ArrayList<>();
         System.out.println("Time to determine the order of turns!");
         System.out.print("Enter the player who goes first: ");
-        addPlayer();
+        currentPlayer = ui.nextLine();
+        addPlayerToOrderedPlayer(currentPlayer);
 
         int i = 2;
         while (i <= numPlayers) {
             System.out.print("Enter next player: ");
-            addPlayer();
+            addPlayerToOrderedPlayer(currentPlayer);
             i++;
         }
         System.out.println("All set! Ready to start the game!");
         System.out.println();
     }
 
-    public void addPlayer() {
-        String player = ui.nextLine();
+    public void addPlayerToOrderedPlayer(String player) {
         while ((getPlayer(player) == null && !myName.equals(player)) | orderedPlayers.contains(player)) {
             System.out.println("Invalid player name!");
             System.out.print("Please enter again: ");
-            player = ui.nextLine();
+            currentPlayer = ui.nextLine();
             System.out.println();
         }
-        orderedPlayers.add(player);
+        orderedPlayers.add(currentPlayer);
         System.out.println();
     }
 
@@ -159,36 +135,50 @@ public class Clue {
         while (!d.foundSuspect() | !d.foundWeapon() | !d.foundRoom()) {
             for (String p : orderedPlayers) {
                 if (p.equals(myName)) {
-                    System.out.println("Your turn! Please roll the dice.");
-                    System.out.println("Entered a room? (yes/no) ");
-                    String answer = ui.nextLine();
-                    if (answer.equals("yes")) {
-                        System.out.println("Check card in room? (yes/no) ");
-                        answer = ui.nextLine();
-                        if (answer.equals("yes")) {
-                            checkCardInRoom();
-                        }
-                        detectiveAskQuestion();
-                        printDetectiveNotes();
-                    }
-                    System.out.println();
+                    detectivesTurn();
                 } else {
-                    System.out.println(p + "'s turn:");
-                    System.out.println("Did they enter a room? (yes/no) ");
-                    String answer = ui.nextLine();
-                    if (answer.equals("yes")) {
-                        playerAskQuestion(p);
-                        printDetectiveNotes();
-                    }
-                    System.out.println();
+                    playersTurn(p);
                 }
             }
         }
+        foundSecretMurder();
+    }
+
+    public void detectivesTurn() {
+        System.out.println("Your turn! Please roll the dice.");
+        System.out.println("Entered a room? (yes/no) ");
+        currentAnswer = ui.nextLine();
+        checkAnswer();
+        if (currentAnswer.equals("yes")) {
+            System.out.println("Check card in room? (yes/no) ");
+            currentAnswer = ui.nextLine();
+            checkAnswer();
+            if (currentAnswer.equals("yes")) {
+                checkCardInRoom();
+            }
+            detectiveAskQuestion();
+            printDetectiveNotes();
+        }
+        System.out.println();
+    }
+
+    public void playersTurn(String p) {
+        System.out.println(p + "'s turn:");
+        System.out.println("Did they enter a room? (yes/no) ");
+        String answer = ui.nextLine();
+        checkAnswer();
+        if (answer.equals("yes")) {
+            playerAskQuestion(p);
+            printDetectiveNotes();
+        }
+        System.out.println();
+    }
+
+    public void foundSecretMurder() {
         System.out.println("Found the secret murder!");
         System.out.println("Suspect: " + d.getSuspects().get(0).getName());
         System.out.println("Weapon: " + d.getWeapons().get(0).getName());
         System.out.println("Room: " + d.getRooms().get(0).getName());
-
     }
 
     public void checkCardInRoom() {
@@ -206,78 +196,148 @@ public class Clue {
     }
 
     public void detectiveAskQuestion() {
-        System.out.println("Time to ask a CLUE question!");
-        System.out.print("Enter a suspect: ");
-        String suspect = ui.nextLine();
-        System.out.print("Enter a weapon: ");
-        String weapon = ui.nextLine();
-        System.out.print("Enter the room you are in: ");
-        String room = ui.nextLine();
-        System.out.print("Enter the first player to ask: ");
-        String p = ui.nextLine();
-        System.out.print("Their answer (yes/no): ");
-        String answer = ui.nextLine();
-        System.out.println();
-
-        while (!answer.equals("yes")) {
-            try {
-                Player player = getPlayer(p);
-                if (player != null) {
-                    player.addNoCard(suspect);
-                    player.addNoCard(weapon);
-                    player.addNoCard(room);
-                    player.checkUncheckedCards(d);
-                    printPlayerNote(player);
-                } else {
-                    System.out.println("Invalid player name! Try again.");
-                    System.out.println();
-                }
-            } catch (InvalidCardName e) {
-                System.out.println("You have at least one invalid card name! Try again.");
-                System.out.println();
-                detectiveAskQuestion();
-            } catch (EmptyUncheckedSet e) {
-                System.out.println("Error: Empty unchecked set");
-                error();
-            }
-            System.out.print("Enter the next player to ask: ");
-            p = ui.nextLine();
-            System.out.print("Their answer (yes/no): ");
-            answer = ui.nextLine();
-            System.out.println();
+        askClueQuestion();
+        while (currentAnswer.equals("no")) {
+            updateForPlayersNo(currentSuspect, currentWeapon, currentRoom, currentAskedPlayer);
         }
 
-        boolean viewedCard = false;
+        viewedCurrentPlayersCard = false;
 
-        while (!viewedCard) {
+        while (!viewedCurrentPlayersCard) {
             try {
-                viewCard(p);
-                viewedCard = true;
+                viewCard(currentAskedPlayer);
+                viewedCurrentPlayersCard = true;
             } catch (InvalidPlayerName e) {
                 System.out.println("Invalid player name!");
                 System.out.print("Enter player name again: ");
-                p = ui.nextLine();
+                currentAskedPlayer = ui.nextLine();
             } catch (InvalidCardName e) {
                 System.out.println("Invalid card name!");
             } catch (EmptyUncheckedSet e) {
                 error();
             }
         }
+    }
 
+    public void askClueQuestion() {
+        System.out.println("Time to ask a CLUE question!");
+        System.out.print("Enter a suspect: ");
+        currentSuspect = ui.nextLine();
+        checkValidSuspectName(currentSuspect);
+
+        System.out.print("Enter a weapon: ");
+        currentWeapon = ui.nextLine();
+        checkValidWeaponName(currentWeapon);
+
+        System.out.print("Enter the room you are in: ");
+        currentRoom = ui.nextLine();
+        checkValidRoomName(currentRoom);
+
+        System.out.print("Enter the first player to ask: ");
+        currentAskedPlayer = ui.nextLine();
+        checkValidPlayer(currentAskedPlayer);
+
+        System.out.print("Their answer (yes/no): ");
+        currentAnswer = ui.nextLine();
+        checkAnswer();
+        System.out.println();
+    }
+
+    public void checkValidPlayer(String name) {
+        while (getPlayer(name) == null) {
+            System.out.println("Invalid player name!");
+            printPlayers();
+            System.out.print("Enter player's name from the above list: ");
+            currentAskedPlayer = ui.nextLine();
+        }
+    }
+
+    public void checkValidSuspectName(String name) {
+        while (!Suspect.contains(name)) {
+            System.out.println("Invalid suspect name!");
+            printAllSuspects();
+            System.out.print("Enter suspect name from the above list: ");
+            currentSuspect = ui.nextLine();
+        }
+    }
+
+    public void checkValidWeaponName(String name) {
+        while (!Weapon.contains(name)) {
+            System.out.println("Invalid weapon name!");
+            printAllWeapons();
+            System.out.print("Enter weapon name from the above list: ");
+            currentWeapon = ui.nextLine();
+        }
+    }
+
+    public void checkValidRoomName(String name) {
+        while (!Room.contains(name)) {
+            System.out.println("Invalid room name!");
+            printAllRooms();
+            System.out.print("Enter room name from the above list: ");
+            currentRoom = ui.nextLine();
+        }
+    }
+
+    public void checkValidCardName(String name) {
+        while (!Card.contains(name)) {
+            System.out.println("Invalid card name!");
+            printCardNames();
+            System.out.print("Enter card name from the reference above: ");
+            currentCard = ui.nextLine();
+        }
+    }
+
+    public void checkAnswer() {
+        while (!currentAnswer.equals("yes") && !currentAnswer.equals("no")) {
+            System.out.println("Invalid answer!");
+            System.out.print("Please enter 'yes' or 'no': ");
+            currentAnswer = ui.nextLine();
+        }
     }
 
     public void viewCard(String name) throws InvalidPlayerName, InvalidCardName, EmptyUncheckedSet {
         Player player = getPlayer(name);
         if (player != null) {
             System.out.print("Enter " + name + "'s card you just viewed: ");
-            String card = ui.nextLine();
-            player.addHandCard(card, d);
+            currentCard = ui.nextLine();
+            checkValidCardName(currentCard);
+            player.addHandCard(currentCard, d);
             printPlayerNote(player);
-            addNoCardsToOtherPlayers(player, card);
+            addNoCardsToOtherPlayers(player, currentCard);
         } else {
             throw new InvalidPlayerName();
         }
+    }
 
+    public void updateForPlayersNo(String suspect, String weapon, String room, String p) {
+        try {
+            Player player = getPlayer(p);
+            while (player == null) {
+                System.out.println("Invalid player name!");
+                System.out.print("Enter asked player's name again: ");
+                currentAskedPlayer = ui.nextLine();
+                player = getPlayer(currentAskedPlayer);
+            }
+            player.addNoCard(suspect);
+            player.addNoCard(weapon);
+            player.addNoCard(room);
+            player.checkUncheckedCards(d);
+            printPlayerNote(player);
+        } catch (InvalidCardName e) {
+            System.out.println("You have at least one invalid card name! Try again.");
+            System.out.println();
+            detectiveAskQuestion();
+        } catch (EmptyUncheckedSet e) {
+            System.out.println("Error: Empty unchecked set");
+            error();
+        }
+        System.out.print("Enter the next player to ask: ");
+        currentAskedPlayer = ui.nextLine();
+        System.out.print("Their answer (yes/no): ");
+        currentAnswer = ui.nextLine();
+        checkAnswer();
+        System.out.println();
     }
 
     public void addNoCardsToOtherPlayers(Player player, String card) throws InvalidCardName, EmptyUncheckedSet {
@@ -292,61 +352,47 @@ public class Clue {
     public void playerAskQuestion(String askingPlayer) {
         System.out.println("What did the player ask?");
         System.out.print("Enter the suspect: ");
-        String suspect = ui.nextLine();
+        currentSuspect = ui.nextLine();
+        checkValidSuspectName(currentSuspect);
+
         System.out.print("Enter the weapon: ");
-        String weapon = ui.nextLine();
+        currentWeapon = ui.nextLine();
+        checkValidWeaponName(currentWeapon);
+
         System.out.print("Enter the room they are in: ");
-        String room = ui.nextLine();
+        currentRoom = ui.nextLine();
+        checkValidRoomName(currentRoom);
+
         System.out.print("Enter the first player they asked: ");
-        String askedPlayer = ui.nextLine();
-        checkPlayersNotEqual(askedPlayer, askingPlayer);
-        String answer = "";
-        Player p = null;
-        if (askedPlayer.equals(myName)) {
+        currentAskedPlayer = ui.nextLine();
+        checkPlayersNotEqual(currentAskedPlayer, askingPlayer);
+
+        if (currentAskedPlayer.equals(myName)) {
             System.out.print("Your answer (yes/no): ");
-            answer = ui.nextLine();
+            currentAnswer = ui.nextLine();
+            checkAnswer();
         } else {
-            p = getPlayer(askedPlayer);
+            checkValidPlayer(currentAskedPlayer);
             System.out.print("Their answer (yes/no): ");
-            answer = ui.nextLine();
+            currentAnswer = ui.nextLine();
+            checkAnswer();
         }
 
-        while (!answer.equals("yes")) {
-            try {
-                if (p != null) {
-                    p.addNoCard(suspect);
-                    p.addNoCard(weapon);
-                    p.addNoCard(room);
-                    p.checkUncheckedCards(d);
-                    printPlayerNote(p);
-                } else if (askedPlayer.equals(myName)) {
-                    System.out.println();
-                } else {
-                    System.out.println("Invalid player name! Try again.");
-                    System.out.println();
-                }
-            } catch (InvalidCardName e) {
-                System.out.println("You have at least one invalid card name! Try again.");
-                System.out.println();
-            } catch (EmptyUncheckedSet e) {
-                System.out.println();
-            }
-            System.out.print("Enter the next player they asked: ");
-            askedPlayer = ui.nextLine();
-            p = getPlayer(askedPlayer);
-            checkPlayersNotEqual(askedPlayer, askingPlayer);
-            System.out.print("Their answer (yes/no): ");
-            answer = ui.nextLine();
+        while (currentAnswer.equals("no")) {
+            updateForPlayersNo(currentSuspect, currentWeapon, currentRoom, currentAskedPlayer);
         }
 
         // answer.equals("yes")
+        Player p = getPlayer(currentAskedPlayer);
+        // p.addUncheckedCards(currentSuspect, currentWeapon, currentRoom);
+
         boolean checkedCard = false;
         while (!checkedCard) {
             try {
                 if (p != null) {
-                    p.addUncheckedCards(suspect, weapon, room);
+                    p.addUncheckedCards(currentSuspect, currentWeapon, currentRoom);
                     checkedCard = true;
-                } else if (askedPlayer.equals(myName)) {
+                } else if (currentAskedPlayer.equals(myName)) {
                     System.out.println("Reveal one of your hand cards to " + askingPlayer);
                     System.out.println();
                     checkedCard = true;
@@ -362,14 +408,47 @@ public class Clue {
                 playerAskQuestion(askingPlayer);
             }
         }
-
     }
 
     public void checkPlayersNotEqual(String askedPlayer, String askingPlayer) {
         if (askedPlayer.equals(askingPlayer)) {
-            System.out.println("You entered the wrong player's name! Try again.");
-            playerAskQuestion(askingPlayer);
+            System.out.println("You entered the asking player's name!");
+            System.out.print("Enter asked player: ");
+            currentAskedPlayer = ui.nextLine();
         }
+    }
+
+    public void printCardNames() {
+        System.out.println("Card names reference: ");
+        printAllSuspects();
+        printAllWeapons();
+        printAllRooms();
+        System.out.println();
+    }
+
+    public void printAllSuspects() {
+        System.out.println("Suspects: " + Suspect.names());
+    }
+
+    public void printAllWeapons() {
+        System.out.println("Weapon: " + Weapon.names());
+    }
+
+    public void printAllRooms() {
+        System.out.println("Room: " + Room.names());
+    }
+
+    public void printInstructions() {
+        System.out.println("Set up instructions:");
+        System.out
+                .println("1. Randomly pick one secret suspect card, one secret weapon card, and one secret room card.");
+        System.out.println("2. Place the 3 secret cards in the confidential folder, without looking at the cards!");
+        System.out.println("3. Shuffle the remaining cards.");
+        System.out.println("4. Distribute " + numHandCardsPerPlayer + " cards to each player, including you.");
+        if (numCardsInRooms != 0) {
+            System.out.println("5. Hide each of the " + numCardsInRooms + " remaining cards in a room.");
+        }
+        System.out.println();
     }
 
     public void printDetectiveNotes() {
@@ -379,6 +458,10 @@ public class Clue {
         for (Player p : players) {
             printPlayerNote(p);
         }
+    }
+
+    public void printPlayers() {
+        System.out.println("Players: " + players);
     }
 
     public void printPlayerNote(Player p) {
