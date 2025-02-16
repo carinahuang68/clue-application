@@ -34,7 +34,7 @@ public class Player {
      * returns true if a Card has been added to handCards, else false
      * Throws InvalidCardName if name is not found in Card.names
      */
-    public boolean addHandCard(String name, Clue c) throws InvalidCardName {
+    public boolean addHandCard(String name, Detective c) throws InvalidCardName {
         if (Card.contains(name)) {
             if (Suspect.contains(name)) {
                 Suspect s = c.removeSuspect(name);
@@ -133,7 +133,7 @@ public class Player {
      * add the Card with name to handCards and removes the list in uncheckedCard
      * returns true if progress has been made
      */
-    public boolean checkUncheckedCards(Clue c) throws EmptyUncheckedSet, InvalidCardName{
+    public boolean checkUncheckedCards(Detective c) throws EmptyUncheckedSet, InvalidCardName{
         boolean hasProgress = false;
         int i = 0;
         while (i < uncheckedCards.size()){

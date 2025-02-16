@@ -2,16 +2,22 @@ package model;
 
 import java.util.*;
 
+import exception.InvalidCardName;
 import exception.InvalidRoomName;
 import exception.InvalidSuspectName;
 import exception.InvalidWeaponName;
 
-public class Clue {
+// represents 
+public class Detective {
     private List<Suspect> suspects;
     private List<Weapon> weapons;
     private List<Room> rooms;
+    private List<String> handCards;
+    private String name;
 
-    public Clue() {
+    public Detective(String name, List<String> myCards) throws InvalidCardName {
+        this.name = name;
+        handCards = myCards;
         reset();
     }
 
@@ -21,7 +27,7 @@ public class Clue {
      * and adds every Card in the corresponding lists
      * Suspect.names, Weapon.names, and Room.names
      */
-    public void reset() {
+    public void reset() throws InvalidCardName {
         suspects = new ArrayList<>();
         for (String s : Suspect.names) {
             suspects.add(new Suspect(s));
@@ -35,6 +41,27 @@ public class Clue {
         rooms = new ArrayList<>();
         for (String s : Room.names) {
             rooms.add(new Room(s));
+        }
+        eliminateCards();
+    }
+
+    /*
+     * MODIFIES: this
+     * EFFECTS: removes all cards from suspects/weapons/rooms in handCards
+     */
+    public void eliminateCards() throws InvalidCardName{
+        for (String name: handCards){
+            if (Card.contains(name)){
+                if (Suspect.contains(name)){
+                    removeSuspect(name);
+                } else if (Weapon.contains(name)) {
+                    removeWeapon(name);
+                } else {
+                    removeRoom(name);
+                }
+            } else {
+                throw new InvalidCardName();
+            }
         }
     }
 
@@ -170,4 +197,11 @@ public class Clue {
         return rooms;
     }
 
+    public List<String> getHandcards(){
+        return handCards;
+    }
+
+    public String getName(){
+        return name;
+    }
 }

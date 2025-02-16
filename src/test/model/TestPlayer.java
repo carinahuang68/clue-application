@@ -4,6 +4,9 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.ArrayList;
+import java.util.*;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,12 +17,17 @@ import exception.InvalidCardName;
 public class TestPlayer {
 
     Player p;
-    Clue c;
+    Detective c;
 
     @BeforeEach
     public void runBefore(){
         p = new Player("John");
-        c = new Clue();
+        List<String> emptyList = new ArrayList<>();
+        try {
+            c = new Detective("myName", emptyList);
+        } catch (InvalidCardName e) {
+            fail();
+        }
     }
 
     @Test
