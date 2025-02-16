@@ -18,8 +18,9 @@ public class Suspect extends Card {
         return false;
     }
 
+    // EFFECTS: 
     public static String names() {
-        return "Mustard, Plum, Green, Pecock, Scarlett, White";
+        return "Mustard, Plum, Green, Peacock, Scarlett, White";
     }
 
 }
