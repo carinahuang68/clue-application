@@ -10,7 +10,11 @@ public class Weapon extends Card{
 
     // EFFECTS: return true if name is in Weapon.names, else false
     public static boolean contains(String name){
-        // stub
+        for (String n: names){
+            if (n.equals(name)){
+                return true;
+            }
+        }
         return false;
     }
 

@@ -1,16 +1,10 @@
 package model;
 
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import exception.InvalidRoomName;
-import exception.InvalidSuspectName;
-import exception.InvalidWeaponName;
 
 public class TestCard {
 
@@ -34,15 +28,17 @@ public class TestCard {
 
         // Suspect
         assertTrue(Suspect.contains("Mustard"));
-        assertFalse(Suspect.contains("green"));
+        assertFalse(Suspect.contains("Hall"));
 
         // Weapon
         assertTrue(Weapon.contains("Lead Pipe"));
-        assertFalse(Weapon.contains("Lead pipe"));
+        assertFalse(Weapon.contains("White"));
 
         // Room
         assertTrue(Room.contains("Ball Room"));
         assertFalse(Room.contains("Ball"));
+        assertFalse(Room.contains("Rope"));
+
     }
 
 }

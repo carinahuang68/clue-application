@@ -1,6 +1,4 @@
 package model;
-import java.util.*;
-
 
 // Represents a card with a name
 public class Card {
@@ -24,7 +22,11 @@ public class Card {
 
     // EFFECTS: return true if name is in Card.names, else false
     public static boolean contains(String name){
-        // stub
+        for (String n: names){
+            if (n.equals(name)){
+                return true;
+            }
+        }
         return false;
     }
 

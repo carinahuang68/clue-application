@@ -1,5 +1,6 @@
 package model;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -28,23 +29,25 @@ public class TestClue {
         assertEquals("Knife", c.getWeapons().get(0).getName());
         assertEquals("Lead Pipe", c.getWeapons().get(4).getName());
         assertEquals(9, c.getRooms().size());
-        assertEquals("Hall", c.getWeapons().get(0).getName());
-        assertEquals("Kitchen", c.getWeapons().get(3).getName());
+        assertEquals("Hall", c.getRooms().get(0).getName());
+        assertEquals("Kitchen", c.getRooms().get(3).getName());
     }
 
     // Tests for removeSuspect()
     @Test
     public void testTrueRemoveSuspect(){
+        Suspect plum = c.getSuspects().get(1);
         try {
-            assertTrue(c.removeSuspect("Plum"));
+            assertEquals(plum, c.removeSuspect("Plum"));
         } catch (InvalidSuspectName e) {
             fail("Unexpected exception");
         }
         assertEquals(5, c.getSuspects().size());
         assertEquals("Green", c.getSuspects().get(1).getName());
 
+        Suspect mustard = c.getSuspects().get(0);
         try {
-            assertTrue(c.removeSuspect("Mustard"));
+            assertEquals(mustard, c.removeSuspect("Mustard"));
         } catch (InvalidSuspectName e) {
             fail("Unexpected exception");
         }
@@ -54,9 +57,10 @@ public class TestClue {
 
     @Test
     public void testFalseRemoveSuspect(){
+        Suspect white = c.getSuspects().get(5);
         try {
-            assertTrue(c.removeSuspect("White"));
-            assertFalse(c.removeSuspect("White"));
+            assertEquals(white, c.removeSuspect("White"));
+            assertNull(c.removeSuspect("White"));
         } catch (InvalidSuspectName e) {
             fail("Unexpected exception");
         }
@@ -68,7 +72,7 @@ public class TestClue {
     public void testInvalidRemoveSuspect(){
         try {
             c.removeSuspect("Hall");
-            fail();
+            fail("not expected to reach this line");
         } catch (InvalidSuspectName e) {
             // expected
         }
@@ -79,16 +83,18 @@ public class TestClue {
     // Tests for removeWeapon()
     @Test
     public void testTrueRemoveWeapon(){
+        Weapon knife = c.getWeapons().get(0);
         try {
-            assertTrue(c.removeWeapon("Knife"));
+            assertEquals(knife, c.removeWeapon("Knife"));
         } catch (InvalidWeaponName e) {
             fail("Unexpected exception");
         }
         assertEquals(5, c.getWeapons().size());
-        assertEquals("Candlestick", c.getWeapons().get(0).getName());
+        assertEquals("Wrench", c.getWeapons().get(4).getName());
 
+        Weapon wrench = c.getWeapons().get(4);
         try {
-            assertTrue(c.removeWeapon("Wrench"));
+            assertEquals(wrench, c.removeWeapon("Wrench"));
         } catch (InvalidWeaponName e) {
             fail("Unexpected exception");
         }
@@ -98,8 +104,8 @@ public class TestClue {
     @Test
     public void testFalseRemoveWeapon(){
         try {
-            assertTrue(c.removeWeapon("Rope"));
-            assertFalse(c.removeWeapon("Rope"));
+            c.removeWeapon("Rope");
+            assertNull(c.removeWeapon("Rope"));
         } catch (InvalidWeaponName e) {
             fail("Unexpected exception");
         }
@@ -121,16 +127,18 @@ public class TestClue {
     // Tests for removeRoom()
     @Test
     public void testTrueRemoveRoom(){
+        Room dining = c.getRooms().get(2);
         try {
-            assertTrue(c.removeRoom("Dining Room"));
+            assertEquals(dining, c.removeRoom("Dining Room"));
         } catch (InvalidRoomName e) {
             fail("Unexpected exception");
         }
         assertEquals(8, c.getRooms().size());
-        assertEquals("Kitchen", c.getRooms().get(2).getName());
+        assertEquals("Library", c.getRooms().get(6).getName());
 
+        Room library = c.getRooms().get(6);
         try {
-            assertTrue(c.removeRoom("Library"));
+            assertEquals(library, c.removeRoom("Library"));
         } catch (InvalidRoomName e) {
             fail("Unexpected exception");
         }
@@ -141,8 +149,8 @@ public class TestClue {
     @Test
     public void testFalseRemoveRoom(){
         try {
-            assertTrue(c.removeRoom("Conservatory"));
-            assertFalse(c.removeRoom("Conservatory"));
+            c.removeRoom("Conservatory");
+            assertNull(c.removeRoom("Conservatory"));
         } catch (InvalidRoomName e) {
             fail("Unexpected exception");
         }
@@ -245,6 +253,21 @@ public class TestClue {
             fail("Unexpected exception");
         }
         assertFalse(c.foundRoom());
+    }
+
+    @Test
+    public void testGetSuspect(){
+        assertEquals(c.getSuspects().get(4), c.getSuspect("Scarlett"));
+    }
+
+    @Test
+    public void testGetWeapon(){
+        assertEquals(c.getWeapons().get(5), c.getWeapon("Wrench"));
+    }
+
+    @Test
+    public void testGetRoom(){
+        assertEquals(c.getRooms().get(8), c.getRoom("Study"));
     }
 
 }
