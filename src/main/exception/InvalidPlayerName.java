@@ -2,6 +2,6 @@ package exception;
 
 import javax.naming.InvalidNameException;
 
-public class InvalidCardName extends InvalidNameException {
+public class InvalidPlayerName extends InvalidNameException{
 
 }

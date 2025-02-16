@@ -50,6 +50,36 @@ public class TestDetective {
         assertNull(d.getRoom("Ball Room"));
     }
 
+    @Test
+    public void testEliminateCard(){
+        try {
+            d.eliminateCard("Knife");
+            assertEquals(4, d.getWeapons().size());
+            assertNull(d.getWeapon("Knife"));
+
+            d.eliminateCard("Scarlett");
+            assertEquals(3, d.getSuspects().size());
+            assertNull(d.getSuspect("Scarlett"));
+
+            d.eliminateCard("Billiard Room");
+            assertEquals(7, d.getRooms().size());
+            assertNull(d.getRoom("Billiard Room"));
+
+        } catch (InvalidCardName e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testEliminateInvalidCard(){
+        try {
+            d.eliminateCard("rope");
+            fail();
+        } catch (InvalidCardName e) {
+            // expected
+        }
+    }
+
     // Tests for removeSuspect()
     @Test
     public void testTrueRemoveSuspect(){

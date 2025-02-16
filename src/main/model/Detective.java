@@ -42,26 +42,27 @@ public class Detective {
         for (String s : Room.names) {
             rooms.add(new Room(s));
         }
-        eliminateCards();
+
+        for (String name: handCards){
+            eliminateCard(name);
+        }
     }
 
     /*
      * MODIFIES: this
-     * EFFECTS: removes all cards from suspects/weapons/rooms in handCards
+     * EFFECT: 
      */
-    public void eliminateCards() throws InvalidCardName{
-        for (String name: handCards){
-            if (Card.contains(name)){
-                if (Suspect.contains(name)){
-                    removeSuspect(name);
-                } else if (Weapon.contains(name)) {
-                    removeWeapon(name);
-                } else {
-                    removeRoom(name);
-                }
+    public void eliminateCard(String name) throws InvalidCardName {
+        if (Card.contains(name)){
+            if (Suspect.contains(name)){
+                removeSuspect(name);
+            } else if (Weapon.contains(name)) {
+                removeWeapon(name);
             } else {
-                throw new InvalidCardName();
+                removeRoom(name);
             }
+        } else {
+            throw new InvalidCardName();
         }
     }
 

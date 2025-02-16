@@ -1,18 +1,31 @@
 package model;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.*;
+
 import org.junit.jupiter.api.Test;
 
+import exception.InvalidCardName;
+
 public class TestCard {
+    List<String> emptyList;
+    Detective d;
 
     @Test
     public void testInit() {
         Card rope = new Weapon("Rope");
         Card hall = new Room("Hall");
         Card plum = new Suspect("Plum");
+        emptyList = new ArrayList<>();
+        try {
+            d = new Detective("Me", emptyList);
+        } catch (InvalidCardName e) {
+            fail();
+        }
         assertEquals("Rope", rope.getName());
         assertEquals("Hall", hall.getName());
         assertEquals("Plum", plum.getName());
