@@ -7,7 +7,7 @@ import exception.InvalidRoomName;
 import exception.InvalidSuspectName;
 import exception.InvalidWeaponName;
 
-// represents 
+// represents you, the Detective, who is a player using the this application with handCards and lists of potential murder
 public class Detective {
     private List<Suspect> suspects;
     private List<Weapon> weapons;

@@ -1,5 +1,6 @@
 package model;
 
+// represents a suspect card with name
 public class Suspect extends Card {
 
     public static String[] names = { "Mustard", "Plum", "Green", "Peacock", "Scarlett", "White" };

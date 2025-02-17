@@ -58,7 +58,8 @@ public class TestCard {
     public void testName() {
         assertEquals("Mustard, Plum, Green, Peacock, Scarlett, White", Suspect.names());
         assertEquals("Knife, Candlestick, Revolver, Rope, Lead Pipe, Wrench", Weapon.names());
-        assertEquals("Hall, Lounge, Dining Room, Kitchen, Ball Room, Conservatory, Billiard Room, Library, Study", Room.names());
+        assertEquals("Hall, Lounge, Dining Room, Kitchen, Ball Room, Conservatory, Billiard Room, Library, Study",
+                Room.names());
     }
 
     @Test

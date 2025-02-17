@@ -1,5 +1,7 @@
 package ui;
 
+import static org.junit.Assert.fail;
+
 import java.util.*;
 
 import exception.EmptyUncheckedSet;
@@ -51,6 +53,10 @@ public class Clue {
         runGame();
     }
 
+    /*
+     * EFFECTS: returns the player if name is found in players,
+     * else returns null
+     */
     public Player getPlayer(String name) {
         for (Player p : players) {
             if (p.getName().equals(name)) {
@@ -60,6 +66,11 @@ public class Clue {
         return null;
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: Let user enter name for each player,
+     * initializes players by adding each player with name to players
+     */
     public void enterPlayerNames() {
         System.out.print("Enter your name: ");
         myName = ui.nextLine();
@@ -76,6 +87,12 @@ public class Clue {
         System.out.println();
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: lets user enter their hand cards,
+     * adds the hand cards to myHandCard, and
+     * initialized the user as a Detective with myName and myHandCard
+     */
     public void manageMyHandCards() {
         List<String> myHandCards = new ArrayList<>();
         for (int i = 1; i <= numHandCardsPerPlayer; i++) {
@@ -101,6 +118,11 @@ public class Clue {
         }
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: lets user enter the players name by order of turns
+     * and store the names to orderedPlayers
+     */
     public void orderPlayers() {
         orderedPlayers = new ArrayList<>();
         System.out.println("Time to determine the order of turns!");
@@ -119,9 +141,18 @@ public class Clue {
         System.out.println();
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS:
+     * if player name is valid, sets currentPlayer as player and adds currentPlayer
+     * to orderPlayers
+     * if player name is invalid, lets user enter name again until currentPlayer is
+     * valid
+     */
     public void addPlayerToOrderedPlayer(String player) {
         String currentPlayer = player;
-        while ((getPlayer(currentPlayer) == null && !myName.equals(currentPlayer)) | orderedPlayers.contains(currentPlayer)) {
+        while ((getPlayer(currentPlayer) == null && !myName.equals(currentPlayer))
+                | orderedPlayers.contains(currentPlayer)) {
             System.out.println("Invalid player name!");
             System.out.print("Please enter again: ");
             currentPlayer = ui.nextLine();
@@ -131,6 +162,10 @@ public class Clue {
         System.out.println();
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: runs the game through looping players' turn
+     */
     public void runGame() {
         while (!d.foundSuspect() | !d.foundWeapon() | !d.foundRoom()) {
             for (String p : orderedPlayers) {
@@ -144,6 +179,11 @@ public class Clue {
         foundSecretMurder();
     }
 
+    /*
+     * REQUIRES: it's your (user's) turn
+     * MODIFIES: this
+     * EFFECTS: runs the detective's (user's) turn
+     */
     public void detectivesTurn() {
         System.out.println("Your turn! Please roll the dice.");
         System.out.println("Entered a room? (yes/no) ");
@@ -162,6 +202,11 @@ public class Clue {
         System.out.println();
     }
 
+    /*
+     * REQUIRES: it's another player's turn
+     * MODIFIES: this
+     * EFFECTS: runs another player's turn
+     */
     public void playersTurn(String p) {
         System.out.println(p + "'s turn:");
         System.out.println("Did they enter a room? (yes/no) ");
@@ -174,6 +219,11 @@ public class Clue {
         System.out.println();
     }
 
+    /*
+     * REQUIRES: the secret muder is found
+     * MODIFIES: this
+     * EFFECTS: prints the secret murder
+     */
     public void foundSecretMurder() {
         System.out.println("Found the secret murder!");
         System.out.println("Suspect: " + d.getSuspects().get(0).getName());
@@ -181,6 +231,12 @@ public class Clue {
         System.out.println("Room: " + d.getRooms().get(0).getName());
     }
 
+    /*
+     * REQUIRES: detective has entered a room and there is a hidden card inside
+     * MODIFIES: this
+     * EFFECTS: lets user enter the hidden card's name and eliminates the card from
+     * the detective's potential murder cards
+     */
     public void checkCardInRoom() {
         System.out.print("Enter card's name: ");
         String name = ui.nextLine();
@@ -195,6 +251,12 @@ public class Clue {
         }
     }
 
+    /*
+     * REQUIRES: detective has entered a room
+     * MODIFIES: this
+     * EFFECTS: updates no cards to players who answered "no" to you
+     * view one of the player's hand card who answered "yes"
+     */
     public void detectiveAskQuestion() {
         askClueQuestion();
         while (currentAnswer.equals("no")) {
@@ -219,6 +281,13 @@ public class Clue {
         }
     }
 
+    /*
+     * REQUIRES: detective is ready to ask a CLUE question
+     * MODIFIES: this
+     * EFFECTS: lets user input their investigating suspect, weapon, the room they
+     * are in, the first player they want to ask and answer from that player, while
+     * ensuring that all names entered are valid
+     */
     public void askClueQuestion() {
         System.out.println("Time to ask a CLUE question!");
         System.out.print("Enter a suspect: ");
@@ -243,6 +312,12 @@ public class Clue {
         System.out.println();
     }
 
+    /*
+     * REQUIRES: detective has viewed the player's card
+     * MODIFIES: this
+     * EFFECTS: lets user enter the viewed card from player name
+     * and updates the player's hand card and other player's no cards
+     */
     public void viewCard(String name) throws InvalidPlayerName, InvalidCardName, EmptyUncheckedSet {
         Player player = getPlayer(name);
         if (player != null) {
@@ -257,6 +332,11 @@ public class Clue {
         }
     }
 
+    /*
+     * REQUIRES: player p answered no to another player or detective's question
+     * MODIFIES: this
+     * EFFECTS: adds the three given card names to Player p's no card
+     */
     public void updateForPlayersNo(String suspect, String weapon, String room, String p) {
         try {
             Player player = getPlayer(p);
@@ -272,11 +352,8 @@ public class Clue {
             player.checkUncheckedCards(d);
             printPlayerNote(player);
         } catch (InvalidCardName e) {
-            System.out.println("You have at least one invalid card name! Try again.");
-            System.out.println();
-            detectiveAskQuestion();
+            fail();
         } catch (EmptyUncheckedSet e) {
-            System.out.println("Error: Empty unchecked set");
             error();
         }
         System.out.print("Enter the next player to ask: ");
@@ -287,6 +364,10 @@ public class Clue {
         System.out.println();
     }
 
+    /*
+     * REQUIRES: the given card is in one player's handcard or in room
+     * EFFECTS: adds the given card to each player's no card except the given player
+     */
     public void addNoCardsToOtherPlayers(Player player, String card) throws InvalidCardName, EmptyUncheckedSet {
         for (Player p : players) {
             if (!p.equals(player)) {
@@ -296,24 +377,14 @@ public class Clue {
         }
     }
 
+    /*
+     * MODIFIES: this
+     * REQUIRES: askingPlayer is the player asking the question
+     * EFFECTS: updates information based on user's input on askingPlayer's question
+     * and other player's answer
+     */
     public void playerAskQuestion(String askingPlayer) {
-        System.out.println("What did the player ask?");
-        System.out.print("Enter the suspect: ");
-        currentName = ui.nextLine();
-        checkValidSuspectName(currentName);
-
-        System.out.print("Enter the weapon: ");
-        currentName = ui.nextLine();
-        checkValidWeaponName(currentName);
-
-        System.out.print("Enter the room they are in: ");
-        currentName = ui.nextLine();
-        checkValidRoomName(currentName);
-
-        System.out.print("Enter the first player they asked: ");
-        currentAskedPlayer = ui.nextLine();
-        checkPlayersNotEqual(currentAskedPlayer, askingPlayer);
-
+        recordPlayersQuestion(askingPlayer);
         if (currentAskedPlayer.equals(myName)) {
             System.out.print("Your answer (yes/no): ");
             currentAnswer = ui.nextLine();
@@ -331,32 +402,42 @@ public class Clue {
 
         // answer.equals("yes")
         Player p = getPlayer(currentAskedPlayer);
-        // p.addUncheckedCards(currentSuspect, currentWeapon, currentRoom);
-
-        boolean checkedCard = false;
-        while (!checkedCard) {
-            try {
-                if (p != null) {
-                    p.addUncheckedCards(currentSuspect, currentWeapon, currentRoom);
-                    checkedCard = true;
-                } else if (currentAskedPlayer.equals(myName)) {
-                    System.out.println("Reveal one of your hand cards to " + askingPlayer);
-                    System.out.println();
-                    checkedCard = true;
-                } else {
-                    System.out.println("Invalid player name!");
-                    System.out.print("Enter name again: ");
-                    String name = ui.nextLine();
-                    p = getPlayer(name);
-                }
-            } catch (InvalidCardName e) {
-                System.out.println("You have at least one invalid card name! Try again.");
-                System.out.println();
-                playerAskQuestion(askingPlayer);
-            }
+        try {
+            p.addUncheckedCards(currentSuspect, currentWeapon, currentRoom);
+        } catch (InvalidCardName e) {
+            fail();
         }
     }
 
+    /*
+     * REQUIRES: askingPlayer has asked a question
+     * MODIFIES: this
+     * EFFECTS: record player's question based on user's input
+     */
+    public void recordPlayersQuestion(String askingPlayer) {
+        System.out.println("What did the player ask?");
+        System.out.print("Enter the suspect: ");
+        currentName = ui.nextLine();
+        checkValidSuspectName(currentName);
+
+        System.out.print("Enter the weapon: ");
+        currentName = ui.nextLine();
+        checkValidWeaponName(currentName);
+
+        System.out.print("Enter the room they are in: ");
+        currentName = ui.nextLine();
+        checkValidRoomName(currentName);
+
+        System.out.print("Enter the first player they asked: ");
+        currentAskedPlayer = ui.nextLine();
+        checkPlayersNotEqual(currentAskedPlayer, askingPlayer);
+    }
+
+    /*
+     * MODIFIES: this
+     * EFFECTS: updates currentAskedPlayer until user inputs a valid player name
+     * (Your name is not valid because you are the Detective)
+     */
     public void checkValidPlayer(String name) {
         currentAskedPlayer = name;
         while (getPlayer(currentAskedPlayer) == null) {
@@ -367,6 +448,10 @@ public class Clue {
         }
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: updates currentSuspect until user inputs a valid suspect's name
+     */
     public void checkValidSuspectName(String name) {
         currentSuspect = name;
         while (!Suspect.contains(currentSuspect)) {
@@ -377,6 +462,10 @@ public class Clue {
         }
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: updates currentWeapon until user inputs a valid weapon name
+     */
     public void checkValidWeaponName(String name) {
         currentWeapon = name;
         while (!Weapon.contains(currentWeapon)) {
@@ -387,6 +476,10 @@ public class Clue {
         }
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: updates currentRoom until user inputs a valid room name
+     */
     public void checkValidRoomName(String name) {
         currentRoom = name;
         while (!Room.contains(currentRoom)) {
@@ -397,6 +490,10 @@ public class Clue {
         }
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: updates currentCard until user inputs a valid card name
+     */
     public void checkValidCardName(String name) {
         currentCard = name;
         while (!Card.contains(currentCard)) {
@@ -407,6 +504,10 @@ public class Clue {
         }
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: updates currentAnswer until user inputs either 'yes' or 'no'
+     */
     public void checkAnswer() {
         while (!currentAnswer.equals("yes") && !currentAnswer.equals("no")) {
             System.out.println("Invalid answer!");
@@ -415,14 +516,23 @@ public class Clue {
         }
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: updates currentAskedPlayer until user inputs a different player name
+     * as askingPlayer
+     */
     public void checkPlayersNotEqual(String askedPlayer, String askingPlayer) {
-        if (askedPlayer.equals(askingPlayer)) {
+        currentAskedPlayer = askedPlayer;
+        if (currentAskedPlayer.equals(askingPlayer)) {
             System.out.println("You entered the asking player's name!");
             System.out.print("Enter asked player: ");
             currentAskedPlayer = ui.nextLine();
         }
     }
 
+    /*
+     * EFFECTS: prints the card name reference
+     */
     public void printCardNames() {
         System.out.println("Card names reference: ");
         printAllSuspects();
@@ -431,18 +541,30 @@ public class Clue {
         System.out.println();
     }
 
+    /*
+     * EFFECTS: prints all suspect names
+     */
     public void printAllSuspects() {
         System.out.println("Suspects: " + Suspect.names());
     }
 
+    /*
+     * EFFECTS: prints all weapon names
+     */
     public void printAllWeapons() {
         System.out.println("Weapon: " + Weapon.names());
     }
 
+    /*
+     * EFFECTS: prints all room names
+     */
     public void printAllRooms() {
         System.out.println("Room: " + Room.names());
     }
 
+    /*
+     * EFFECTS: prints instructions for game set up
+     */
     public void printInstructions() {
         System.out.println("Set up instructions:");
         System.out
@@ -456,6 +578,9 @@ public class Clue {
         System.out.println();
     }
 
+    /*
+     * EFFECTS: prints all clues to help detective find the murder
+     */
     public void printDetectiveNotes() {
         System.out.println("-----------------------------------------------------------------------------------------");
         System.out.println("Detective Notes:");
@@ -467,10 +592,16 @@ public class Clue {
         System.out.println("-----------------------------------------------------------------------------------------");
     }
 
+    /*
+     * EFFECTS: prints all player names
+     */
     public void printPlayers() {
         System.out.println("Players: " + players);
     }
 
+    /*
+     * EFFECTS: prints p's hand cards, no cards, and unchecked card
+     */
     public void printPlayerNote(Player p) {
         String name = p.getName();
         String handCards = p.getHandCards().toString();
@@ -482,6 +613,9 @@ public class Clue {
         System.out.println();
     }
 
+    /*
+     * EFFECTS: prints detectives's hand cards and potential murder cards
+     */
     public void printMyNotes() {
         String myHandCards = d.getHandcards().toString();
         String suspects = d.getSuspects().toString();
@@ -494,10 +628,16 @@ public class Clue {
         System.out.println();
     }
 
+    /*
+     * REQUIRES: caught EmptyUnchekedSet exception
+     * EFFECTS: lets user know there was an error and stops this Clue helper
+     */
     public void error() {
+        System.out.println("Error: Empty unchecked set");
         System.out.println("Unfortunately, there was an error!");
         System.out.println("From now on, you're on your own. Good luck!");
         printDetectiveNotes();
+        fail();
     }
 
 }

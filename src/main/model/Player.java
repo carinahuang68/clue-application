@@ -5,13 +5,7 @@ import java.util.*;
 import exception.EmptyUncheckedSet;
 import exception.InvalidCardName;
 
-// Specification template:
-/* 
- * REQUIRES:
- * MODIFIES:
- * EFFECTS:
- */
-
+// represents another player with name
 public class Player {
 
     private String name;

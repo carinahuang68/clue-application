@@ -1,5 +1,6 @@
 package model;
 
+// represents a weapon card with name
 public class Weapon extends Card {
 
     public static String[] names = { "Knife", "Candlestick", "Revolver", "Rope", "Lead Pipe", "Wrench" };

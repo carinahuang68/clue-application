@@ -1,5 +1,6 @@
 package model;
 
+// represents a room card with name
 public class Room extends Card {
 
     public static String[] names = { "Hall", "Lounge", "Dining Room", "Kitchen", "Ball Room", "Conservatory",
