@@ -2,11 +2,6 @@ package model;
 
 import java.util.*;
 
-import exception.InvalidCardName;
-import exception.InvalidRoomName;
-import exception.InvalidSuspectName;
-import exception.InvalidWeaponName;
-
 // represents you, the Detective, who is a player using the this application with handCards and lists of potential murder
 public class Detective {
     private List<Suspect> suspects;
@@ -15,7 +10,7 @@ public class Detective {
     private List<String> handCards;
     private String name;
 
-    public Detective(String name, List<String> myCards) throws InvalidCardName {
+    public Detective(String name, List<String> myCards) {
         this.name = name;
         handCards = myCards;
         reset();
@@ -27,7 +22,7 @@ public class Detective {
      * and adds every Card in the corresponding lists
      * Suspect.names, Weapon.names, and Room.names
      */
-    public void reset() throws InvalidCardName {
+    public void reset() {
         suspects = new ArrayList<>();
         for (String s : Suspect.names) {
             suspects.add(new Suspect(s));
@@ -50,34 +45,27 @@ public class Detective {
 
     /*
      * MODIFIES: this
-     * EFFECT:
+     * EFFECTS: removes the card from the detective's corresposding list of
+     * potential murders
      */
-    public void eliminateCard(String name) throws InvalidCardName {
-        if (Card.contains(name)) {
-            if (Suspect.contains(name)) {
-                removeSuspect(name);
-            } else if (Weapon.contains(name)) {
-                removeWeapon(name);
-            } else {
-                removeRoom(name);
-            }
+    public void eliminateCard(String name) {
+        if (Suspect.contains(name)) {
+            removeSuspect(name);
+        } else if (Weapon.contains(name)) {
+            removeWeapon(name);
         } else {
-            throw new InvalidCardName();
+            removeRoom(name);
         }
     }
 
     /*
+     * REQUIRES: name must be in Suspect.names
      * MODIFIES: this
      * EFFECTS: removes the suspect in suspects with the given name and
      * returns the Suspect if it is found in suspects
      * returns null if suspect has already been removed
-     * Throws InvalidSuspectName if name is not in Suspect.names
      */
-    public Suspect removeSuspect(String name) throws InvalidSuspectName {
-        if (!Suspect.contains(name)) {
-            throw new InvalidSuspectName();
-        }
-
+    public Suspect removeSuspect(String name) {
         for (int i = 0; i < suspects.size(); i++) {
             if (suspects.get(i).getName().equals(name)) {
                 return suspects.remove(i);
@@ -87,16 +75,12 @@ public class Detective {
     }
 
     /*
+     * REQUIRES: name must be in Weapon.names
      * MODIFIES: this
      * EFFECTS: removes the weapon in weapons with the given name
      * returns true if progress is made in removing a Weapon, else false
-     * Throws InvalidWeaponName if name is not in weapons
      */
-    public Weapon removeWeapon(String name) throws InvalidWeaponName {
-        if (!Weapon.contains(name)) {
-            throw new InvalidWeaponName();
-        }
-
+    public Weapon removeWeapon(String name) {
         for (int i = 0; i < weapons.size(); i++) {
             if (weapons.get(i).getName().equals(name)) {
                 return weapons.remove(i);
@@ -106,15 +90,12 @@ public class Detective {
     }
 
     /*
+     * REQUIRES: name must be in Room.names
      * MODIFIES: this
      * EFFECTS: removes the room in rooms with the given name
      * returns true if progress is made in removing a Room, else false
-     * Throws NameNotFound if name is not in rooms
      */
-    public Room removeRoom(String name) throws InvalidRoomName {
-        if (!Room.contains(name)) {
-            throw new InvalidRoomName();
-        }
+    public Room removeRoom(String name) {
         for (int i = 0; i < rooms.size(); i++) {
             if (rooms.get(i).getName().equals(name)) {
                 return rooms.remove(i);

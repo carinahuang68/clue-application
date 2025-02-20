@@ -9,8 +9,6 @@ import java.util.*;
 
 import org.junit.jupiter.api.Test;
 
-import exception.InvalidCardName;
-
 public class TestCard {
     List<String> emptyList;
     Detective d;
@@ -21,11 +19,7 @@ public class TestCard {
         Card hall = new Room("Hall");
         Card plum = new Suspect("Plum");
         emptyList = new ArrayList<>();
-        try {
-            d = new Detective("Me", emptyList);
-        } catch (InvalidCardName e) {
-            fail();
-        }
+        d = new Detective("Me", emptyList);
         assertEquals("Rope", rope.getName());
         assertEquals("Hall", hall.getName());
         assertEquals("Plum", plum.getName());

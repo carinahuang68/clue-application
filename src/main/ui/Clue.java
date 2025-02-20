@@ -1,12 +1,7 @@
 package ui;
 
-import static org.junit.Assert.fail;
-
 import java.util.*;
 
-import exception.EmptyUncheckedSet;
-import exception.InvalidCardName;
-import exception.InvalidPlayerName;
 import model.Player;
 import model.Room;
 import model.Suspect;
@@ -102,20 +97,11 @@ public class Clue {
             myHandCards.add(currentCard);
             System.out.println();
         }
-        try {
-            d = new Detective(myName, myHandCards);
-            for (String handCard : myHandCards) {
-                addNoCardsToOtherPlayers(null, handCard);
-            }
-            printDetectiveNotes();
-        } catch (InvalidCardName e) {
-            System.out.println("You have at least one invalid card name!");
-            System.out.println("Please make sure to spell names exactly from the card names reference!");
-            System.out.println();
-            manageMyHandCards();
-        } catch (EmptyUncheckedSet e) {
-            System.out.println("Error: Empty unchecked set");
+        d = new Detective(myName, myHandCards);
+        for (String handCard : myHandCards) {
+            addNoCardsToOtherPlayers(null, handCard);
         }
+        printDetectiveNotes();
     }
 
     /*
@@ -241,14 +227,8 @@ public class Clue {
         System.out.print("Enter card's name: ");
         String name = ui.nextLine();
         System.out.println();
-        try {
-            d.eliminateCard(name);
-            printMyNotes();
-        } catch (InvalidCardName e) {
-            System.out.println("Invalid card name! Try again.");
-            System.out.println();
-            checkCardInRoom();
-        }
+        d.eliminateCard(name);
+        printMyNotes();
     }
 
     /*
@@ -266,18 +246,11 @@ public class Clue {
         viewedCurrentPlayersCard = false;
 
         while (!viewedCurrentPlayersCard) {
-            try {
-                viewCard(currentAskedPlayer);
-                viewedCurrentPlayersCard = true;
-            } catch (InvalidPlayerName e) {
-                System.out.println("Invalid player name!");
-                System.out.print("Enter player name again: ");
-                currentAskedPlayer = ui.nextLine();
-            } catch (InvalidCardName e) {
-                System.out.println("Invalid card name!");
-            } catch (EmptyUncheckedSet e) {
-                error();
-            }
+            viewCard(currentAskedPlayer);
+            viewedCurrentPlayersCard = true;
+            System.out.println("Invalid player name!");
+            System.out.print("Enter player name again: ");
+            currentAskedPlayer = ui.nextLine();
         }
     }
 
@@ -318,7 +291,7 @@ public class Clue {
      * EFFECTS: lets user enter the viewed card from player name
      * and updates the player's hand card and other player's no cards
      */
-    public void viewCard(String name) throws InvalidPlayerName, InvalidCardName, EmptyUncheckedSet {
+    public void viewCard(String name) {
         Player player = getPlayer(name);
         if (player != null) {
             System.out.print("Enter " + name + "'s card you just viewed: ");
@@ -327,8 +300,6 @@ public class Clue {
             player.addHandCard(currentCard, d);
             printPlayerNote(player);
             addNoCardsToOtherPlayers(player, currentCard);
-        } else {
-            throw new InvalidPlayerName();
         }
     }
 
@@ -338,24 +309,18 @@ public class Clue {
      * EFFECTS: adds the three given card names to Player p's no card
      */
     public void updateForPlayersNo(String suspect, String weapon, String room, String p) {
-        try {
-            Player player = getPlayer(p);
-            while (player == null) {
-                System.out.println("Invalid player name!");
-                System.out.print("Enter asked player's name again: ");
-                currentAskedPlayer = ui.nextLine();
-                player = getPlayer(currentAskedPlayer);
-            }
-            player.addNoCard(suspect);
-            player.addNoCard(weapon);
-            player.addNoCard(room);
-            player.checkUncheckedCards(d);
-            printPlayerNote(player);
-        } catch (InvalidCardName e) {
-            fail();
-        } catch (EmptyUncheckedSet e) {
-            error();
+        Player player = getPlayer(p);
+        while (player == null) {
+            System.out.println("Invalid player name!");
+            System.out.print("Enter asked player's name again: ");
+            currentAskedPlayer = ui.nextLine();
+            player = getPlayer(currentAskedPlayer);
         }
+        player.addNoCard(suspect);
+        player.addNoCard(weapon);
+        player.addNoCard(room);
+        player.checkUncheckedCards(d);
+        printPlayerNote(player);
         System.out.print("Enter the next player to ask: ");
         currentAskedPlayer = ui.nextLine();
         System.out.print("Their answer (yes/no): ");
@@ -368,7 +333,7 @@ public class Clue {
      * REQUIRES: the given card is in one player's handcard or in room
      * EFFECTS: adds the given card to each player's no card except the given player
      */
-    public void addNoCardsToOtherPlayers(Player player, String card) throws InvalidCardName, EmptyUncheckedSet {
+    public void addNoCardsToOtherPlayers(Player player, String card) {
         for (Player p : players) {
             if (!p.equals(player)) {
                 p.addNoCard(card);
@@ -402,11 +367,7 @@ public class Clue {
 
         // answer.equals("yes")
         Player p = getPlayer(currentAskedPlayer);
-        try {
-            p.addUncheckedCards(currentSuspect, currentWeapon, currentRoom);
-        } catch (InvalidCardName e) {
-            fail();
-        }
+        p.addUncheckedCards(currentSuspect, currentWeapon, currentRoom);
     }
 
     /*
@@ -442,6 +403,7 @@ public class Clue {
         currentAskedPlayer = name;
         while (getPlayer(currentAskedPlayer) == null) {
             System.out.println("Invalid player name!");
+            System.out.println();
             printPlayers();
             System.out.print("Enter player's name from the above list: ");
             currentAskedPlayer = ui.nextLine();
@@ -628,16 +590,9 @@ public class Clue {
         System.out.println();
     }
 
-    /*
-     * REQUIRES: caught EmptyUnchekedSet exception
-     * EFFECTS: lets user know there was an error and stops this Clue helper
-     */
-    public void error() {
-        System.out.println("Error: Empty unchecked set");
-        System.out.println("Unfortunately, there was an error!");
-        System.out.println("From now on, you're on your own. Good luck!");
-        printDetectiveNotes();
-        fail();
+    public void skipLine(int n) {
+        for (int i = 1; i <= n; i++) {
+            System.out.println();
+        }
     }
-
 }
