@@ -172,15 +172,19 @@ public class Clue {
      */
     public void detectivesTurn() {
         System.out.println("Your turn! Please roll the dice.");
-        System.out.println("Entered a room? (yes/no) ");
+        System.out.println();
+        System.out.print("Entered a room? (yes/no) ");
+        System.out.println();
         currentAnswer = ui.nextLine();
         checkAnswer();
         if (currentAnswer.equals("yes")) {
-            System.out.println("Check card in room? (yes/no) ");
+            System.out.print("Check card in room? (yes/no) ");
+            System.out.println();
             currentAnswer = ui.nextLine();
             checkAnswer();
             if (currentAnswer.equals("yes")) {
                 checkCardInRoom();
+                System.out.println();
             }
             detectiveAskQuestion();
             printDetectiveNotes();
@@ -225,6 +229,7 @@ public class Clue {
      */
     public void checkCardInRoom() {
         System.out.print("Enter card's name: ");
+        System.out.println();
         String name = ui.nextLine();
         System.out.println();
         d.eliminateCard(name);
@@ -242,16 +247,7 @@ public class Clue {
         while (currentAnswer.equals("no")) {
             updateForPlayersNo(currentSuspect, currentWeapon, currentRoom, currentAskedPlayer);
         }
-
-        viewedCurrentPlayersCard = false;
-
-        while (!viewedCurrentPlayersCard) {
-            viewCard(currentAskedPlayer);
-            viewedCurrentPlayersCard = true;
-            System.out.println("Invalid player name!");
-            System.out.print("Enter player name again: ");
-            currentAskedPlayer = ui.nextLine();
-        }
+        viewCard(currentAskedPlayer);
     }
 
     /*
@@ -279,7 +275,7 @@ public class Clue {
         currentName = ui.nextLine();
         checkValidPlayer(currentName);
 
-        System.out.print("Their answer (yes/no): ");
+        System.out.print(currentAskedPlayer + "'s answer (yes/no): ");
         currentAnswer = ui.nextLine();
         checkAnswer();
         System.out.println();
@@ -322,7 +318,8 @@ public class Clue {
         player.checkUncheckedCards(d);
         printPlayerNote(player);
         System.out.print("Enter the next player to ask: ");
-        currentAskedPlayer = ui.nextLine();
+        currentName = ui.nextLine();
+        checkValidPlayer(currentName);
         System.out.print("Their answer (yes/no): ");
         currentAnswer = ui.nextLine();
         checkAnswer();
@@ -402,11 +399,13 @@ public class Clue {
     public void checkValidPlayer(String name) {
         currentAskedPlayer = name;
         while (getPlayer(currentAskedPlayer) == null) {
+            System.out.println();
             System.out.println("Invalid player name!");
             System.out.println();
             printPlayers();
             System.out.print("Enter player's name from the above list: ");
             currentAskedPlayer = ui.nextLine();
+            System.out.println();
         }
     }
 
@@ -417,10 +416,13 @@ public class Clue {
     public void checkValidSuspectName(String name) {
         currentSuspect = name;
         while (!Suspect.contains(currentSuspect)) {
+            System.out.println();
             System.out.println("Invalid suspect name!");
+            System.out.println();
             printAllSuspects();
             System.out.print("Enter suspect name from the above list: ");
             currentSuspect = ui.nextLine();
+            System.out.println();
         }
     }
 
@@ -431,10 +433,13 @@ public class Clue {
     public void checkValidWeaponName(String name) {
         currentWeapon = name;
         while (!Weapon.contains(currentWeapon)) {
+            System.out.println();
             System.out.println("Invalid weapon name!");
+            System.out.println();
             printAllWeapons();
             System.out.print("Enter weapon name from the above list: ");
             currentWeapon = ui.nextLine();
+            System.out.println();
         }
     }
 
@@ -445,10 +450,13 @@ public class Clue {
     public void checkValidRoomName(String name) {
         currentRoom = name;
         while (!Room.contains(currentRoom)) {
+            System.out.println();
             System.out.println("Invalid room name!");
+            System.out.println();
             printAllRooms();
             System.out.print("Enter room name from the above list: ");
             currentRoom = ui.nextLine();
+            System.out.println();
         }
     }
 
@@ -459,10 +467,13 @@ public class Clue {
     public void checkValidCardName(String name) {
         currentCard = name;
         while (!Card.contains(currentCard)) {
+            System.out.println();
             System.out.println("Invalid card name!");
+            System.out.println();
             printCardNames();
             System.out.print("Enter card name from the reference above: ");
             currentCard = ui.nextLine();
+            System.out.println();
         }
     }
 
@@ -583,10 +594,12 @@ public class Clue {
         String suspects = d.getSuspects().toString();
         String weapons = d.getWeapons().toString();
         String rooms = d.getRooms().toString();
+        System.out.println("-----------------------------------------------------------------------------------------");
         System.out.println("Your hand cards: " + myHandCards);
         System.out.println("Potential suspects: " + suspects);
         System.out.println("Potential weapons: " + weapons);
         System.out.println("Potential rooms: " + rooms);
+        System.out.println("-----------------------------------------------------------------------------------------");
         System.out.println();
     }
 
