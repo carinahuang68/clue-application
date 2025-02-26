@@ -9,6 +9,8 @@ import model.Weapon;
 import model.Detective;
 import model.Card;
 
+// TODO: change private methods to private
+
 // represents the game Clue, containing all information needed
 public class ClueApp {
 
