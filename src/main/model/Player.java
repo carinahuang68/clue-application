@@ -2,8 +2,12 @@ package model;
 
 import java.util.*;
 
+import org.json.JSONObject;
+
+import persistence.Writable;
+
 // represents another player with name
-public class Player {
+public class Player implements Writable {
 
     private String name;
     private List<Card> handCards;
@@ -142,6 +146,12 @@ public class Player {
 
     public String toString() {
         return name;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'toJson'");
     }
 
 }

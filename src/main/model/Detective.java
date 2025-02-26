@@ -2,8 +2,12 @@ package model;
 
 import java.util.*;
 
+import org.json.JSONObject;
+
+import persistence.Writable;
+
 // represents you, the Detective, who is a player using the this application with handCards and lists of potential murder
-public class Detective {
+public class Detective implements Writable {
     private List<Suspect> suspects;
     private List<Weapon> weapons;
     private List<Room> rooms;
@@ -185,5 +189,11 @@ public class Detective {
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'toJson'");
     }
 }

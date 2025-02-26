@@ -10,7 +10,7 @@ import model.Detective;
 import model.Card;
 
 // represents the game Clue, containing all information needed
-public class Clue {
+public class ClueApp {
 
     private List<Player> players;
     private Detective d;
@@ -26,7 +26,6 @@ public class Clue {
     private String currentRoom;
     private String currentAskedPlayer;
     private String currentName;
-    private boolean viewedCurrentPlayersCard;
     Scanner ui;
 
     /*
@@ -35,7 +34,7 @@ public class Clue {
      * EFFECTS: sets up the game by making new Players and Detectives
      * through user based console
      */
-    public Clue(int numPlayers) {
+    public ClueApp(int numPlayers) {
         this.numPlayers = numPlayers;
         numHandCardsPerPlayer = (Card.names.length - 3) / numPlayers;
         numCardsInRooms = (Card.names.length - 3) % numPlayers;
@@ -603,9 +602,16 @@ public class Clue {
         System.out.println();
     }
 
-    public void skipLine(int n) {
-        for (int i = 1; i <= n; i++) {
-            System.out.println();
-        }
+    // EFFECTS: saves the detective and list of players to file
+    private void save() {
+        //TODO
+    }
+
+    /*
+     * MODIFIES: this
+     * EFFECTS: loads detective and players from file
+     */
+    private void load() {
+        //TODO
     }
 }

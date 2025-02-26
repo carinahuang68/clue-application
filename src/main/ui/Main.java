@@ -1,7 +1,7 @@
 package ui;
 
 import java.util.*;
-import ui.Clue;
+import ui.ClueApp;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -17,6 +17,6 @@ public class Main {
             numPlayers = ui.nextInt();
         }
         System.out.println();
-        Clue c = new Clue(numPlayers);
+        ClueApp c = new ClueApp(numPlayers);
     }
 }
