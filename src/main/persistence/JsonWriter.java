@@ -27,9 +27,15 @@ public class JsonWriter {
     }
 
     // MODIFIES: this
-    // EFFECTS: writes JSON representation of the detective and players to file
-    public void write(Detective d, List<Player> players) {
+    // EFFECTS: writes JSON representation of the detective to file
+    public void write(Detective d) {
         
+    }
+
+    // MODIFIES: this
+    // EFFECTS: writes JSON representation of the players to file
+    public void write(List<Player> players) {
+
     }
 
     // MODIFIES: this

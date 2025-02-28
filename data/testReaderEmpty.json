@@ -1,0 +1,28 @@
+{
+    "players": [
+        {
+            "name": "Elsa",
+            "handcards": [],
+            "nocards": [],
+            "uncheckedcards": []
+        },
+        {
+            "name": "Steve",
+            "handcards": [],
+            "nocards": [],
+            "uncheckedcards": []
+        },
+        {
+            "name": "Kelvin",
+            "handcards": [],
+            "nocards": [],
+            "uncheckedcards": []
+        }
+    ],
+    
+    "name": "Car",
+    "myhandcards": [],
+    "mysuspects": [],
+    "myweapons": [],
+    "myrooms": []
+}
