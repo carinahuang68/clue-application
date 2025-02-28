@@ -1,11 +1,15 @@
 package ui;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 
 import model.Player;
 import model.Room;
 import model.Suspect;
 import model.Weapon;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 import model.Detective;
 import model.Card;
 
@@ -14,6 +18,10 @@ import model.Card;
 
 // represents the game Clue, containing all information needed
 public class ClueApp {
+
+    private static final String JSON_STORE = "./data/clue.json";
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
     private List<Player> players;
     private Detective detective;
@@ -38,14 +46,37 @@ public class ClueApp {
      * through user based console
      */
     public ClueApp(int numPlayers) {
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
+
         this.numPlayers = numPlayers;
         numHandCardsPerPlayer = (Card.NAMES.length - 3) / numPlayers;
         numCardsInRooms = (Card.NAMES.length - 3) % numPlayers;
         ui = new Scanner(System.in);
-        enterPlayerNames();
-        printInstructions();
-        printCardNames();
-        manageMyHandCards();
+        System.out.println("Select from below");
+        System.out.println("   l: load data from file");
+        System.out.println("   s: start new game");
+        System.out.print(">>> ");
+        String answer = ui.nextLine();
+        System.out.println();
+        while (!answer.equals("l") & !answer.equals("s")) {
+            System.out.println("Invalid answer! Please enter 'l' or 's");
+            System.out.print(">>> ");
+            answer = ui.nextLine();
+            System.out.println();
+        }
+
+        if (answer.equals("s")) {
+            enterPlayerNames();
+            printInstructions();
+            printCardNames();
+            manageMyHandCards();
+        } else {
+            load();
+            myName = detective.getName();
+            printDetectiveNotes();
+        }
+
         orderPlayers();
         runGame();
     }
@@ -158,13 +189,42 @@ public class ClueApp {
         while (!detective.foundSuspect() | !detective.foundWeapon() | !detective.foundRoom()) {
             for (String p : orderedPlayers) {
                 if (p.equals(myName)) {
+                    enterOption();
                     detectivesTurn();
                 } else {
+                    enterOption();
                     playersTurn(p);
                 }
             }
         }
         foundSecretMurder();
+    }
+
+    public void enterOption() {
+        System.out.println("Select option:");
+        System.out.println("   c: continue game");
+        System.out.println("   s: save notes and quit");
+        System.out.println("   q: quit");
+        System.out.print(">>> ");
+        String answer = ui.nextLine();
+        System.out.println();
+        while (!answer.equals("c") & !answer.equals("s") & !answer.equals("q")) {
+            System.out.println("Invalid answer! Please enter 'c', 's', or 'q'.");
+            System.out.print(">>> ");
+            answer = ui.nextLine();
+            System.out.println();
+        }
+        
+        if (answer.equals("c")) {
+            System.out.println();
+        } else if (answer.equals("s")) {
+            save();
+            System.out.println("Hope to see you again. Goodbye!");
+            System.exit(0);
+        } else {
+            System.out.println("Hope you enjoyed the game. Goodbye!");
+            System.exit(0);
+        }
     }
 
     /*
@@ -607,14 +667,30 @@ public class ClueApp {
 
     // EFFECTS: saves the detective and list of players to file
     private void save() {
-        //TODO
+        try {
+            jsonWriter.open();
+            jsonWriter.write(detective);
+            jsonWriter.write(players);
+            jsonWriter.close();
+            System.out.println("Saved detective and players to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
     }
 
     /*
+     * REQUIRES: loaded file must have initialized players and detective
      * MODIFIES: this
      * EFFECTS: loads detective and players from file
      */
     private void load() {
-        //TODO
+        try {
+            detective = jsonReader.readDetective();
+            System.out.println("Loaded " + detective.getName() + " from " + JSON_STORE);
+            players = jsonReader.readPlayers();
+            System.out.println("Loaded " + players + " from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
     }
 }

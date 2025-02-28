@@ -2,32 +2,88 @@
     "players": [
         {
             "name": "Elsa",
-            "handcards": ["Rope", "Library"],
-            "nocards": ["Plum", "Hall", "Knife", "Kitchen"],
+            "handcards": [
+                "Rope",
+                "Library"
+            ],
+            "nocards": [
+                "Plum",
+                "Hall",
+                "Knife",
+                "Kitchen"
+            ],
             "uncheckedcards": [
-                ["Dining Room", "Candlestick"],
-                ["Ball Room", "Peacock", "Lounge"]
+                [
+                    "Dining Room",
+                    "Candlestick"
+                ],
+                [
+                    "Ball Room",
+                    "Peacock",
+                    "Lounge"
+                ]
             ]
         },
         {
             "name": "Steve",
-            "handcards": ["Kitchen"],
-            "nocards": ["Plum", "Hall", "Knife", "Rope", "Library"],
+            "handcards": [
+                "Kitchen"
+            ],
+            "nocards": [
+                "Plum",
+                "Hall",
+                "Knife",
+                "Rope",
+                "Library"
+            ],
             "uncheckedcards": []
         },
         {
             "name": "Kelvin",
             "handcards": [],
-            "nocards": ["Plum", "Hall", "Knife", "Kitchen", "Rope", "Library"],
+            "nocards": [
+                "Plum",
+                "Hall",
+                "Knife",
+                "Kitchen",
+                "Rope",
+                "Library"
+            ],
             "uncheckedcards": [
-                ["Mustard", "Revolver", "Dining Room"]
+                [
+                    "Mustard",
+                    "Revolver",
+                    "Dining Room"
+                ]
             ]
         }
     ],
-    
-    "name": "Car",
-    "myhandcards": ["Plum", "Hall", "Knife"],
-    "mysuspects": ["Mustard", "Green", "Peacock", "Scarlett", "White"],
-    "myweapons": ["Candlestick", "Revolver", "Lead Pipe", "Wrench"],
-    "myrooms": ["Lounge", "Dining Room", "Ball Room", "Billiard Room", "Sudy"]
+    "detective": {
+        "name": "Car",
+        "myhandcards": [
+            "Plum",
+            "Hall",
+            "Knife"
+        ],
+        "mysuspects": [
+            "Mustard",
+            "Green",
+            "Peacock",
+            "Scarlett",
+            "White"
+        ],
+        "myweapons": [
+            "Candlestick",
+            "Revolver",
+            "Lead Pipe",
+            "Wrench"
+        ],
+        "myrooms": [
+            "Lounge",
+            "Dining Room",
+            "Ball Room",
+            "Billiard Room",
+            "Sudy"
+        ]
+    }
 }

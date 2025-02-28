@@ -14,10 +14,12 @@ public class JsonWriter {
     private static final int TAB = 4;
     private PrintWriter writer;
     private String destination;
+    private JSONObject json;
 
     // EFFECTS: constructs writer to write to destination file
     public JsonWriter(String destination) {
         this.destination = destination;
+        json = new JSONObject();
     }
 
     // MODIFIES: this
@@ -31,18 +33,18 @@ public class JsonWriter {
     // MODIFIES: this
     // EFFECTS: writes JSON representation of the detective to file
     public void write(Detective d) {
-        JSONObject json = d.toJson();
+        json.put("detective", d.toJson());
         saveToFile(json.toString(TAB));
     }
 
     // MODIFIES: this
     // EFFECTS: writes JSON representation of the players to file
     public void write(List<Player> players) {
-        JSONObject json = new JSONObject();
         json.put("players", playersToJson(players));
         saveToFile(json.toString(TAB));
     }
 
+    // EFFECTS: returns jsonArray representation of players
     public JSONArray playersToJson(List<Player> players) {
         JSONArray jsonArray = new JSONArray();
 

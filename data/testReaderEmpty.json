@@ -19,10 +19,11 @@
             "uncheckedcards": []
         }
     ],
-    
-    "name": "Car",
-    "myhandcards": [],
-    "mysuspects": [],
-    "myweapons": [],
-    "myrooms": []
+    "detective": {
+        "name": "Car",
+        "myhandcards": [],
+        "mysuspects": [],
+        "myweapons": [],
+        "myrooms": []
+    }
 }

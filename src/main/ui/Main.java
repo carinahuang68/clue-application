@@ -6,7 +6,7 @@ import ui.ClueApp;
 public class Main {
     public static void main(String[] args) throws Exception {
         Scanner ui = new Scanner(System.in);
-
+        System.out.println();
         System.out.println("Welcome to Clue!");
         System.out.println();
         System.out.print("Enter number of players: ");
