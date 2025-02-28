@@ -19,7 +19,7 @@ import model.Card;
 // represents the game Clue, containing all information needed
 public class ClueApp {
 
-    private static final String JSON_STORE = "./data/clue.json";
+    private static final String JSON_STORE = "./data/clue2.json";
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
 
@@ -669,8 +669,7 @@ public class ClueApp {
     private void save() {
         try {
             jsonWriter.open();
-            jsonWriter.write(detective);
-            jsonWriter.write(players);
+            jsonWriter.write(detective, players);
             jsonWriter.close();
             System.out.println("Saved detective and players to " + JSON_STORE);
         } catch (FileNotFoundException e) {
