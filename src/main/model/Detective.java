@@ -6,7 +6,10 @@ import org.json.JSONObject;
 
 import persistence.Writable;
 
-// represents you, the Detective, who is a player using the this application with handCards and lists of potential murder
+/*
+ * represents you, the Detective, who is a player using
+ * application with handCards and lists of potential murder 
+ */
 public class Detective implements Writable {
     private List<Suspect> suspects;
     private List<Weapon> weapons;
@@ -28,17 +31,17 @@ public class Detective implements Writable {
      */
     public void reset() {
         suspects = new ArrayList<>();
-        for (String s : Suspect.names) {
+        for (String s : Suspect.NAMES) {
             suspects.add(new Suspect(s));
         }
 
         weapons = new ArrayList<>();
-        for (String s : Weapon.names) {
+        for (String s : Weapon.NAMES) {
             weapons.add(new Weapon(s));
         }
 
         rooms = new ArrayList<>();
-        for (String s : Room.names) {
+        for (String s : Room.NAMES) {
             rooms.add(new Room(s));
         }
 

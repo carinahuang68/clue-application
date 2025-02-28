@@ -10,12 +10,13 @@ import model.Detective;
 import model.Card;
 
 // TODO: change private methods to private
+// TODO: fix bug in playerAskQustion
 
 // represents the game Clue, containing all information needed
 public class ClueApp {
 
     private List<Player> players;
-    private Detective d;
+    private Detective detective;
     private int numHandCardsPerPlayer;
     private int numCardsInRooms;
     private int numPlayers;
@@ -38,8 +39,8 @@ public class ClueApp {
      */
     public ClueApp(int numPlayers) {
         this.numPlayers = numPlayers;
-        numHandCardsPerPlayer = (Card.names.length - 3) / numPlayers;
-        numCardsInRooms = (Card.names.length - 3) % numPlayers;
+        numHandCardsPerPlayer = (Card.NAMES.length - 3) / numPlayers;
+        numCardsInRooms = (Card.NAMES.length - 3) % numPlayers;
         ui = new Scanner(System.in);
         enterPlayerNames();
         printInstructions();
@@ -98,7 +99,7 @@ public class ClueApp {
             myHandCards.add(currentCard);
             System.out.println();
         }
-        d = new Detective(myName, myHandCards);
+        detective = new Detective(myName, myHandCards);
         for (String handCard : myHandCards) {
             addNoCardsToOtherPlayers(null, handCard);
         }
@@ -154,7 +155,7 @@ public class ClueApp {
      * EFFECTS: runs the game through looping players' turn
      */
     public void runGame() {
-        while (!d.foundSuspect() | !d.foundWeapon() | !d.foundRoom()) {
+        while (!detective.foundSuspect() | !detective.foundWeapon() | !detective.foundRoom()) {
             for (String p : orderedPlayers) {
                 if (p.equals(myName)) {
                     detectivesTurn();
@@ -217,9 +218,9 @@ public class ClueApp {
      */
     public void foundSecretMurder() {
         System.out.println("Found the secret murder!");
-        System.out.println("Suspect: " + d.getSuspects().get(0).getName());
-        System.out.println("Weapon: " + d.getWeapons().get(0).getName());
-        System.out.println("Room: " + d.getRooms().get(0).getName());
+        System.out.println("Suspect: " + detective.getSuspects().get(0).getName());
+        System.out.println("Weapon: " + detective.getWeapons().get(0).getName());
+        System.out.println("Room: " + detective.getRooms().get(0).getName());
     }
 
     /*
@@ -233,7 +234,7 @@ public class ClueApp {
         System.out.println();
         String name = ui.nextLine();
         System.out.println();
-        d.eliminateCard(name);
+        detective.eliminateCard(name);
         printMyNotes();
     }
 
@@ -294,7 +295,7 @@ public class ClueApp {
             System.out.print("Enter " + name + "'s card you just viewed: ");
             currentName = ui.nextLine();
             checkValidCardName(currentName);
-            player.addHandCard(currentCard, d);
+            player.addHandCard(currentCard, detective);
             printPlayerNote(player);
             addNoCardsToOtherPlayers(player, currentCard);
         }
@@ -316,7 +317,7 @@ public class ClueApp {
         player.addNoCard(suspect);
         player.addNoCard(weapon);
         player.addNoCard(room);
-        player.checkUncheckedCards(d);
+        player.checkUncheckedCards(detective);
         printPlayerNote(player);
         System.out.print("Enter the next player to ask: ");
         currentName = ui.nextLine();
@@ -335,7 +336,7 @@ public class ClueApp {
         for (Player p : players) {
             if (!p.equals(player)) {
                 p.addNoCard(card);
-                p.checkUncheckedCards(d);
+                p.checkUncheckedCards(detective);
             }
         }
     }
@@ -591,10 +592,10 @@ public class ClueApp {
      * EFFECTS: prints detectives's hand cards and potential murder cards
      */
     public void printMyNotes() {
-        String myHandCards = d.getHandcards().toString();
-        String suspects = d.getSuspects().toString();
-        String weapons = d.getWeapons().toString();
-        String rooms = d.getRooms().toString();
+        String myHandCards = detective.getHandcards().toString();
+        String suspects = detective.getSuspects().toString();
+        String weapons = detective.getWeapons().toString();
+        String rooms = detective.getRooms().toString();
         System.out.println("-----------------------------------------------------------------------------------------");
         System.out.println("Your hand cards: " + myHandCards);
         System.out.println("Potential suspects: " + suspects);

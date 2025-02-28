@@ -3,7 +3,7 @@ package model;
 // represents a weapon card with name
 public class Weapon extends Card {
 
-    public static String[] names = { "Knife", "Candlestick", "Revolver", "Rope", "Lead Pipe", "Wrench" };
+    public static final String[] NAMES = { "Knife", "Candlestick", "Revolver", "Rope", "Lead Pipe", "Wrench" };
 
     public Weapon(String name) {
         super(name);
@@ -11,8 +11,8 @@ public class Weapon extends Card {
 
     // EFFECTS: return true if name is in Weapon.names, else false
     public static boolean contains(String name) {
-        for (String n : names) {
-            if (n.equals(name)) {
+        for (String n : NAMES) {
+            if (n.equalsIgnoreCase(name)) {
                 return true;
             }
         }

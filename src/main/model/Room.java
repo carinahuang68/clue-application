@@ -3,7 +3,7 @@ package model;
 // represents a room card with name
 public class Room extends Card {
 
-    public static String[] names = { "Hall", "Lounge", "Dining Room", "Kitchen", "Ball Room", "Conservatory",
+    public static final String[] NAMES = { "Hall", "Lounge", "Dining Room", "Kitchen", "Ball Room", "Conservatory",
             "Billiard Room", "Library", "Study" };
 
     public Room(String name) {
@@ -21,8 +21,8 @@ public class Room extends Card {
 
     // EFFECTS: return true if name is in Room.names, else false
     public static boolean contains(String name) {
-        for (String n : names) {
-            if (n.equals(name)) {
+        for (String n : NAMES) {
+            if (n.equalsIgnoreCase(name)) {
                 return true;
             }
         }

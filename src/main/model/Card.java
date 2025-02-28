@@ -4,7 +4,7 @@ package model;
 public class Card {
 
     private String name;
-    public static String[] names = { "Mustard", "Plum", "Green", "Peacock", "Scarlett", "White",
+    public static final String[] NAMES = { "Mustard", "Plum", "Green", "Peacock", "Scarlett", "White",
             "Knife", "Candlestick", "Revolver", "Rope", "Lead Pipe", "Wrench",
             "Hall", "Lounge", "Dining Room", "Kitchen", "Ball Room", "Conservatory", "Billiard Room", "Library",
             "Study" };
@@ -22,8 +22,8 @@ public class Card {
 
     // EFFECTS: return true if name is in Card.names, else false
     public static boolean contains(String name) {
-        for (String n : names) {
-            if (n.equals(name)) {
+        for (String n : NAMES) {
+            if (n.equalsIgnoreCase(name)) {
                 return true;
             }
         }
