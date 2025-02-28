@@ -1,11 +1,9 @@
 package model;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.Test;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +17,7 @@ public class JsonWriterTest {
     @Test
     public void testWriterInvalidFile() {
         try {
+            @SuppressWarnings("unused")
             Detective d = new Detective("Me", null);
             JsonWriter writer = new JsonWriter("./data/my\\0illegal:fileName.json");
             writer.open();

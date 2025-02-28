@@ -1,6 +1,5 @@
 package model;
 
-import model.*;
 import persistence.JsonReader;
 
 import org.junit.jupiter.api.Test;
@@ -17,6 +16,7 @@ public class JsonReaderTest {
     void testReaderNonExistentFile() {
         JsonReader reader = new JsonReader("./data/noSuchFile.json");
         try {
+            @SuppressWarnings("unused")
             List<Player> players = new ArrayList<>();
             players = reader.readPlayers();
             fail("IOException expected");
