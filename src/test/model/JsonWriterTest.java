@@ -1,12 +1,15 @@
 package model;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
+import org.junit.jupiter.api.Test;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Test;
+// import org.junit.Test;
 
 import persistence.JsonReader;
 import persistence.JsonWriter;
@@ -42,11 +45,8 @@ public class JsonWriterTest {
             d = reader.readDetective();
             assertEquals("Me", d.getName());
             assertEquals(3, d.getHandcards().size());
-            assertEquals(0, d.getSuspects().size());
-            assertEquals(0, d.getWeapons().size());
-            assertEquals(0, d.getRooms().size());
-            assertEquals(6, d.getSuspects().size());
-            assertEquals(6, d.getWeapons().size());
+            assertEquals(4, d.getSuspects().size());
+            assertEquals(5, d.getWeapons().size());
             assertEquals(9, d.getRooms().size());
         } catch (Exception e) {
             fail("Exception should not have been thrown");
@@ -93,22 +93,21 @@ public class JsonWriterTest {
 
     // @Test
     // public void testWriterGeneralDetectiveAndPlayers() {
-    //     try {
-    //         ClueApp clue = new ClueApp(3);
-    //         List<Player> players = new ArrayList<>();
-    //         players.add(new Player("P1"));
-    //         players.add(new Player("P2"));
-    //         players.add(new Player("P3"));
-    //         players.get(0).addUncheckedCards("Scarlett", "Lead Pipe", "Hall");
+    // try {
+    // ClueApp clue = new ClueApp(3);
+    // List<Player> players = new ArrayList<>();
+    // players.add(new Player("P1"));
+    // players.add(new Player("P2"));
+    // players.add(new Player("P3"));
+    // players.get(0).addUncheckedCards("Scarlett", "Lead Pipe", "Hall");
 
-    //         JsonWriter writer = new JsonWriter("./data/testWriterInitPlayers.json");
-    //         writer.open();
-    //         writer.write(players);
-    //         writer.close();
+    // JsonWriter writer = new JsonWriter("./data/testWriterInitPlayers.json");
+    // writer.open();
+    // writer.write(players);
+    // writer.close();
 
-
-    //     } catch (Exception e) {
+    // } catch (Exception e) {
     //
-    //     }
+    // }
     // }
 }

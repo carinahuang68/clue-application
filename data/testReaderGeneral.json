@@ -27,7 +27,7 @@
     
     "name": "Car",
     "myhandcards": ["Plum", "Hall", "Knife"],
-    "mysuspects": ["Mustard, Green, Peacock, Scarlett, White"],
-    "myweapons": ["Candlestick, Revolver, Lead Pipe, Wrench"],
-    "myrooms": ["Lounge, Dining Room, Ball Room, Billiard Room, Study"]
+    "mysuspects": ["Mustard", "Green", "Peacock", "Scarlett", "White"],
+    "myweapons": ["Candlestick", "Revolver", "Lead Pipe", "Wrench"],
+    "myrooms": ["Lounge", "Dining Room", "Ball Room", "Billiard Room", "Sudy"]
 }

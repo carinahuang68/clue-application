@@ -2,6 +2,7 @@ package model;
 
 import java.util.*;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import persistence.Writable;
@@ -62,6 +63,39 @@ public class Detective implements Writable {
             removeWeapon(name);
         } else {
             removeRoom(name);
+        }
+    }
+
+    /*
+     * MODIFIES: this
+     * EFFECTS: set suspects according to the given list of suspect names
+     */
+    public void setSuspects(List<String> suspects) {
+        this.suspects = new ArrayList<>();
+        for (String s : suspects) {
+            this.suspects.add(new Suspect(s));
+        }
+    }
+
+    /*
+     * MODIFIES: this
+     * EFFECTS: set weapons according to the given list of weapon names
+     */
+    public void setWeapons(List<String> weapons) {
+        this.weapons = new ArrayList<>();
+        for (String s : weapons) {
+            this.weapons.add(new Weapon(s));
+        }
+    }
+
+    /*
+     * MODIFIES: this
+     * EFFECTS: set rooms according to the given room list of room names
+     */
+    public void setRooms(List<String> rooms) {
+        this.rooms = new ArrayList<>();
+        for (String s : rooms) {
+            this.rooms.add(new Room(s));
         }
     }
 
@@ -196,7 +230,22 @@ public class Detective implements Writable {
 
     @Override
     public JSONObject toJson() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'toJson'");
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("myhandcards", handCards);
+        json.put("mysuspects", cardsToString(suspects));
+        json.put("myweapons", cardsToString(weapons));
+        json.put("myrooms", cardsToString(rooms));
+
+        return json;
     }
+
+    private <T extends Card> List<String> cardsToString(List<T> cards) {
+        List<String> names = new ArrayList<>();
+        for (T card : cards) {
+            names.add(card.getName());
+        }
+        return names;
+    }
+    
 }

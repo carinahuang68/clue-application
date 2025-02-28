@@ -12,7 +12,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class JsonReaderTest {
-    
+
     @Test
     void testReaderNonExistentFile() {
         JsonReader reader = new JsonReader("./data/noSuchFile.json");
@@ -62,7 +62,7 @@ public class JsonReaderTest {
     }
 
     @Test
-    void testReaderGeneralWorkRoom() {
+    void testReaderGeneral() {
         JsonReader reader = new JsonReader("./data/testReaderGeneral.json");
         try {
             List<Player> players = reader.readPlayers();
@@ -75,7 +75,7 @@ public class JsonReaderTest {
 
             assertEquals("Steve", players.get(1).getName());
             assertEquals(1, players.get(1).getHandCards().size());
-            assertEquals("Kitchen", players.get(1).getHandCards().get(0));
+            assertEquals("Kitchen", players.get(1).getHandCards().get(0).getName());
             assertEquals(5, players.get(1).getNoCards().size());
             assertEquals(0, players.get(1).getUncheckedCards().size());
 

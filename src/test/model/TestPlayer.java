@@ -156,4 +156,15 @@ public class TestPlayer {
         assertEquals("Me", p.toString());
     }
 
+    @Test
+    public void testHandCardNames() {
+        Player p = new Player("P");
+        p.addHandCard("Plum");
+        p.addHandCard("Hall");
+        List<String> names = new ArrayList<>();
+        names.add("Plum");
+        names.add("Hall");
+        assertEquals(names, p.handCardNames());
+    }
+
 }

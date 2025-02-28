@@ -55,6 +55,24 @@ public class Player implements Writable {
     }
 
     /*
+     * REQUIRES: Card.contains(name)
+     * MODIFIES: this
+     * EFFECTS: add new card with name directly to handcards
+     */
+    public void addHandCard(String name) {
+        if (Suspect.contains(name)) {
+            Suspect s = new Suspect(name);
+            handCards.add(s);
+        } else if (Weapon.contains(name)) {
+            Weapon w = new Weapon(name);
+            handCards.add(w);
+        } else {
+            Room r = new Room(name);
+            handCards.add(r);
+        }
+    }
+
+    /*
      * REQUIRES: name must be in Card.names
      * MODIFIES: this
      * EFFECTS: adds card name to noCards and removes it from uncheckedCards
@@ -64,6 +82,15 @@ public class Player implements Writable {
             noCards.add(name);
             removeUncheckedCard(name);
         }
+    }
+
+    /*
+     * REQUIRES: Card.contains(name)
+     * MODIFIES: this
+     * EFFECTS: add name directly to noCards
+     */
+    public void addNocard(String name) {
+        noCards.add(name);
     }
 
     /*
@@ -87,6 +114,14 @@ public class Player implements Writable {
             }
         }
         uncheckedCards.add(newUncheckedCards);
+    }
+
+    /*
+     * MODIFIES: this
+     * EFFECTS: adds the given unchecked set to uncheckedCards
+     */
+    public void addUncheckedCards(List<String> uncheckedSet) {
+        uncheckedCards.add(uncheckedSet);
     }
 
     /*
@@ -150,8 +185,20 @@ public class Player implements Writable {
 
     @Override
     public JSONObject toJson() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'toJson'");
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("handcards", handCardNames());
+        json.put("nocards", noCards);
+        json.put("uncheckedcards", uncheckedCards);
+        return json;
+    }
+
+    public List<String> handCardNames() {
+        List<String> names = new ArrayList<>();
+        for (Card c : handCards) {
+            names.add(c.getName());
+        }
+        return names;
     }
 
 }
