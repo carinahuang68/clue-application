@@ -14,12 +14,11 @@ import model.Detective;
 import model.Card;
 
 // TODO: change private methods to private
-// TODO: fix bug in playerAskQustion
 
 // represents the game Clue, containing all information needed
 public class ClueApp {
 
-    private static final String JSON_STORE = "./data/clue2.json";
+    private static final String JSON_STORE = "./data/clueGame.json";
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
 
@@ -202,20 +201,23 @@ public class ClueApp {
 
     public void enterOption() {
         System.out.println("Select option:");
-        System.out.println("   c: continue game");
+        System.out.println("   a: save notes and continue");
+        System.out.println("   c: continue");
         System.out.println("   s: save notes and quit");
         System.out.println("   q: quit");
         System.out.print(">>> ");
         String answer = ui.nextLine();
         System.out.println();
-        while (!answer.equals("c") & !answer.equals("s") & !answer.equals("q")) {
+        while (!answer.equals("a") & !answer.equals("c") & !answer.equals("s") & !answer.equals("q")) {
             System.out.println("Invalid answer! Please enter 'c', 's', or 'q'.");
             System.out.print(">>> ");
             answer = ui.nextLine();
             System.out.println();
         }
-        
-        if (answer.equals("c")) {
+
+        if (answer.equals("a")) {
+            save();
+        } else if (answer.equals("c")) {
             System.out.println();
         } else if (answer.equals("s")) {
             save();
@@ -307,7 +309,7 @@ public class ClueApp {
     public void detectiveAskQuestion() {
         askClueQuestion();
         while (currentAnswer.equals("no")) {
-            updateForPlayersNo(currentSuspect, currentWeapon, currentRoom, currentAskedPlayer);
+            updateForPlayersNo(currentSuspect, currentWeapon, currentRoom, currentAskedPlayer, "");
         }
         viewCard(currentAskedPlayer);
     }
@@ -366,25 +368,32 @@ public class ClueApp {
      * MODIFIES: this
      * EFFECTS: adds the three given card names to Player p's no card
      */
-    public void updateForPlayersNo(String suspect, String weapon, String room, String p) {
+    public void updateForPlayersNo(String suspect, String weapon, String room, String p, String askingPlayer) {
         Player player = getPlayer(p);
-        while (player == null) {
-            System.out.println("Invalid player name!");
-            System.out.print("Enter asked player's name again: ");
-            currentAskedPlayer = ui.nextLine();
-            player = getPlayer(currentAskedPlayer);
+        if (player != null) {
+            player.addNoCard(suspect);
+            player.addNoCard(weapon);
+            player.addNoCard(room);
+            player.checkUncheckedCards(detective);
+            printPlayerNote(player);
         }
-        player.addNoCard(suspect);
-        player.addNoCard(weapon);
-        player.addNoCard(room);
-        player.checkUncheckedCards(detective);
-        printPlayerNote(player);
-        System.out.print("Enter the next player to ask: ");
-        currentName = ui.nextLine();
-        checkValidPlayer(currentName);
-        System.out.print("Their answer (yes/no): ");
-        currentAnswer = ui.nextLine();
-        checkAnswer();
+        System.out.print("Enter the next player " + askingPlayer + " asked: ");
+        currentAskedPlayer = ui.nextLine();
+        if (currentAskedPlayer.equals(myName)) {
+            System.out.print("Do you have the card? (yes/no): ");
+            currentAnswer = ui.nextLine();
+            checkAnswer();
+            if (currentAnswer.equals("yes")) {
+                System.out.println("Show the card to " + askingPlayer);
+                currentAskedPlayer = myName;
+                System.out.println();
+            }
+        } else {
+            checkValidPlayer(currentAskedPlayer);
+            System.out.print("Their answer (yes/no): ");
+            currentAnswer = ui.nextLine();
+            checkAnswer();
+        }
         System.out.println();
     }
 
@@ -410,9 +419,12 @@ public class ClueApp {
     public void playerAskQuestion(String askingPlayer) {
         recordPlayersQuestion(askingPlayer);
         if (currentAskedPlayer.equals(myName)) {
-            System.out.print("Your answer (yes/no): ");
+            System.out.print("Do you have the card? (yes/no): ");
             currentAnswer = ui.nextLine();
             checkAnswer();
+            if (currentAnswer.equals("yes")) {
+                System.out.println("Show the card to " + askingPlayer);
+            }
         } else {
             checkValidPlayer(currentAskedPlayer);
             System.out.print("Their answer (yes/no): ");
@@ -421,12 +433,14 @@ public class ClueApp {
         }
 
         while (currentAnswer.equals("no")) {
-            updateForPlayersNo(currentSuspect, currentWeapon, currentRoom, currentAskedPlayer);
+            updateForPlayersNo(currentSuspect, currentWeapon, currentRoom, currentAskedPlayer, askingPlayer);
         }
 
         // answer.equals("yes")
-        Player p = getPlayer(currentAskedPlayer);
-        p.addUncheckedCards(currentSuspect, currentWeapon, currentRoom);
+        if (!currentAskedPlayer.equals(myName)) {
+            Player p = getPlayer(currentAskedPlayer);
+            p.addUncheckedCards(currentSuspect, currentWeapon, currentRoom);
+        }
     }
 
     /*
@@ -672,6 +686,7 @@ public class ClueApp {
             jsonWriter.write(detective, players);
             jsonWriter.close();
             System.out.println("Saved detective and players to " + JSON_STORE);
+            System.out.println();
         } catch (FileNotFoundException e) {
             System.out.println("Unable to write to file: " + JSON_STORE);
         }
