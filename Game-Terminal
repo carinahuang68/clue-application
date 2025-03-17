@@ -1,0 +1,1008 @@
+1's turn:
+Did they enter a room? (yes/no) 
+yes
+What did the player ask?
+Enter the suspect: White
+Enter the weapon: Wrench
+Enter the room they are in: Ball Room
+Enter the first player they asked: thomas
+Do you have the card? (yes/no): yes
+Show the card to 1
+-----------------------------------------------------------------------------------------
+Detective Notes:
+
+-----------------------------------------------------------------------------------------
+Your hand cards: [White, Billiard Room, Revolver, Lead Pipe]
+Potential suspects: [Peacock, Scarlett]
+Potential weapons: [Knife, Candlestick, Rope, Wrench]
+Potential rooms: [Hall, Lounge, Dining Room, Kitchen, Conservatory, Library, Study]
+-----------------------------------------------------------------------------------------
+
+1's hand cards: [Plum]
+1's no cards: [White, Billiard Room, Revolver, Lead Pipe, Ball Room, Scarlett, Mustard, Plum, Candlestick, Dining Room]
+1's unchecked cards: []
+
+2's hand cards: [Mustard]
+2's no cards: [White, Billiard Room, Revolver, Lead Pipe, Plum, knife, Ball Room, Scarlett]
+2's unchecked cards: [[Mustard, Knife, Study], [Green, Rope, Kitchen], [Rope, Lounge]]
+
+3's hand cards: [Ball Room]
+3's no cards: [White, Billiard Room, Revolver, Lead Pipe, Mustard, Knife, Study, Plum, Lead pipe, Lounge]
+3's unchecked cards: [[Green, Candlestick, Kitchen]]
+
+-----------------------------------------------------------------------------------------
+
+Select option:
+   a: save notes and continue
+   c: continue
+   s: save notes and quit
+   q: quit
+>>> a
+
+Saved detective and players to ./data/clueGame2.json
+
+2's turn:
+Did they enter a room? (yes/no) 
+yes
+What did the player ask?
+Enter the suspect: Plum
+Enter the weapon: Wrench
+Enter the room they are in: Conservatory
+Enter the first player they asked: 1
+Their answer (yes/no): yes
+-----------------------------------------------------------------------------------------
+Detective Notes:
+
+-----------------------------------------------------------------------------------------
+Your hand cards: [White, Billiard Room, Revolver, Lead Pipe]
+Potential suspects: [Peacock, Scarlett]
+Potential weapons: [Knife, Candlestick, Rope, Wrench]
+Potential rooms: [Hall, Lounge, Dining Room, Kitchen, Conservatory, Library, Study]
+-----------------------------------------------------------------------------------------
+
+1's hand cards: [Plum]
+1's no cards: [White, Billiard Room, Revolver, Lead Pipe, Ball Room, Scarlett, Mustard, Plum, Candlestick, Dining Room]
+1's unchecked cards: [[Wrench, Conservatory]]
+
+2's hand cards: [Mustard]
+2's no cards: [White, Billiard Room, Revolver, Lead Pipe, Plum, knife, Ball Room, Scarlett]
+2's unchecked cards: [[Mustard, Knife, Study], [Green, Rope, Kitchen], [Rope, Lounge]]
+
+3's hand cards: [Ball Room]
+3's no cards: [White, Billiard Room, Revolver, Lead Pipe, Mustard, Knife, Study, Plum, Lead pipe, Lounge]
+3's unchecked cards: [[Green, Candlestick, Kitchen]]
+
+-----------------------------------------------------------------------------------------
+
+Select option:
+   a: save notes and continue
+   c: continue
+   s: save notes and quit
+   q: quit
+>>> a
+
+Saved detective and players to ./data/clueGame2.json
+
+Your turn! Please roll the dice.
+
+Entered a room? (yes/no) 
+yes
+Check card in room? (yes/no) 
+no
+Time to ask a CLUE question!
+Enter a suspect: Peacock
+Enter a weapon: Knife
+Enter the room you are in: Dining Room
+Enter the first player to ask: 2
+2's answer (yes/no): yes
+
+Enter 2's card you just viewed: Dining Room
+2's hand cards: [Mustard, Dining Room]
+2's no cards: [White, Billiard Room, Revolver, Lead Pipe, Plum, knife, Ball Room, Scarlett]
+2's unchecked cards: [[Mustard, Knife, Study], [Green, Rope, Kitchen], [Rope, Lounge]]
+
+-----------------------------------------------------------------------------------------
+Detective Notes:
+
+-----------------------------------------------------------------------------------------
+Your hand cards: [White, Billiard Room, Revolver, Lead Pipe]
+Potential suspects: [Peacock, Scarlett]
+Potential weapons: [Knife, Candlestick, Rope, Wrench]
+Potential rooms: [Hall, Lounge, Kitchen, Conservatory, Library, Study]
+-----------------------------------------------------------------------------------------
+
+1's hand cards: [Plum]
+1's no cards: [White, Billiard Room, Revolver, Lead Pipe, Ball Room, Scarlett, Mustard, Plum, Candlestick, Dining Room]
+1's unchecked cards: [[Wrench, Conservatory]]
+
+2's hand cards: [Mustard, Dining Room]
+2's no cards: [White, Billiard Room, Revolver, Lead Pipe, Plum, knife, Ball Room, Scarlett]
+2's unchecked cards: [[Mustard, Knife, Study], [Green, Rope, Kitchen], [Rope, Lounge]]
+
+3's hand cards: [Ball Room]
+3's no cards: [White, Billiard Room, Revolver, Lead Pipe, Mustard, Knife, Study, Plum, Lead pipe, Lounge, Dining Room]
+3's unchecked cards: [[Green, Candlestick, Kitchen]]
+
+-----------------------------------------------------------------------------------------
+
+Select option:
+   a: save notes and continue
+   c: continue
+   s: save notes and quit
+   q: quit
+>>> a
+
+Saved detective and players to ./data/clueGame2.json
+
+3's turn:
+Did they enter a room? (yes/no) 
+yes
+What did the player ask?
+Enter the suspect: Peacock
+Enter the weapon: Wrench
+Enter the room they are in: Hall
+Enter the first player they asked: 2
+Their answer (yes/no): no
+2's hand cards: [Mustard, Dining Room]
+2's no cards: [White, Billiard Room, Revolver, Lead Pipe, Plum, knife, Ball Room, Scarlett, Peacock, Wrench, Hall]
+2's unchecked cards: [[Mustard, Knife, Study], [Green, Rope, Kitchen], [Rope, Lounge]]
+
+Enter the next player 3 asked: 1
+Their answer (yes/no): yes
+
+-----------------------------------------------------------------------------------------
+Detective Notes:
+
+-----------------------------------------------------------------------------------------
+Your hand cards: [White, Billiard Room, Revolver, Lead Pipe]
+Potential suspects: [Peacock, Scarlett]
+Potential weapons: [Knife, Candlestick, Rope, Wrench]
+Potential rooms: [Hall, Lounge, Kitchen, Conservatory, Library, Study]
+-----------------------------------------------------------------------------------------
+
+1's hand cards: [Plum]
+1's no cards: [White, Billiard Room, Revolver, Lead Pipe, Ball Room, Scarlett, Mustard, Plum, Candlestick, Dining Room]
+1's unchecked cards: [[Wrench, Conservatory], [Peacock, Wrench, Hall]]
+
+2's hand cards: [Mustard, Dining Room]
+2's no cards: [White, Billiard Room, Revolver, Lead Pipe, Plum, knife, Ball Room, Scarlett, Peacock, Wrench, Hall]
+2's unchecked cards: [[Mustard, Knife, Study], [Green, Rope, Kitchen], [Rope, Lounge]]
+
+3's hand cards: [Ball Room]
+3's no cards: [White, Billiard Room, Revolver, Lead Pipe, Mustard, Knife, Study, Plum, Lead pipe, Lounge, Dining Room]
+3's unchecked cards: [[Green, Candlestick, Kitchen]]
+
+-----------------------------------------------------------------------------------------
+
+Select option:
+   a: save notes and continue
+   c: continue
+   s: save notes and quit
+   q: quit
+>>> a
+
+Saved detective and players to ./data/clueGame2.json
+
+1's turn:
+Did they enter a room? (yes/no) 
+no
+
+Select option:
+   a: save notes and continue
+   c: continue
+   s: save notes and quit
+   q: quit
+>>> a
+
+Saved detective and players to ./data/clueGame2.json
+
+2's turn:
+Did they enter a room? (yes/no) 
+yes 
+What did the player ask?
+Enter the suspect: White
+Enter the weapon: Wrench
+Enter the room they are in: Lounge
+Enter the first player they asked: thomas
+Do you have the card? (yes/no): yes
+Show the card to 2
+-----------------------------------------------------------------------------------------
+Detective Notes:
+
+-----------------------------------------------------------------------------------------
+Your hand cards: [White, Billiard Room, Revolver, Lead Pipe]
+Potential suspects: [Peacock, Scarlett]
+Potential weapons: [Knife, Candlestick, Rope, Wrench]
+Potential rooms: [Hall, Lounge, Kitchen, Conservatory, Library, Study]
+-----------------------------------------------------------------------------------------
+
+1's hand cards: [Plum]
+1's no cards: [White, Billiard Room, Revolver, Lead Pipe, Ball Room, Scarlett, Mustard, Plum, Candlestick, Dining Room]
+1's unchecked cards: [[Wrench, Conservatory], [Peacock, Wrench, Hall]]
+
+2's hand cards: [Mustard, Dining Room]
+2's no cards: [White, Billiard Room, Revolver, Lead Pipe, Plum, knife, Ball Room, Scarlett, Peacock, Wrench, Hall]
+2's unchecked cards: [[Mustard, Knife, Study], [Green, Rope, Kitchen], [Rope, Lounge]]
+
+3's hand cards: [Ball Room]
+3's no cards: [White, Billiard Room, Revolver, Lead Pipe, Mustard, Knife, Study, Plum, Lead pipe, Lounge, Dining Room]
+3's unchecked cards: [[Green, Candlestick, Kitchen]]
+
+-----------------------------------------------------------------------------------------
+
+Select option:
+   a: save notes and continue
+   c: continue
+   s: save notes and quit
+   q: quit
+>>> a
+
+Saved detective and players to ./data/clueGame2.json
+
+Your turn! Please roll the dice.
+
+Entered a room? (yes/no) 
+yes
+Check card in room? (yes/no) 
+no
+Time to ask a CLUE question!
+Enter a suspect: Scarlett
+Enter a weapon: Rope
+Enter the room you are in: Lounge
+Enter the first player to ask: 2
+2's answer (yes/no): yes
+
+Enter 2's card you just viewed: Rope
+2's hand cards: [Mustard, Dining Room, Rope]
+2's no cards: [White, Billiard Room, Revolver, Lead Pipe, Plum, knife, Ball Room, Scarlett, Peacock, Wrench, Hall]
+2's unchecked cards: [[Mustard, Knife, Study], [Green, Rope, Kitchen], [Rope, Lounge]]
+
+-----------------------------------------------------------------------------------------
+Detective Notes:
+
+-----------------------------------------------------------------------------------------
+Your hand cards: [White, Billiard Room, Revolver, Lead Pipe]
+Potential suspects: [Peacock, Scarlett]
+Potential weapons: [Knife, Candlestick, Wrench]
+Potential rooms: [Hall, Lounge, Kitchen, Conservatory, Library, Study]
+-----------------------------------------------------------------------------------------
+
+1's hand cards: [Plum]
+1's no cards: [White, Billiard Room, Revolver, Lead Pipe, Ball Room, Scarlett, Mustard, Plum, Candlestick, Dining Room, Rope]
+1's unchecked cards: [[Wrench, Conservatory], [Peacock, Wrench, Hall]]
+
+2's hand cards: [Mustard, Dining Room, Rope]
+2's no cards: [White, Billiard Room, Revolver, Lead Pipe, Plum, knife, Ball Room, Scarlett, Peacock, Wrench, Hall]
+2's unchecked cards: [[Mustard, Knife, Study], [Green, Rope, Kitchen], [Rope, Lounge]]
+
+3's hand cards: [Ball Room]
+3's no cards: [White, Billiard Room, Revolver, Lead Pipe, Mustard, Knife, Study, Plum, Lead pipe, Lounge, Dining Room, Rope]
+3's unchecked cards: [[Green, Candlestick, Kitchen]]
+
+-----------------------------------------------------------------------------------------
+
+Select option:
+   a: save notes and continue
+   c: continue
+   s: save notes and quit
+   q: quit
+>>> a
+
+Saved detective and players to ./data/clueGame2.json
+
+3's turn:
+Did they enter a room? (yes/no) 
+no
+
+Select option:
+   a: save notes and continue
+   c: continue
+   s: save notes and quit
+   q: quit
+>>> a
+
+Saved detective and players to ./data/clueGame2.json
+
+1's turn:
+Did they enter a room? (yes/no) 
+yes
+What did the player ask?
+Enter the suspect: Peacocok
+
+Invalid suspect name!
+
+Suspects: Mustard, Plum, Green, Peacock, Scarlett, White
+Enter suspect name from the above list: Peacock
+
+Enter the weapon: Candle Stick
+
+Invalid weapon name!
+
+Weapon: Knife, Candlestick, Revolver, Rope, Lead Pipe, Wrench
+Enter weapon name from the above list: Candlestick
+
+Enter the room they are in: Lounge
+Enter the first player they asked: 3
+Their answer (yes/no): yes
+-----------------------------------------------------------------------------------------
+Detective Notes:
+
+-----------------------------------------------------------------------------------------
+Your hand cards: [White, Billiard Room, Revolver, Lead Pipe]
+Potential suspects: [Peacock, Scarlett]
+Potential weapons: [Knife, Candlestick, Wrench]
+Potential rooms: [Hall, Lounge, Kitchen, Conservatory, Library, Study]
+-----------------------------------------------------------------------------------------
+
+1's hand cards: [Plum]
+1's no cards: [White, Billiard Room, Revolver, Lead Pipe, Ball Room, Scarlett, Mustard, Plum, Candlestick, Dining Room, Rope]
+1's unchecked cards: [[Wrench, Conservatory], [Peacock, Wrench, Hall]]
+
+2's hand cards: [Mustard, Dining Room, Rope]
+2's no cards: [White, Billiard Room, Revolver, Lead Pipe, Plum, knife, Ball Room, Scarlett, Peacock, Wrench, Hall]
+2's unchecked cards: [[Mustard, Knife, Study], [Green, Rope, Kitchen], [Rope, Lounge]]
+
+3's hand cards: [Ball Room]
+3's no cards: [White, Billiard Room, Revolver, Lead Pipe, Mustard, Knife, Study, Plum, Lead pipe, Lounge, Dining Room, Rope]
+3's unchecked cards: [[Green, Candlestick, Kitchen], [Peacock, Candlestick]]
+
+-----------------------------------------------------------------------------------------
+
+Select option:
+   a: save notes and continue
+   c: continue
+   s: save notes and quit
+   q: quit
+>>> a
+
+Saved detective and players to ./data/clueGame2.json
+
+2's turn:
+Did they enter a room? (yes/no) 
+no
+
+Select option:
+   a: save notes and continue
+   c: continue
+   s: save notes and quit
+   q: quit
+>>> a
+
+Saved detective and players to ./data/clueGame2.json
+
+Your turn! Please roll the dice.
+
+Entered a room? (yes/no) 
+yes
+Check card in room? (yes/no) 
+no
+Time to ask a CLUE question!
+Enter a suspect: Peacock
+Enter a weapon: Wrench
+Enter the room you are in: Conservatory
+Enter the first player to ask: 3
+3's answer (yes/no): yes
+
+Enter 3's card you just viewed: Conservatory
+3's hand cards: [Ball Room, Conservatory]
+3's no cards: [White, Billiard Room, Revolver, Lead Pipe, Mustard, Knife, Study, Plum, Lead pipe, Lounge, Dining Room, Rope]
+3's unchecked cards: [[Green, Candlestick, Kitchen], [Peacock, Candlestick]]
+
+-----------------------------------------------------------------------------------------
+Detective Notes:
+
+-----------------------------------------------------------------------------------------
+Your hand cards: [White, Billiard Room, Revolver, Lead Pipe]
+Potential suspects: [Peacock, Scarlett]
+Potential weapons: [Knife, Candlestick]
+Potential rooms: [Hall, Lounge, Kitchen, Library, Study]
+-----------------------------------------------------------------------------------------
+
+1's hand cards: [Plum, Wrench]
+1's no cards: [White, Billiard Room, Revolver, Lead Pipe, Ball Room, Scarlett, Mustard, Plum, Candlestick, Dining Room, Rope, Conservatory]
+1's unchecked cards: [[Peacock, Wrench, Hall]]
+
+2's hand cards: [Mustard, Dining Room, Rope]
+2's no cards: [White, Billiard Room, Revolver, Lead Pipe, Plum, knife, Ball Room, Scarlett, Peacock, Wrench, Hall, Conservatory]
+2's unchecked cards: [[Mustard, Knife, Study], [Green, Rope, Kitchen], [Rope, Lounge]]
+
+3's hand cards: [Ball Room, Conservatory]
+3's no cards: [White, Billiard Room, Revolver, Lead Pipe, Mustard, Knife, Study, Plum, Lead pipe, Lounge, Dining Room, Rope]
+3's unchecked cards: [[Green, Candlestick, Kitchen], [Peacock, Candlestick]]
+
+-----------------------------------------------------------------------------------------
+
+Select option:
+   a: save notes and continue
+   c: continue
+   s: save notes and quit
+   q: quit
+>>> a
+
+Saved detective and players to ./data/clueGame2.json
+
+3's turn:
+Did they enter a room? (yes/no) 
+no
+
+Select option:
+   a: save notes and continue
+   c: continue
+   s: save notes and quit
+   q: quit
+>>> a
+
+Saved detective and players to ./data/clueGame2.json
+
+1's turn:
+Did they enter a room? (yes/no) 
+no
+
+Select option:
+   a: save notes and continue
+   c: continue
+   s: save notes and quit
+   q: quit
+>>> a
+
+Saved detective and players to ./data/clueGame2.json
+
+2's turn:
+Did they enter a room? (yes/no) 
+no
+
+Select option:
+   a: save notes and continue
+   c: continue
+   s: save notes and quit
+   q: quit
+>>> a
+
+Saved detective and players to ./data/clueGame2.json
+
+Your turn! Please roll the dice.
+
+Entered a room? (yes/no) 
+Peacock
+Invalid answer!
+Please enter 'yes' or 'no': yes
+Check card in room? (yes/no) 
+no
+Time to ask a CLUE question!
+Enter a suspect: Peacock
+Enter a weapon: Knife
+Enter the room you are in: Lounge
+Enter the first player to ask: no
+
+Invalid player name!
+
+Players: [1, 2, 3]
+Enter player's name from the above list: 2
+
+2's answer (yes/no): no
+
+2's hand cards: [Mustard, Dining Room, Rope]
+2's no cards: [White, Billiard Room, Revolver, Lead Pipe, Plum, knife, Ball Room, Scarlett, Peacock, Wrench, Hall, Conservatory, Knife, Lounge]
+2's unchecked cards: [[Mustard, Study], [Green, Rope, Kitchen]]
+
+Enter the next player  asked: 1
+Their answer (yes/no): yes
+
+Enter 1's card you just viewed: Lounge
+1's hand cards: [Plum, Wrench, Lounge]
+1's no cards: [White, Billiard Room, Revolver, Lead Pipe, Ball Room, Scarlett, Mustard, Plum, Candlestick, Dining Room, Rope, Conservatory]
+1's unchecked cards: [[Peacock, Wrench, Hall]]
+
+-----------------------------------------------------------------------------------------
+Detective Notes:
+
+-----------------------------------------------------------------------------------------
+Your hand cards: [White, Billiard Room, Revolver, Lead Pipe]
+Potential suspects: [Peacock, Scarlett]
+Potential weapons: [Knife, Candlestick]
+Potential rooms: [Hall, Kitchen, Library, Study]
+-----------------------------------------------------------------------------------------
+
+1's hand cards: [Plum, Wrench, Lounge]
+1's no cards: [White, Billiard Room, Revolver, Lead Pipe, Ball Room, Scarlett, Mustard, Plum, Candlestick, Dining Room, Rope, Conservatory]
+1's unchecked cards: [[Peacock, Wrench, Hall]]
+
+2's hand cards: [Mustard, Dining Room, Rope]
+2's no cards: [White, Billiard Room, Revolver, Lead Pipe, Plum, knife, Ball Room, Scarlett, Peacock, Wrench, Hall, Conservatory, Knife, Lounge]
+2's unchecked cards: [[Mustard, Study], [Green, Rope, Kitchen]]
+
+3's hand cards: [Ball Room, Conservatory]
+3's no cards: [White, Billiard Room, Revolver, Lead Pipe, Mustard, Knife, Study, Plum, Lead pipe, Lounge, Dining Room, Rope]
+3's unchecked cards: [[Green, Candlestick, Kitchen], [Peacock, Candlestick]]
+
+-----------------------------------------------------------------------------------------
+
+Select option:
+   a: save notes and continue
+   c: continue
+   s: save notes and quit
+   q: quit
+>>> a
+
+Saved detective and players to ./data/clueGame2.json
+
+3's turn:
+Did they enter a room? (yes/no) 
+yes
+What did the player ask?
+Enter the suspect: Scralett
+
+Invalid suspect name!
+
+Suspects: Mustard, Plum, Green, Peacock, Scarlett, White
+Enter suspect name from the above list: Scarlett
+
+Enter the weapon: Wrench
+Enter the room they are in: Study
+Enter the first player they asked: 1
+Their answer (yes/no): no
+1's hand cards: [Plum, Wrench, Lounge]
+1's no cards: [White, Billiard Room, Revolver, Lead Pipe, Ball Room, Scarlett, Mustard, Plum, Candlestick, Dining Room, Rope, Conservatory, Wrench, Study]
+1's unchecked cards: [[Peacock, Hall]]
+
+Enter the next player 3 asked: 2
+Their answer (yes/no): no
+
+2's hand cards: [Mustard, Dining Room, Rope]
+2's no cards: [White, Billiard Room, Revolver, Lead Pipe, Plum, knife, Ball Room, Scarlett, Peacock, Wrench, Hall, Conservatory, Knife, Lounge, Study]
+2's unchecked cards: [[Green, Rope, Kitchen]]
+
+Enter the next player 3 asked: thomas
+Do you have the card? (yes/no): no
+
+Enter the next player 3 asked: 3
+Their answer (yes/no): yes
+
+-----------------------------------------------------------------------------------------
+Detective Notes:
+
+-----------------------------------------------------------------------------------------
+Your hand cards: [White, Billiard Room, Revolver, Lead Pipe]
+Potential suspects: [Peacock, Scarlett]
+Potential weapons: [Knife, Candlestick]
+Potential rooms: [Hall, Kitchen, Library, Study]
+-----------------------------------------------------------------------------------------
+
+1's hand cards: [Plum, Wrench, Lounge]
+1's no cards: [White, Billiard Room, Revolver, Lead Pipe, Ball Room, Scarlett, Mustard, Plum, Candlestick, Dining Room, Rope, Conservatory, Wrench, Study]
+1's unchecked cards: [[Peacock, Hall]]
+
+2's hand cards: [Mustard, Dining Room, Rope]
+2's no cards: [White, Billiard Room, Revolver, Lead Pipe, Plum, knife, Ball Room, Scarlett, Peacock, Wrench, Hall, Conservatory, Knife, Lounge, Study]
+2's unchecked cards: [[Green, Rope, Kitchen]]
+
+3's hand cards: [Ball Room, Conservatory]
+3's no cards: [White, Billiard Room, Revolver, Lead Pipe, Mustard, Knife, Study, Plum, Lead pipe, Lounge, Dining Room, Rope]
+3's unchecked cards: [[Green, Candlestick, Kitchen], [Peacock, Candlestick], [Scarlett, Wrench]]
+
+-----------------------------------------------------------------------------------------
+
+Select option:
+   a: save notes and continue
+   c: continue
+   s: save notes and quit
+   q: quit
+>>> a
+
+Saved detective and players to ./data/clueGame2.json
+
+1's turn:
+Did they enter a room? (yes/no) 
+no
+
+Select option:
+   a: save notes and continue
+   c: continue
+   s: save notes and quit
+   q: quit
+>>> a
+
+Saved detective and players to ./data/clueGame2.json
+
+2's turn:
+Did they enter a room? (yes/no) 
+yees
+Invalid answer!
+Please enter 'yes' or 'no': yes
+What did the player ask?
+Enter the suspect: Peacock
+Enter the weapon: Knife
+Enter the room they are in: Hall
+Enter the first player they asked: thomas
+Do you have the card? (yes/no): no
+Enter the next player 2 asked: 1
+Their answer (yes/no): yes
+
+-----------------------------------------------------------------------------------------
+Detective Notes:
+
+-----------------------------------------------------------------------------------------
+Your hand cards: [White, Billiard Room, Revolver, Lead Pipe]
+Potential suspects: [Peacock, Scarlett]
+Potential weapons: [Knife, Candlestick]
+Potential rooms: [Hall, Kitchen, Library, Study]
+-----------------------------------------------------------------------------------------
+
+1's hand cards: [Plum, Wrench, Lounge]
+1's no cards: [White, Billiard Room, Revolver, Lead Pipe, Ball Room, Scarlett, Mustard, Plum, Candlestick, Dining Room, Rope, Conservatory, Wrench, Study]
+1's unchecked cards: [[Peacock, Hall], [Peacock, Knife, Hall]]
+
+2's hand cards: [Mustard, Dining Room, Rope]
+2's no cards: [White, Billiard Room, Revolver, Lead Pipe, Plum, knife, Ball Room, Scarlett, Peacock, Wrench, Hall, Conservatory, Knife, Lounge, Study]
+2's unchecked cards: [[Green, Rope, Kitchen]]
+
+3's hand cards: [Ball Room, Conservatory]
+3's no cards: [White, Billiard Room, Revolver, Lead Pipe, Mustard, Knife, Study, Plum, Lead pipe, Lounge, Dining Room, Rope]
+3's unchecked cards: [[Green, Candlestick, Kitchen], [Peacock, Candlestick], [Scarlett, Wrench]]
+
+-----------------------------------------------------------------------------------------
+
+Select option:
+   a: save notes and continue
+   c: continue
+   s: save notes and quit
+   q: quit
+>>> a
+
+Saved detective and players to ./data/clueGame2.json
+
+Your turn! Please roll the dice.
+
+Entered a room? (yes/no) 
+no
+
+Select option:
+   a: save notes and continue
+   c: continue
+   s: save notes and quit
+   q: quit
+>>> a
+
+Saved detective and players to ./data/clueGame2.json
+
+3's turn:
+Did they enter a room? (yes/no) 
+no
+
+Select option:
+   a: save notes and continue
+   c: continue
+   s: save notes and quit
+   q: quit
+>>> a
+
+Saved detective and players to ./data/clueGame2.json
+
+1's turn:
+Did they enter a room? (yes/no) 
+no
+
+Select option:
+   a: save notes and continue
+   c: continue
+   s: save notes and quit
+   q: quit
+>>> a
+
+Saved detective and players to ./data/clueGame2.json
+
+2's turn:
+Did they enter a room? (yes/no) 
+yes
+What did the player ask?
+Enter the suspect: Mustard
+Enter the weapon: Knife
+Enter the room they are in: Study
+Enter the first player they asked: thomas
+Do you have the card? (yes/no): no
+Enter the next player 2 asked: 3
+Their answer (yes/no): no
+
+3's hand cards: [Ball Room, Conservatory]
+3's no cards: [White, Billiard Room, Revolver, Lead Pipe, Mustard, Knife, Study, Plum, Lead pipe, Lounge, Dining Room, Rope]
+3's unchecked cards: [[Green, Candlestick, Kitchen], [Peacock, Candlestick], [Scarlett, Wrench]]
+
+Enter the next player 2 asked: 1
+Their answer (yes/no): yes
+
+-----------------------------------------------------------------------------------------
+Detective Notes:
+
+-----------------------------------------------------------------------------------------
+Your hand cards: [White, Billiard Room, Revolver, Lead Pipe]
+Potential suspects: [Peacock, Scarlett]
+Potential weapons: [Knife, Candlestick]
+Potential rooms: [Hall, Kitchen, Library, Study]
+-----------------------------------------------------------------------------------------
+
+1's hand cards: [Plum, Wrench, Lounge]
+1's no cards: [White, Billiard Room, Revolver, Lead Pipe, Ball Room, Scarlett, Mustard, Plum, Candlestick, Dining Room, Rope, Conservatory, Wrench, Study]
+1's unchecked cards: [[Peacock, Hall], [Peacock, Knife, Hall], [Knife]]
+
+2's hand cards: [Mustard, Dining Room, Rope]
+2's no cards: [White, Billiard Room, Revolver, Lead Pipe, Plum, knife, Ball Room, Scarlett, Peacock, Wrench, Hall, Conservatory, Knife, Lounge, Study]
+2's unchecked cards: [[Green, Rope, Kitchen]]
+
+3's hand cards: [Ball Room, Conservatory]
+3's no cards: [White, Billiard Room, Revolver, Lead Pipe, Mustard, Knife, Study, Plum, Lead pipe, Lounge, Dining Room, Rope]
+3's unchecked cards: [[Green, Candlestick, Kitchen], [Peacock, Candlestick], [Scarlett, Wrench]]
+
+-----------------------------------------------------------------------------------------
+
+Select option:
+   a: save notes and continue
+   c: continue
+   s: save notes and quit
+   q: quit
+>>> a
+
+Saved detective and players to ./data/clueGame2.json
+
+Your turn! Please roll the dice.
+
+Entered a room? (yes/no) 
+yes
+Check card in room? (yes/no) 
+yes
+Enter card's name: 
+Hall
+
+-----------------------------------------------------------------------------------------
+Your hand cards: [White, Billiard Room, Revolver, Lead Pipe]
+Potential suspects: [Peacock, Scarlett]
+Potential weapons: [Knife, Candlestick]
+Potential rooms: [Kitchen, Library, Study]
+-----------------------------------------------------------------------------------------
+
+
+Time to ask a CLUE question!
+Enter a suspect: Scralett
+
+Invalid suspect name!
+
+Suspects: Mustard, Plum, Green, Peacock, Scarlett, White
+Enter suspect name from the above list: Scarlett
+
+Enter a weapon: Candlestick
+Enter the room you are in: Hall
+Enter the first player to ask: 3
+3's answer (yes/no): yes
+
+Enter 3's card you just viewed: Candlestick
+3's hand cards: [Ball Room, Conservatory, Candlestick]
+3's no cards: [White, Billiard Room, Revolver, Lead Pipe, Mustard, Knife, Study, Plum, Lead pipe, Lounge, Dining Room, Rope]
+3's unchecked cards: [[Green, Candlestick, Kitchen], [Peacock, Candlestick], [Scarlett, Wrench]]
+
+-----------------------------------------------------------------------------------------
+Detective Notes:
+
+-----------------------------------------------------------------------------------------
+Your hand cards: [White, Billiard Room, Revolver, Lead Pipe]
+Potential suspects: [Peacock, Scarlett]
+Potential weapons: []
+Potential rooms: [Kitchen, Library, Study]
+-----------------------------------------------------------------------------------------
+
+1's hand cards: [Plum, Wrench, Lounge, Knife]
+1's no cards: [White, Billiard Room, Revolver, Lead Pipe, Ball Room, Scarlett, Mustard, Plum, Candlestick, Dining Room, Rope, Conservatory, Wrench, Study]
+1's unchecked cards: [[Peacock, Hall], [Peacock, Knife, Hall]]
+
+2's hand cards: [Mustard, Dining Room, Rope]
+2's no cards: [White, Billiard Room, Revolver, Lead Pipe, Plum, knife, Ball Room, Scarlett, Peacock, Wrench, Hall, Conservatory, Knife, Lounge, Study, Candlestick]
+2's unchecked cards: [[Green, Rope, Kitchen]]
+
+3's hand cards: [Ball Room, Conservatory, Candlestick]
+3's no cards: [White, Billiard Room, Revolver, Lead Pipe, Mustard, Knife, Study, Plum, Lead pipe, Lounge, Dining Room, Rope]
+3's unchecked cards: [[Green, Candlestick, Kitchen], [Peacock, Candlestick], [Scarlett, Wrench]]
+
+-----------------------------------------------------------------------------------------
+
+Select option:
+   a: save notes and continue
+   c: continue
+   s: save notes and quit
+   q: quit
+>>> a
+
+Saved detective and players to ./data/clueGame2.json
+
+3's turn:
+Did they enter a room? (yes/no) 
+no    
+
+Select option:
+   a: save notes and continue
+   c: continue
+   s: save notes and quit
+   q: quit
+>>> a
+
+Saved detective and players to ./data/clueGame2.json
+
+1's turn:
+Did they enter a room? (yes/no) 
+yes
+What did the player ask?
+Enter the suspect: Scarlett
+Enter the weapon: Rope
+Enter the room they are in: Hall
+Enter the first player they asked: 2    
+Their answer (yes/no): no
+2's hand cards: [Mustard, Dining Room, Rope]
+2's no cards: [White, Billiard Room, Revolver, Lead Pipe, Plum, knife, Ball Room, Scarlett, Peacock, Wrench, Hall, Conservatory, Knife, Lounge, Study, Candlestick, Rope]
+2's unchecked cards: [[Green, Kitchen]]
+
+Enter the next player 1 asked: 3
+Their answer (yes/no): yes
+
+-----------------------------------------------------------------------------------------
+Detective Notes:
+
+-----------------------------------------------------------------------------------------
+Your hand cards: [White, Billiard Room, Revolver, Lead Pipe]
+Potential suspects: [Peacock, Scarlett]
+Potential weapons: []
+Potential rooms: [Kitchen, Library, Study]
+-----------------------------------------------------------------------------------------
+
+1's hand cards: [Plum, Wrench, Lounge, Knife]
+1's no cards: [White, Billiard Room, Revolver, Lead Pipe, Ball Room, Scarlett, Mustard, Plum, Candlestick, Dining Room, Rope, Conservatory, Wrench, Study]
+1's unchecked cards: [[Peacock, Hall], [Peacock, Knife, Hall]]
+
+2's hand cards: [Mustard, Dining Room, Rope]
+2's no cards: [White, Billiard Room, Revolver, Lead Pipe, Plum, knife, Ball Room, Scarlett, Peacock, Wrench, Hall, Conservatory, Knife, Lounge, Study, Candlestick, Rope]
+2's unchecked cards: [[Green, Kitchen]]
+
+3's hand cards: [Ball Room, Conservatory, Candlestick]
+3's no cards: [White, Billiard Room, Revolver, Lead Pipe, Mustard, Knife, Study, Plum, Lead pipe, Lounge, Dining Room, Rope]
+3's unchecked cards: [[Green, Candlestick, Kitchen], [Peacock, Candlestick], [Scarlett, Wrench], [Scarlett, Hall]]
+
+-----------------------------------------------------------------------------------------
+
+Select option:
+   a: save notes and continue
+   c: continue
+   s: save notes and quit
+   q: quit
+>>> a
+
+Saved detective and players to ./data/clueGame2.json
+
+2's turn:
+Did they enter a room? (yes/no) 
+no
+
+Select option:
+   a: save notes and continue
+   c: continue
+   s: save notes and quit
+   q: quit
+>>> a
+
+Saved detective and players to ./data/clueGame2.json
+
+Your turn! Please roll the dice.
+
+Entered a room? (yes/no) 
+no
+
+Select option:
+   a: save notes and continue
+   c: continue
+   s: save notes and quit
+   q: quit
+>>> a
+
+Saved detective and players to ./data/clueGame2.json
+
+3's turn:
+Did they enter a room? (yes/no) 
+no
+
+Select option:
+   a: save notes and continue
+   c: continue
+   s: save notes and quit
+   q: quit
+>>> a
+
+Saved detective and players to ./data/clueGame2.json
+
+1's turn:
+Did they enter a room? (yes/no) 
+no
+
+Select option:
+   a: save notes and continue
+   c: continue
+   s: save notes and quit
+   q: quit
+>>> a
+
+Saved detective and players to ./data/clueGame2.json
+
+2's turn:
+Did they enter a room? (yes/no) 
+no
+
+Select option:
+   a: save notes and continue
+   c: continue
+   s: save notes and quit
+   q: quit
+>>> a
+
+Saved detective and players to ./data/clueGame2.json
+
+Your turn! Please roll the dice.
+
+Entered a room? (yes/no) 
+yes
+Check card in room? (yes/no) 
+no
+Time to ask a CLUE question!
+Enter a suspect: Peacock
+Enter a weapon: Knife
+Enter the room you are in: Study
+Enter the first player to ask: no
+
+Invalid player name!
+
+Players: [1, 2, 3]
+Enter player's name from the above list: 2
+
+2's answer (yes/no): no
+
+2's hand cards: [Mustard, Dining Room, Rope]
+2's no cards: [White, Billiard Room, Revolver, Lead Pipe, Plum, knife, Ball Room, Scarlett, Peacock, Wrench, Hall, Conservatory, Knife, Lounge, Study, Candlestick, Rope]
+2's unchecked cards: [[Green, Kitchen]]
+
+Enter the next player  asked: 1
+Their answer (yes/no): yes
+
+Enter 1's card you just viewed: Peacock
+1's hand cards: [Plum, Wrench, Lounge, Knife, Peacock]
+1's no cards: [White, Billiard Room, Revolver, Lead Pipe, Ball Room, Scarlett, Mustard, Plum, Candlestick, Dining Room, Rope, Conservatory, Wrench, Study]
+1's unchecked cards: [[Peacock, Hall], [Peacock, Knife, Hall]]
+
+-----------------------------------------------------------------------------------------
+Detective Notes:
+
+-----------------------------------------------------------------------------------------
+Your hand cards: [White, Billiard Room, Revolver, Lead Pipe]
+Potential suspects: [Scarlett]
+Potential weapons: []
+Potential rooms: [Kitchen, Library, Study]
+-----------------------------------------------------------------------------------------
+
+1's hand cards: [Plum, Wrench, Lounge, Knife, Peacock]
+1's no cards: [White, Billiard Room, Revolver, Lead Pipe, Ball Room, Scarlett, Mustard, Plum, Candlestick, Dining Room, Rope, Conservatory, Wrench, Study]
+1's unchecked cards: [[Peacock, Hall], [Peacock, Knife, Hall]]
+
+2's hand cards: [Mustard, Dining Room, Rope]
+2's no cards: [White, Billiard Room, Revolver, Lead Pipe, Plum, knife, Ball Room, Scarlett, Peacock, Wrench, Hall, Conservatory, Knife, Lounge, Study, Candlestick, Rope]
+2's unchecked cards: [[Green, Kitchen]]
+
+3's hand cards: [Ball Room, Conservatory, Candlestick]
+3's no cards: [White, Billiard Room, Revolver, Lead Pipe, Mustard, Knife, Study, Plum, Lead pipe, Lounge, Dining Room, Rope, Peacock]
+3's unchecked cards: [[Green, Candlestick, Kitchen], [Scarlett, Wrench], [Scarlett, Hall]]
+
+-----------------------------------------------------------------------------------------
+
+Select option:
+   a: save notes and continue
+   c: continue
+   s: save notes and quit
+   q: quit
+>>> a
+
+Saved detective and players to ./data/clueGame2.json
+
+3's turn:
+Did they enter a room? (yes/no) 
+carinahuang@Carinas-MacBook-Pro project-w3i2w % 
