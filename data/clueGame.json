@@ -1,0 +1,98 @@
+{
+    "detective": {
+        "myhandcards": [
+            "Revolver",
+            "Dining Room",
+            "Hall",
+            "Conservatory"
+        ],
+        "myweapons": [
+            "Knife"
+        ],
+        "myrooms": [
+            "Lounge"
+        ],
+        "name": "carina",
+        "mysuspects": [
+            "Scarlett"
+        ]
+    },
+    "players": [
+        {
+            "handcards": [
+                "Candlestick",
+                "Ball Room"
+            ],
+            "name": "thomas",
+            "nocards": [
+                "Revolver",
+                "Dining Room",
+                "Hall",
+                "Conservatory",
+                "White",
+                "Wrench",
+                "Billiard Room",
+                "Scarlett",
+                "Rope"
+            ],
+            "uncheckedcards": [
+                [
+                    "Peacock",
+                    "Candlestick"
+                ],
+                [
+                    "Peacock",
+                    "Knife"
+                ]
+            ]
+        },
+        {
+            "handcards": ["Lead Pipe"],
+            "name": "sarina",
+            "nocards": [
+                "Revolver",
+                "Dining Room",
+                "Hall",
+                "Conservatory",
+                "White",
+                "Scarlett",
+                "Rope",
+                "Ball Room",
+                "Mustard",
+                "Candlestick",
+                "Lounge"
+            ],
+            "uncheckedcards": [
+                [
+                    "Plum",
+                    "Knife",
+                    "Study"
+                ],
+                [
+                    "Plum",
+                    "Wrench",
+                    "Library"
+                ]
+            ]
+        },
+        {
+            "handcards": ["White"],
+            "name": "carlton",
+            "nocards": [
+                "Revolver",
+                "Dining Room",
+                "Hall",
+                "Conservatory",
+                "Scarlett",
+                "Rope",
+                "Ball Room",
+                "Candlestick"
+            ],
+            "uncheckedcards": [[
+                "White",
+                "Wrench",
+                "Billiard Room"
+            ]]
+        }
+    ]
+}

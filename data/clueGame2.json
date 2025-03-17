@@ -1,0 +1,126 @@
+{
+    "detective": {
+        "myhandcards": [
+            "White",
+            "Billiard Room",
+            "Revolver",
+            "Lead Pipe"
+        ],
+        "myweapons": [],
+        "myrooms": [
+            "Kitchen",
+            "Library",
+            "Study"
+        ],
+        "name": "thomas",
+        "mysuspects": ["Scarlett"]
+    },
+    "players": [
+        {
+            "handcards": [
+                "Plum",
+                "Wrench",
+                "Lounge",
+                "Knife",
+                "Peacock"
+            ],
+            "name": "1",
+            "nocards": [
+                "White",
+                "Billiard Room",
+                "Revolver",
+                "Lead Pipe",
+                "Ball Room",
+                "Scarlett",
+                "Mustard",
+                "Plum",
+                "Candlestick",
+                "Dining Room",
+                "Rope",
+                "Conservatory",
+                "Wrench",
+                "Study"
+            ],
+            "uncheckedcards": [
+                [
+                    "Peacock",
+                    "Hall"
+                ],
+                [
+                    "Peacock",
+                    "Knife",
+                    "Hall"
+                ]
+            ]
+        },
+        {
+            "handcards": [
+                "Mustard",
+                "Dining Room",
+                "Rope"
+            ],
+            "name": "2",
+            "nocards": [
+                "White",
+                "Billiard Room",
+                "Revolver",
+                "Lead Pipe",
+                "Plum",
+                "knife",
+                "Ball Room",
+                "Scarlett",
+                "Peacock",
+                "Wrench",
+                "Hall",
+                "Conservatory",
+                "Knife",
+                "Lounge",
+                "Study",
+                "Candlestick",
+                "Rope"
+            ],
+            "uncheckedcards": [[
+                "Green",
+                "Kitchen"
+            ]]
+        },
+        {
+            "handcards": [
+                "Ball Room",
+                "Conservatory",
+                "Candlestick"
+            ],
+            "name": "3",
+            "nocards": [
+                "White",
+                "Billiard Room",
+                "Revolver",
+                "Lead Pipe",
+                "Mustard",
+                "Knife",
+                "Study",
+                "Plum",
+                "Lead pipe",
+                "Lounge",
+                "Dining Room",
+                "Rope",
+                "Peacock"
+            ],
+            "uncheckedcards": [
+                [
+                    "Green",
+                    "Candlestick",
+                    "Kitchen"
+                ],
+                [
+                    "Scarlett",
+                    "Wrench"
+                ],
+                [
+                    "Scarlett",
+                    "Hall"
+                ]
+            ]
+        }
+    ]
+}
