@@ -31,6 +31,8 @@ I’m interested in this project because I like playing Clue. The idea of buildi
 - I want to be able to select the player who has been asked and enter 'yes' or 'no' depending on what the player answered 
 - I want to be able to check if the suspect, weapon, or room is found (Ex. the suspect is found when there is only one suspect left in the list of potential suspect cards)
 
+- I want to be able to add and remove card directly to potential cards 
+
 ## Data Persistence User Stories
 - As a user, when I select the quit option from the application menu, I want to be reminded to save detective and list of player to file and have the option to do so or not.
 - As a user, when I start the application, I want to be given the option to load detective and list of player from file.
