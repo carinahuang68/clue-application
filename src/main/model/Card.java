@@ -5,8 +5,8 @@ public class Card {
 
     private String name;
     public static final String[] NAMES = { "Mustard", "Plum", "Green", "Peacock", "Scarlett", "White",
-            "Knife", "Candlestick", "Revolver", "Rope", "Lead Pipe", "Wrench",
-            "Hall", "Lounge", "Dining Room", "Kitchen", "Ball Room", "Conservatory", "Billiard Room", "Library",
+            "Knife", "Candlestick", "Revolver", "Rope", "Lead pipe", "Wrench",
+            "Hall", "Lounge", "Dining room", "Kitchen", "Ball room", "Conservatory", "Billiard room", "Library",
             "Study" };
 
     /*

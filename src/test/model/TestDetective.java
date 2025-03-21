@@ -19,7 +19,7 @@ public class TestDetective {
         mycards.add("Mustard");
         mycards.add("Green");
         mycards.add("Revolver");
-        mycards.add("Ball Room");
+        mycards.add("Ball room");
         d = new Detective("Carina", mycards);
     }
 
@@ -38,7 +38,7 @@ public class TestDetective {
         assertNull(d.getWeapon("Revolver"));
 
         assertEquals(8, d.getRooms().size());
-        assertNull(d.getRoom("Ball Room"));
+        assertNull(d.getRoom("Ball"));
     }
 
     @Test
@@ -51,9 +51,9 @@ public class TestDetective {
         assertEquals(3, d.getSuspects().size());
         assertNull(d.getSuspect("Scarlett"));
 
-        d.eliminateCard("Billiard Room");
+        d.eliminateCard("Billiard room");
         assertEquals(7, d.getRooms().size());
-        assertNull(d.getRoom("Billiard Room"));
+        assertNull(d.getRoom("Billiard room"));
     }
 
     // Tests for removeSuspect()
@@ -100,10 +100,10 @@ public class TestDetective {
     // Tests for removeRoom()
     @Test
     public void testTrueRemoveRoom() {
-        Room dining = d.getRoom("Dining Room");
-        assertEquals(dining, d.removeRoom("Dining Room"));
+        Room dining = d.getRoom("Dining room");
+        assertEquals(dining, d.removeRoom("Dining room"));
         assertEquals(7, d.getRooms().size());
-        assertNull(d.getWeapon("Dining Room"));
+        assertNull(d.getWeapon("Dining room"));
 
         Room library = d.getRoom("Library");
         assertEquals(library, d.removeRoom("Library"));
@@ -142,7 +142,7 @@ public class TestDetective {
         d.removeWeapon("Candlestick");
         d.removeWeapon("Revolver");
         d.removeWeapon("Rope");
-        d.removeWeapon("Lead Pipe");
+        d.removeWeapon("Lead pipe");
         assertTrue(d.foundWeapon());
     }
 
@@ -159,9 +159,9 @@ public class TestDetective {
         d.removeRoom("Hall");
         d.removeRoom("Lounge");
         d.removeRoom("Kitchen");
-        d.removeRoom("Ball Room");
+        d.removeRoom("Ball room");
         d.removeRoom("Conservatory");
-        d.removeRoom("Billiard Room");
+        d.removeRoom("Billiard room");
         d.removeRoom("Library");
         d.removeRoom("Study");
         assertTrue(d.foundRoom());
@@ -173,7 +173,7 @@ public class TestDetective {
         d.removeRoom("Kitchen");
         d.removeRoom("Ball Room");
         d.removeRoom("Conservatory");
-        d.removeRoom("Billiard Room");
+        d.removeRoom("Billiard");
         d.removeRoom("Library");
         d.removeRoom("Study");
         assertFalse(d.foundRoom());

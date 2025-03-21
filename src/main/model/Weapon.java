@@ -3,7 +3,7 @@ package model;
 // represents a weapon card with name
 public class Weapon extends Card {
 
-    public static final String[] NAMES = { "Knife", "Candlestick", "Revolver", "Rope", "Lead Pipe", "Wrench" };
+    public static final String[] NAMES = { "Knife", "Candlestick", "Revolver", "Rope", "Lead pipe", "Wrench" };
 
     public Weapon(String name) {
         super(name);
@@ -20,7 +20,7 @@ public class Weapon extends Card {
     }
 
     public static String names() {
-        return "Knife, Candlestick, Revolver, Rope, Lead Pipe, Wrench";
+        return "Knife, Candlestick, Revolver, Rope, Lead pipe, Wrench";
     }
 
 }

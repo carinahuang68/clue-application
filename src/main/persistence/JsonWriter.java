@@ -30,20 +30,6 @@ public class JsonWriter {
         writer = new PrintWriter(new File(destination));
     }
 
-    // // MODIFIES: this
-    // // EFFECTS: writes JSON representation of the detective to file
-    // public void write(Detective d) {
-    //     json.put("detective", d.toJson());
-    //     saveToFile(json.toString(TAB));
-    // }
-
-    // // MODIFIES: this
-    // // EFFECTS: writes JSON representation of the players to file
-    // public void write(List<Player> players) {
-    //     json.put("players", playersToJson(players));
-    //     saveToFile(json.toString(TAB));
-    // }
-
     // MODIFIES: this
     // EFFECTS: writes JSON representation of detective and players to file
     public void write(Detective d, List<Player> players) {

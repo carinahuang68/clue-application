@@ -3,8 +3,8 @@ package model;
 // represents a room card with name
 public class Room extends Card {
 
-    public static final String[] NAMES = { "Hall", "Lounge", "Dining Room", "Kitchen", "Ball Room", "Conservatory",
-            "Billiard Room", "Library", "Study" };
+    public static final String[] NAMES = { "Hall", "Lounge", "Dining room", "Kitchen", "Ball room", "Conservatory", "Billiard room",
+            "Library", "Study" };
 
     public Room(String name) {
         super(name);
@@ -30,7 +30,7 @@ public class Room extends Card {
     }
 
     public static String names() {
-        return "Hall, Lounge, Dining Room, Kitchen, Ball Room, Conservatory, Billiard Room, Library, Study";
+        return "Hall, Lounge, Dining room, Kitchen, Ball room, Conservatory, Billiard room, Library, Study";
     }
 
 }

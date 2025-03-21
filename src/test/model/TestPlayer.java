@@ -51,7 +51,7 @@ public class TestPlayer {
         assertEquals(3, p.getHandCards().size());
         assertEquals("Kitchen", p.getHandCards().get(2).getName());
         assertEquals(8, c.getRooms().size());
-        assertEquals("Ball Room", c.getRooms().get(3).getName());
+        assertEquals("Ball room", c.getRooms().get(3).getName());
     }
 
     @Test
