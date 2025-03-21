@@ -6,16 +6,10 @@
             "Hall",
             "Conservatory"
         ],
-        "myweapons": [
-            "Knife"
-        ],
-        "myrooms": [
-            "Lounge"
-        ],
+        "myweapons": ["Knife"],
+        "myrooms": ["Lounge"],
         "name": "carina",
-        "mysuspects": [
-            "Scarlett"
-        ]
+        "mysuspects": ["Scarlett"]
     },
     "players": [
         {

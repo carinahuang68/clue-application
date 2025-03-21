@@ -7,6 +7,7 @@ public class ClueGame {
     private int numPlayers;
     private List<Player> players;
     private Detective detective;
+    private List<String> eliminatedPlayers;
 
     /*
      * EFFECTS: Constructs a new clue game with new players and new detective
@@ -23,6 +24,7 @@ public class ClueGame {
             myHandCards.add(handCard);
         }
         detective = new Detective(detectiveName, myHandCards);
+        eliminatedPlayers = new ArrayList<>();
     }
 
     /*
@@ -32,6 +34,7 @@ public class ClueGame {
         numPlayers = players.size() + 1;
         this.detective = detective;
         this.players = players;
+        eliminatedPlayers = new ArrayList<>();
     }
 
     public List<Player> getPlayers() {
@@ -45,6 +48,18 @@ public class ClueGame {
             }
         }
         return null;
+    }
+
+    public void eliminatePlayer(String name) {
+        eliminatedPlayers.add(name);
+    }
+
+    public int getNumPlayersRemaining() {
+        return numPlayers - eliminatedPlayers.size();
+    }
+
+    public List<String> getEliminatedPlayers() {
+        return eliminatedPlayers;
     }
 
     public Detective getDetective() {

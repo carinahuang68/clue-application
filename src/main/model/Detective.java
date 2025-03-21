@@ -227,6 +227,12 @@ public class Detective implements Writable {
         return name;
     }
 
+    public int getNumCardsEliminated() {
+        int numPotentialCards = suspects.size() + weapons.size() + rooms.size();
+        int numCardsEliminated = Card.NAMES.length - numPotentialCards;
+        return numCardsEliminated;
+    }
+
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();

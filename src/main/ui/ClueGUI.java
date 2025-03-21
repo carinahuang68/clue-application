@@ -34,10 +34,21 @@ public class ClueGUI extends JPanel {
     private static final int frameHeight = 600;
     private JPanel mainPanel;
     private CardLayout cardLayout;
-    private JPanel gamePanel;
-    private JPanel playerTurnPanel;
-    private JPanel notesPanel;
-    private JPanel controlPanel;
+    JScrollPane detectiveNotes;
+    JTextArea notes;
+    JButton saveButton;
+    JButton quitButton;
+    JButton nextButton;
+    JButton refreshButton;
+    JButton addCardButton;
+    JButton removeCardButton;
+    JButton eliminatePlayerButton;
+    JLabel nextPlayerLabel;
+    JLabel progressLabel;
+    JLabel saveStatusLabel;
+    JLabel fileLabel;
+    JLabel numPlayerLabel;
+    JLabel numCardsInRoomLabel;
 
     private ClueGame game;
     private int numPlayers;
@@ -46,7 +57,10 @@ public class ClueGUI extends JPanel {
     private String[] myHandCards;
     private int numHandCardsPerPlayer;
     private List<String> orderedPlayers;
+    private int currentPlayerIndex;
+    private String currentPlayer;
     private String currentInput;
+    private int numCardsInRooms;
 
     public ClueGUI() {
         openClueWindow();
@@ -62,9 +76,8 @@ public class ClueGUI extends JPanel {
         frame.setVisible(true);
     }
 
-    
-     // EFFECTS: Either calls load() or setUpNewGame() to load game,
-     //          then call orderPlayersANDStartGame()
+    // EFFECTS: Either calls load() or setUpNewGame() to load game,
+    // then call orderPlayersANDStartGame()
     public void setUp() {
         JDialog dialog = new JDialog((Frame) null, "Welcome to Clue!", true);
         dialog.setSize(300, 180);
@@ -104,7 +117,7 @@ public class ClueGUI extends JPanel {
     }
 
     // EFFECTS: obtains initial game info through user's inputs
-    //          then create new clue game
+    // then create new clue game
     public void setUpNewGame() {
         numPlayerSelectionDialog();
         playerNamesInputDialog();
@@ -116,8 +129,7 @@ public class ClueGUI extends JPanel {
         System.out.println("Created new game with detective " + d + " and " + num + " other players.");
     }
 
-    
-     // EFFECTS: lets user select number of players
+    // EFFECTS: lets user select number of players
     public void numPlayerSelectionDialog() {
         // Create panel for dropdown
         JPanel panel = new JPanel(new FlowLayout());
@@ -176,10 +188,10 @@ public class ClueGUI extends JPanel {
     }
 
     // EFFECTS: calculates number of hand cards per player and
-    //          show instuctions to set up Clue game
+    // show instuctions to set up Clue game
     public void showInstructionsDialog() {
         numHandCardsPerPlayer = (Card.NAMES.length - 3) / numPlayers;
-        int numCardsInRooms = (Card.NAMES.length - 3) % numPlayers;
+        numCardsInRooms = (Card.NAMES.length - 3) % numPlayers;
         String instructions = "Set up instructions:\n"
                 + "1. Randomly pick one secret suspect card, one secret weapon card, and one secret room card.\n"
                 + "2. Place the 3 secret cards in the confidential folder, without looking at the cards!\n"
@@ -259,44 +271,8 @@ public class ClueGUI extends JPanel {
     }
 
     /*
-     * REQUIRES: loaded file must have initialized players and detective
-     * MODIFIES: this
-     * EFFECTS: loads detective and players from file
-     */
-    private void load() {
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle("Select a JSON File to Load");
-        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        fileChooser.setCurrentDirectory(new File("data")); // Opens the "data" folder inside the project
-        fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("JSON Files (*.json)", "json"));
-
-        int result = fileChooser.showOpenDialog(null); // Show dialog
-
-        if (result == JFileChooser.APPROVE_OPTION) {
-            File selectedFile = fileChooser.getSelectedFile();
-            String filePath = "data/" + selectedFile.getName();
-            jsonWriter = new JsonWriter(filePath);
-            jsonReader = new JsonReader(filePath);
-            System.out.println("Selected file: " + filePath);
-            try {
-                Detective detective = jsonReader.readDetective();
-                System.out.println("Loaded " + detective.getName() + " from " + filePath);
-                List<Player> players = jsonReader.readPlayers();
-                System.out.println("Loaded " + players + " from " + filePath);
-                game = new ClueGame(detective, players);
-                myName = game.getDetective().getName();
-                System.out.println("Saved players to game");
-            } catch (IOException e) {
-                System.out.println("Unable to read from file: " + filePath);
-            }
-        } else {
-            System.out.println("File selection canceled.");
-        }
-    }
-
-    /*
      * EFFECTS: Let user input player order
-     *          After order is set, calls setUpPanels(), then calls runGame()
+     * After order is set, calls setUpMainFrame(), then calls runGame()
      */
     public void orderPlayersANDStartGame() {
         orderedPlayers = new ArrayList<>();
@@ -321,7 +297,7 @@ public class ClueGUI extends JPanel {
             addPlayerToOrderedPlayer();
         }
         System.out.println("Ordered players: " + orderedPlayers);
-        setUpPanels();
+        setUpMainFrame();
         runGame();
     }
 
@@ -339,100 +315,270 @@ public class ClueGUI extends JPanel {
             JOptionPane.showMessageDialog(null,
                     "Invalid player name!",
                     "Invalid Input", JOptionPane.ERROR_MESSAGE);
-                    currentInput = JOptionPane.showInputDialog("Please enter again: ");
+            currentInput = JOptionPane.showInputDialog("Please enter again: ");
         }
         orderedPlayers.add(currentInput);
         System.out.println();
     }
 
-
-    // EFFECTS: sets up main game panel
-    public void setUpPanels() {
-        // TODO: make clue GUI
-        setUpMainFrame();
-        setUpPlayerTurnPanel();
-    }
-
     public void setUpMainFrame() {
-        // South Panel (Contains two rows)
-        JPanel southPanel = new JPanel(new BorderLayout());
-        southPanel.setBorder(new EmptyBorder(5, 15, 10, 15));
 
-        // Bottom Row (Quit, Label, Next)
+        // Bottom Panel
+        JPanel bottomPanel = new JPanel(new BorderLayout());
+        bottomPanel.setBorder(new EmptyBorder(5, 15, 10, 15));
         JPanel bottomRow = new JPanel(new BorderLayout());
-        JButton quitButton = new JButton("Quit");
-        JLabel statusLabel = new JLabel("Next player: ", JLabel.CENTER);
-        JButton nextButton = new JButton("Next");
-
+        quitButton = new JButton("Quit");
+        nextPlayerLabel = new JLabel("Next player: ", JLabel.CENTER);
+        nextButton = new JButton("Next");
         bottomRow.add(quitButton, BorderLayout.WEST);
-        bottomRow.add(statusLabel, BorderLayout.CENTER);
+        bottomRow.add(nextPlayerLabel, BorderLayout.CENTER);
         bottomRow.add(nextButton, BorderLayout.EAST);
+        bottomPanel.add(bottomRow, BorderLayout.SOUTH);
 
-        // Add both rows to the south panel
-        //southPanel.add(topRow, BorderLayout.NORTH);
-        southPanel.add(bottomRow, BorderLayout.SOUTH);
+        // Left Panel:
+        JPanel leftPanel = new JPanel();
+        leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
+        leftPanel.setPreferredSize(new Dimension(250, 400));
+        // image label
+        ImageIcon originalIcon = new ImageIcon("image/detective.jpeg"); // Load image
+        Image originalImage = originalIcon.getImage();
+        Image resizedImage = originalImage.getScaledInstance(250, 350, Image.SCALE_SMOOTH);
+        ImageIcon resizedIcon = new ImageIcon(resizedImage);
+        JLabel imageLabel = new JLabel(resizedIcon);
+        imageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        // status panel
+        JPanel statusPanel = new JPanel(new GridLayout(6, 1));
+        statusPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        // initialize labels
+        fileLabel = new JLabel("Destination: ");
+        numPlayerLabel = new JLabel("# of players left: ");
+        numCardsInRooms = (Card.NAMES.length - 3) % game.getNumPlayers();
+        numCardsInRoomLabel = new JLabel("# of cards in room: " + numCardsInRooms);
+        numHandCardsPerPlayer = (Card.NAMES.length - 3) / game.getNumPlayers();
+        JLabel numHandCardsPerPlayerLabel = new JLabel("# of hand cards per player: " + numHandCardsPerPlayer);
+        progressLabel = new JLabel("Progress: ");
+        saveStatusLabel = new JLabel("Saved");
+        saveStatusLabel.setVisible(false);
+        // add labels
+        statusPanel.add(fileLabel);
+        statusPanel.add(numPlayerLabel);
+        statusPanel.add(numHandCardsPerPlayerLabel);
+        statusPanel.add(numCardsInRoomLabel);
+        statusPanel.add(progressLabel);
+        statusPanel.add(saveStatusLabel);
+        // Add image label
+        leftPanel.add(imageLabel);
+        // Add spacing between image and status panel
+        leftPanel.add(Box.createRigidArea(new Dimension(0, 10))); // 10px vertical gap
+        // Add status panel
+        leftPanel.add(statusPanel);
 
-        // Load and resize image
-       ImageIcon originalIcon = new ImageIcon("image/detective.jpeg"); // Load image
-       Image originalImage = originalIcon.getImage();
-       Image resizedImage = originalImage.getScaledInstance(220, 300, Image.SCALE_SMOOTH); // Resize to 200x300
-       ImageIcon resizedIcon = new ImageIcon(resizedImage);
+        // Main Panel
+        JPanel mainPanel = new JPanel(new BorderLayout());
+        notes = new JTextArea("Detective Notes...");
+        notes.setLineWrap(false);
+        notes.setWrapStyleWord(true);
+        detectiveNotes = new JScrollPane(notes);
+        mainPanel.add(detectiveNotes, BorderLayout.CENTER);
+        JPanel buttons = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        removeCardButton = new JButton("Remove Card");
+        addCardButton = new JButton("Add Card");
+        eliminatePlayerButton = new JButton("Eliminate Player");
+        saveButton = new JButton("Save");
+        buttons.add(removeCardButton);
+        buttons.add(addCardButton);
+        buttons.add(eliminatePlayerButton);
+        buttons.add(saveButton);
+        mainPanel.add(buttons, BorderLayout.SOUTH);
 
-       JLabel imageLabel = new JLabel(resizedIcon); // Change to your image path
-       JPanel imagePanel = new JPanel();
-       imagePanel.add(imageLabel);
-
-       // Add detective note in the center
-       JPanel notesJPanel = new JPanel(new BorderLayout());
-       JTextArea notes = new JTextArea("Detective Notes...");
-       notes.setLineWrap(true);
-       notes.setWrapStyleWord(true);
-       JScrollPane detectiveNotes = new JScrollPane(notes);
-       notesJPanel.add(detectiveNotes, BorderLayout.CENTER);
-
-       JPanel buttons = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        buttons.add(new JButton("Remove Card"));
-        buttons.add(new JButton("Add Card"));
-        buttons.add(new JButton("Eliminate Player"));
-        buttons.add(new JButton("Save"));
-       notesJPanel.add(buttons, BorderLayout.SOUTH);
-
-        // Add south panel to frame
-        frame.add(southPanel, BorderLayout.SOUTH);
-        frame.add(imagePanel, BorderLayout.WEST);
-        frame.add(notesJPanel, BorderLayout.CENTER);
-
-        frame.revalidate();  // Refresh layout
-        frame.repaint();     // Redraw the frame
+        // Add panels to frame
+        frame.add(bottomPanel, BorderLayout.SOUTH);
+        frame.add(leftPanel, BorderLayout.WEST);
+        frame.add(mainPanel, BorderLayout.CENTER);
     }
 
-    public void setUpPlayerTurnPanel() {
-        playerTurnPanel = new JPanel();
-        playerTurnPanel.add(new JLabel("Player's Turn: Roll the dice!"));
-    }
-
-    // EFFECTS: runs the game through looping each players' turn
+    // EFFECTS: runs the game
     public void runGame() {
+        currentPlayerIndex = -1; // initialize currentPlayerIndex
+        updateFrame();
+        activateGUI();
+    }
+
+    /*
+     * Activates Clue GUI where actions are performed when user clicks button
+     */
+    public void activateGUI() {
+        removeCardButton.addActionListener(e -> removePotentialCard());
+        addCardButton.addActionListener(e -> addPotentialCard());
+        eliminatePlayerButton.addActionListener(e -> eliminatePlayer());
+        saveButton.addActionListener(e -> save());
+        quitButton.addActionListener(e -> quit());
+        nextButton.addActionListener(e -> nextTurn());
+    }
+
+    public void updateFrame() {
+        notes.setText(getDetectiveNotes()); // updates detective note
+        fileLabel.setText("Destination: " + filePath);
+        numPlayerLabel.setText("# of players left: " + game.getNumPlayersRemaining());
+        // calculate progress
+        int numEliminatedCards = game.getDetective().getNumCardsEliminated();
+        progressLabel.setText("Progress: " + numEliminatedCards + "/" + Card.NAMES.length);
+        nextPlayerLabel.setText("Next player: " + getNextPlayer());
+        frame.revalidate();
+        frame.repaint();
+    }
+
+    public String getNextPlayer() {
+        // Find the next non-eliminated player
+        int tempIndex = currentPlayerIndex;
+        do {
+            tempIndex = (tempIndex + 1) % orderedPlayers.size();
+        } while (game.getEliminatedPlayers().contains(orderedPlayers.get(tempIndex)));
+
+        return orderedPlayers.get(tempIndex);
+    }
+
+    public void removePotentialCard() {
         // stub
     }
 
-    public void switchToGamePanel() {
-        cardLayout.show(mainPanel, "Game");
+    public void addPotentialCard() {
+        // stub
     }
 
-    public void switchToPlayerTurnPanel() {
-        cardLayout.show(mainPanel, "Player Turn");
+    public void eliminatePlayer() {
+        // stub
     }
 
-    public void switchToNotesPanel() {
-        cardLayout.show(mainPanel, "Notes");
+    public void quit() {
+        String message = "Do you want to save changed before quitting?";
+        int choice = JOptionPane.showConfirmDialog(frame, message, "Comfirm Quit", JOptionPane.YES_NO_CANCEL_OPTION);
+
+        if (choice == JOptionPane.YES_OPTION) {
+            System.out.println("User saved and quit.");
+            save();
+            System.exit(0);
+        } else if (choice == JOptionPane.NO_OPTION) {
+            System.out.println("User quit without saving.");
+            System.exit(0);
+        } else if (choice == JOptionPane.CANCEL_OPTION) {
+            System.out.println("User canceled quitting.");
+        }
     }
 
-    public void switchToControlPanel() {
-        cardLayout.show(mainPanel, "Control");
+    public void nextTurn() {
+        Detective detective = game.getDetective();
+
+        // Check if game is over
+        if (detective.foundSuspect() && detective.foundWeapon() && detective.foundRoom()) {
+            foundSecretMurder();
+            return;
+        }
+
+        // Update to the next player
+        currentPlayer = getNextPlayer();
+        currentPlayerIndex = orderedPlayers.indexOf(currentPlayer);
+
+        if (currentPlayer.equals(myName)) {
+            detectivesTurn();
+        } else {
+            playersTurn(currentPlayer);
+        }
     }
-    
-    // EFFECTS: saves the detective and list of players to a new file or destinated file
+
+    public void detectivesTurn() {
+
+    }
+
+    public void playersTurn(String currentPlayer) {
+
+    }
+
+    /*
+     * EFFECTS: returns all clues as a formatted string to help the detective find
+     * the murderer.
+     */
+    public String getDetectiveNotes() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("Detective Notes...\n\n");
+
+        sb.append(getMyNotes()).append("\n");
+
+        List<Player> players = game.getPlayers();
+        for (Player p : players) {
+            sb.append(getPlayerNote(p)).append("\n");
+        }
+
+        return sb.toString();
+    }
+
+    /*
+     * EFFECTS: returns p's hand cards, no cards, and unchecked cards as a formatted
+     * string.
+     */
+    public String getPlayerNote(Player p) {
+        return p.getName() + "'s hand cards: " + p.getHandCards() + "\n" +
+                p.getName() + "'s no cards: " + p.getNoCards() + "\n" +
+                p.getName() + "'s unchecked cards: " + p.getUncheckedCards() + "\n";
+    }
+
+    /*
+     * EFFECTS: returns detective's hand cards and potential murder cards as a
+     * formatted string.
+     */
+    public String getMyNotes() {
+        Detective detective = game.getDetective();
+        return "-----------------------------------------------------------------------------------------\n" +
+                "Your hand cards: " + detective.getHandcards() + "\n" +
+                "Potential suspects: " + detective.getSuspects() + "\n" +
+                "Potential weapons: " + detective.getWeapons() + "\n" +
+                "Potential rooms: " + detective.getRooms() + "\n" +
+                "-----------------------------------------------------------------------------------------\n";
+    }
+
+    public void foundSecretMurder() {
+
+    }
+
+    /*
+     * REQUIRES: loaded file must have initialized players and detective
+     * MODIFIES: this
+     * EFFECTS: loads detective and players from file
+     */
+    private void load() {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Select a JSON File to Load");
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        fileChooser.setCurrentDirectory(new File("data")); // Opens the "data" folder inside the project
+        fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("JSON Files (*.json)", "json"));
+
+        int result = fileChooser.showOpenDialog(null); // Show dialog
+
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            filePath = "data/" + selectedFile.getName();
+            jsonWriter = new JsonWriter(filePath);
+            jsonReader = new JsonReader(filePath);
+            System.out.println("Selected file: " + filePath);
+            try {
+                Detective detective = jsonReader.readDetective();
+                System.out.println("Loaded " + detective.getName() + " from " + filePath);
+                List<Player> players = jsonReader.readPlayers();
+                System.out.println("Loaded " + players + " from " + filePath);
+                game = new ClueGame(detective, players);
+                myName = game.getDetective().getName();
+                System.out.println("Saved players to game");
+            } catch (IOException e) {
+                System.out.println("Unable to read from file: " + filePath);
+            }
+        } else {
+            System.out.println("File selection canceled.");
+        }
+    }
+
+    // EFFECTS: saves the detective and list of players to a new file or destinated
+    // file
     public void save() {
         if (filePath == null) {
             JTextField fileNameField = new JTextField();
@@ -450,6 +596,8 @@ public class ClueGUI extends JPanel {
 
             // Create the full file path inside "data" folder
             filePath = "data/" + fileNameField.getText().trim() + ".json";
+            jsonWriter = new JsonWriter(filePath);
+            saveStatusLabel.setVisible(true);
         }
 
         try {
@@ -461,13 +609,11 @@ public class ClueGUI extends JPanel {
         } catch (FileNotFoundException e) {
             System.out.println("Unable to write to file: " + filePath);
         }
+        saveStatusLabel.setVisible(true);
+        Timer timer = new Timer(2000, e -> saveStatusLabel.setVisible(false));
+        timer.setRepeats(false); // Ensure it only runs once
+        timer.start(); // Start the timer
+        updateFrame();
     }
 
 }
-
-// @Override
-// public void actionPerformed(ActionEvent e) {
-// // Auto-generated method stub
-// throw new UnsupportedOperationException("Unimplemented method
-// 'actionPerformed'");
-// }

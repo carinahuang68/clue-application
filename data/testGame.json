@@ -1,0 +1,66 @@
+{
+    "detective": {
+        "myhandcards": [
+            "Revolver",
+            "Hall",
+            "Plum"
+        ],
+        "myweapons": [
+            "Knife",
+            "Candlestick",
+            "Rope",
+            "Lead pipe",
+            "Wrench"
+        ],
+        "myrooms": [
+            "Lounge",
+            "Dining room",
+            "Kitchen",
+            "Ball room",
+            "Conservatory",
+            "Billiard room",
+            "Library",
+            "Study"
+        ],
+        "name": "a",
+        "mysuspects": [
+            "Mustard",
+            "Green",
+            "Peacock",
+            "Scarlett",
+            "White"
+        ]
+    },
+    "players": [
+        {
+            "handcards": [],
+            "name": "b",
+            "nocards": [],
+            "uncheckedcards": []
+        },
+        {
+            "handcards": [],
+            "name": "c",
+            "nocards": [],
+            "uncheckedcards": []
+        },
+        {
+            "handcards": [],
+            "name": "d",
+            "nocards": [],
+            "uncheckedcards": []
+        },
+        {
+            "handcards": [],
+            "name": "e",
+            "nocards": [],
+            "uncheckedcards": []
+        },
+        {
+            "handcards": [],
+            "name": "f",
+            "nocards": [],
+            "uncheckedcards": []
+        }
+    ]
+}
