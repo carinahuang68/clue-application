@@ -1,20 +1,14 @@
 package ui;
 
-import org.w3c.dom.events.MouseEvent;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javax.swing.*;
-
-import static org.junit.jupiter.api.Assertions.assertTimeout;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 
 import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -28,15 +22,24 @@ import model.Detective;
 import model.Card;
 import model.ClueGame;
 
+// @SuppressWarnings("methodlength")
+
 public class ClueGUI extends JPanel {
     private String filePath;
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
 
     private JFrame frame = new JFrame("Clue Application");
+    private static final int frameWidth = 800;
+    private static final int frameHeight = 600;
+    private JPanel mainPanel;
+    private CardLayout cardLayout;
+    private JPanel gamePanel;
+    private JPanel playerTurnPanel;
+    private JPanel notesPanel;
+    private JPanel controlPanel;
+
     private ClueGame game;
-    private static final int frameWidth = 350;
-    private static final int frameHeight = 200;
     private int numPlayers;
     private String[] playerNames;
     private String myName;
@@ -46,10 +49,22 @@ public class ClueGUI extends JPanel {
     private String currentInput;
 
     public ClueGUI() {
+        openClueWindow();
         setUp();
     }
 
-    // @SuppressWarnings("methodlength")
+    // opens a backgroud window
+    public void openClueWindow() {
+        frame.setSize(frameWidth, frameHeight);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLocationRelativeTo(null); // display JFrame to center of screen
+        frame.setLayout(new BorderLayout());
+        frame.setVisible(true);
+    }
+
+    
+     // EFFECTS: Either calls load() or setUpNewGame() to load game,
+     //          then call orderPlayersANDStartGame()
     public void setUp() {
         JDialog dialog = new JDialog((Frame) null, "Welcome to Clue!", true);
         dialog.setSize(300, 180);
@@ -76,19 +91,20 @@ public class ClueGUI extends JPanel {
         loadButton.addActionListener(e -> {
             dialog.dispose();
             load();
-            orderPlayers();
-            openClueWindow();
+            orderPlayersANDStartGame();
         });
 
         newGameButton.addActionListener(e -> {
             dialog.dispose();
             setUpNewGame();
-            orderPlayers();
-            openClueWindow();
+            orderPlayersANDStartGame();
         });
+
         dialog.setVisible(true);
     }
 
+    // EFFECTS: obtains initial game info through user's inputs
+    //          then create new clue game
     public void setUpNewGame() {
         numPlayerSelectionDialog();
         playerNamesInputDialog();
@@ -100,6 +116,8 @@ public class ClueGUI extends JPanel {
         System.out.println("Created new game with detective " + d + " and " + num + " other players.");
     }
 
+    
+     // EFFECTS: lets user select number of players
     public void numPlayerSelectionDialog() {
         // Create panel for dropdown
         JPanel panel = new JPanel(new FlowLayout());
@@ -122,6 +140,7 @@ public class ClueGUI extends JPanel {
         System.out.println();
     }
 
+    // EFFECTS: lets user input all player's name
     public void playerNamesInputDialog() {
         JPanel panel = new JPanel(new GridLayout(numPlayers + 1, 1, 5, 5));
         panel.add(new JLabel("Enter your name: "));
@@ -156,6 +175,8 @@ public class ClueGUI extends JPanel {
         System.out.println();
     }
 
+    // EFFECTS: calculates number of hand cards per player and
+    //          show instuctions to set up Clue game
     public void showInstructionsDialog() {
         numHandCardsPerPlayer = (Card.NAMES.length - 3) / numPlayers;
         int numCardsInRooms = (Card.NAMES.length - 3) % numPlayers;
@@ -170,6 +191,7 @@ public class ClueGUI extends JPanel {
         JOptionPane.showMessageDialog(null, instructions);
     }
 
+    // EFFECTS: lets user input their hand cards
     public void myHandCardsInputDialog() {
         boolean validInput = false;
         while (!validInput) {
@@ -177,7 +199,7 @@ public class ClueGUI extends JPanel {
             panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS)); // Use vertical layout for stacking components
 
             // Create JTextArea for the card names reference
-            JTextArea cardNamesTextArea = new JTextArea(5, 42); // 5 rows, 30 columns
+            JTextArea cardNamesTextArea = new JTextArea(5, 35); // 5 rows, 30 columns
             cardNamesTextArea.setText(getCardNames());
             cardNamesTextArea.setWrapStyleWord(true); // Enable word wrapping
             cardNamesTextArea.setLineWrap(true); // Enable line wrapping
@@ -236,6 +258,11 @@ public class ClueGUI extends JPanel {
         return cardNames;
     }
 
+    /*
+     * REQUIRES: loaded file must have initialized players and detective
+     * MODIFIES: this
+     * EFFECTS: loads detective and players from file
+     */
     private void load() {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Select a JSON File to Load");
@@ -267,19 +294,35 @@ public class ClueGUI extends JPanel {
         }
     }
 
-    public void orderPlayers() {
+    /*
+     * EFFECTS: Let user input player order
+     *          After order is set, calls setUpPanels(), then calls runGame()
+     */
+    public void orderPlayersANDStartGame() {
         orderedPlayers = new ArrayList<>();
         JOptionPane.showMessageDialog(null, "Time to input player order!");
-        currentInput = JOptionPane.showInputDialog("Enter first player");
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        JLabel name = new JLabel("Your name: " + myName);
+        JLabel playerNames = new JLabel("Players names: " + game.getPlayers());
+        JLabel message = new JLabel("Enter first player: ");
+        panel.add(name);
+        panel.add(playerNames);
+        panel.add(new JLabel(" "));
+        panel.add(message);
+
+        currentInput = JOptionPane.showInputDialog(null, panel);
         System.out.println("Num players = " + game.getNumPlayers());
         addPlayerToOrderedPlayer();
+        panel.remove(message);
+        panel.add(new JLabel("Enter next player: "));
         for (int i = 2; i <= game.getNumPlayers(); i++) {
-            currentInput = JOptionPane.showInputDialog("Enter next player");
+            currentInput = JOptionPane.showInputDialog(null, panel);
             addPlayerToOrderedPlayer();
         }
         System.out.println("Ordered players: " + orderedPlayers);
-        System.out.println("All set! Ready to start the game!");
-        System.out.println();
+        setUpPanels();
+        runGame();
     }
 
     /*
@@ -302,16 +345,94 @@ public class ClueGUI extends JPanel {
         System.out.println();
     }
 
-    public void openClueWindow() {
-        frame.setSize(frameWidth, frameHeight);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLocationRelativeTo(null); // display JFrame to center of screen
-        frame.setVisible(true);
 
-        JPanel panel = new JPanel();
-        frame.add(panel);
+    // EFFECTS: sets up main game panel
+    public void setUpPanels() {
+        // TODO: make clue GUI
+        setUpMainFrame();
+        setUpPlayerTurnPanel();
     }
 
+    public void setUpMainFrame() {
+        // South Panel (Contains two rows)
+        JPanel southPanel = new JPanel(new BorderLayout());
+        southPanel.setBorder(new EmptyBorder(5, 15, 10, 15));
+
+        // Bottom Row (Quit, Label, Next)
+        JPanel bottomRow = new JPanel(new BorderLayout());
+        JButton quitButton = new JButton("Quit");
+        JLabel statusLabel = new JLabel("Next player: ", JLabel.CENTER);
+        JButton nextButton = new JButton("Next");
+
+        bottomRow.add(quitButton, BorderLayout.WEST);
+        bottomRow.add(statusLabel, BorderLayout.CENTER);
+        bottomRow.add(nextButton, BorderLayout.EAST);
+
+        // Add both rows to the south panel
+        //southPanel.add(topRow, BorderLayout.NORTH);
+        southPanel.add(bottomRow, BorderLayout.SOUTH);
+
+        // Load and resize image
+       ImageIcon originalIcon = new ImageIcon("image/detective.jpeg"); // Load image
+       Image originalImage = originalIcon.getImage();
+       Image resizedImage = originalImage.getScaledInstance(220, 300, Image.SCALE_SMOOTH); // Resize to 200x300
+       ImageIcon resizedIcon = new ImageIcon(resizedImage);
+
+       JLabel imageLabel = new JLabel(resizedIcon); // Change to your image path
+       JPanel imagePanel = new JPanel();
+       imagePanel.add(imageLabel);
+
+       // Add detective note in the center
+       JPanel notesJPanel = new JPanel(new BorderLayout());
+       JTextArea notes = new JTextArea("Detective Notes...");
+       notes.setLineWrap(true);
+       notes.setWrapStyleWord(true);
+       JScrollPane detectiveNotes = new JScrollPane(notes);
+       notesJPanel.add(detectiveNotes, BorderLayout.CENTER);
+
+       JPanel buttons = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        buttons.add(new JButton("Remove Card"));
+        buttons.add(new JButton("Add Card"));
+        buttons.add(new JButton("Eliminate Player"));
+        buttons.add(new JButton("Save"));
+       notesJPanel.add(buttons, BorderLayout.SOUTH);
+
+        // Add south panel to frame
+        frame.add(southPanel, BorderLayout.SOUTH);
+        frame.add(imagePanel, BorderLayout.WEST);
+        frame.add(notesJPanel, BorderLayout.CENTER);
+
+        frame.revalidate();  // Refresh layout
+        frame.repaint();     // Redraw the frame
+    }
+
+    public void setUpPlayerTurnPanel() {
+        playerTurnPanel = new JPanel();
+        playerTurnPanel.add(new JLabel("Player's Turn: Roll the dice!"));
+    }
+
+    // EFFECTS: runs the game through looping each players' turn
+    public void runGame() {
+        // stub
+    }
+
+    public void switchToGamePanel() {
+        cardLayout.show(mainPanel, "Game");
+    }
+
+    public void switchToPlayerTurnPanel() {
+        cardLayout.show(mainPanel, "Player Turn");
+    }
+
+    public void switchToNotesPanel() {
+        cardLayout.show(mainPanel, "Notes");
+    }
+
+    public void switchToControlPanel() {
+        cardLayout.show(mainPanel, "Control");
+    }
+    
+    // EFFECTS: saves the detective and list of players to a new file or destinated file
     public void save() {
         if (filePath == null) {
             JTextField fileNameField = new JTextField();
