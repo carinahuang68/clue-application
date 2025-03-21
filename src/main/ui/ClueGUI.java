@@ -9,6 +9,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javax.swing.*;
+
+import static org.junit.jupiter.api.Assertions.assertTimeout;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
@@ -39,24 +42,15 @@ public class ClueGUI extends JPanel {
     private String myName;
     private String[] myHandCards;
     private int numHandCardsPerPlayer;
+    private List<String> orderedPlayers;
+    private String currentInput;
 
     public ClueGUI() {
-        openStartDialog();
-        openClueWindow();
-    }
-
-    public void openClueWindow() {
-        frame.setSize(frameWidth, frameHeight);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLocationRelativeTo(null); // display JFrame to center of screen
-        frame.setVisible(true);
-
-        JPanel panel = new JPanel();
-        frame.add(panel);
+        setUp();
     }
 
     // @SuppressWarnings("methodlength")
-    public void openStartDialog() {
+    public void setUp() {
         JDialog dialog = new JDialog((Frame) null, "Welcome to Clue!", true);
         dialog.setSize(300, 180);
         dialog.setLayout(new BorderLayout());
@@ -82,17 +76,20 @@ public class ClueGUI extends JPanel {
         loadButton.addActionListener(e -> {
             dialog.dispose();
             load();
+            orderPlayers();
+            openClueWindow();
         });
 
         newGameButton.addActionListener(e -> {
             dialog.dispose();
-            setUpGame();
+            setUpNewGame();
+            orderPlayers();
+            openClueWindow();
         });
-
         dialog.setVisible(true);
     }
 
-    public void setUpGame() {
+    public void setUpNewGame() {
         numPlayerSelectionDialog();
         playerNamesInputDialog();
         showInstructionsDialog();
@@ -141,6 +138,9 @@ public class ClueGUI extends JPanel {
         JOptionPane.showConfirmDialog(null, panel, "Enter Player Names", JOptionPane.DEFAULT_OPTION);
 
         myName = myNameField.getText().trim();
+        if (myName.isEmpty()) {
+            myName = "d"; // default
+        }
         System.out.println("My name: " + myName);
         int numOpponents = numPlayers - 1;
         playerNames = new String[numOpponents];
@@ -202,30 +202,30 @@ public class ClueGUI extends JPanel {
 
                 // checks if input is empty
                 if (myHandCards[i].isEmpty()) {
-                    JOptionPane.showMessageDialog(null, 
-                    "Card names cannot be empty! \n Please re-enter all cards.", 
-                    "Invalid Input", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null,
+                            "Card names cannot be empty! \n Please re-enter all cards.",
+                            "Invalid Input", JOptionPane.ERROR_MESSAGE);
                     validInput = false; // Restart input
                     break;
                 }
 
                 // checks if input is not a valid card name
                 if (!Card.contains(myHandCards[i])) {
-                    JOptionPane.showMessageDialog(null, 
-                    "You have one invalid card name! \n Please re-enter all cards.", 
-                    "Invalid Input", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null,
+                            "You have one invalid card name! \n Please re-enter all cards.",
+                            "Invalid Input", JOptionPane.ERROR_MESSAGE);
                     validInput = false; // Restart input
                     break;
                 }
             }
         }
-        
+
         System.out.print("My hand cards: ");
         for (String card : myHandCards) {
             System.out.print(card + " ");
         }
         System.out.println();
-        
+
     }
 
     private String getCardNames() {
@@ -249,7 +249,7 @@ public class ClueGUI extends JPanel {
             File selectedFile = fileChooser.getSelectedFile();
             String filePath = "data/" + selectedFile.getName();
             jsonWriter = new JsonWriter(filePath);
-            jsonReader = new JsonReader(filePath); 
+            jsonReader = new JsonReader(filePath);
             System.out.println("Selected file: " + filePath);
             try {
                 Detective detective = jsonReader.readDetective();
@@ -257,6 +257,7 @@ public class ClueGUI extends JPanel {
                 List<Player> players = jsonReader.readPlayers();
                 System.out.println("Loaded " + players + " from " + filePath);
                 game = new ClueGame(detective, players);
+                myName = game.getDetective().getName();
                 System.out.println("Saved players to game");
             } catch (IOException e) {
                 System.out.println("Unable to read from file: " + filePath);
@@ -264,6 +265,51 @@ public class ClueGUI extends JPanel {
         } else {
             System.out.println("File selection canceled.");
         }
+    }
+
+    public void orderPlayers() {
+        orderedPlayers = new ArrayList<>();
+        JOptionPane.showMessageDialog(null, "Time to input player order!");
+        currentInput = JOptionPane.showInputDialog("Enter first player");
+        System.out.println("Num players = " + game.getNumPlayers());
+        addPlayerToOrderedPlayer();
+        for (int i = 2; i <= game.getNumPlayers(); i++) {
+            currentInput = JOptionPane.showInputDialog("Enter next player");
+            addPlayerToOrderedPlayer();
+        }
+        System.out.println("Ordered players: " + orderedPlayers);
+        System.out.println("All set! Ready to start the game!");
+        System.out.println();
+    }
+
+    /*
+     * MODIFIES: this
+     * EFFECTS:
+     * if player name is valid, sets currentPlayer as player and adds currentPlayer
+     * to orderPlayers
+     * if player name is invalid, lets user enter name again until currentPlayer is
+     * valid
+     */
+    public void addPlayerToOrderedPlayer() {
+        while ((game.getPlayer(currentInput) == null && !myName.equals(currentInput))
+                | orderedPlayers.contains(currentInput)) {
+            JOptionPane.showMessageDialog(null,
+                    "Invalid player name!",
+                    "Invalid Input", JOptionPane.ERROR_MESSAGE);
+                    currentInput = JOptionPane.showInputDialog("Please enter again: ");
+        }
+        orderedPlayers.add(currentInput);
+        System.out.println();
+    }
+
+    public void openClueWindow() {
+        frame.setSize(frameWidth, frameHeight);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLocationRelativeTo(null); // display JFrame to center of screen
+        frame.setVisible(true);
+
+        JPanel panel = new JPanel();
+        frame.add(panel);
     }
 
     public void save() {
@@ -274,8 +320,7 @@ public class ClueGUI extends JPanel {
             panel.add(fileNameField);
 
             int result = JOptionPane.showConfirmDialog(
-                null, panel, "Save New Game", JOptionPane.OK_CANCEL_OPTION
-            );
+                    null, panel, "Save New Game", JOptionPane.OK_CANCEL_OPTION);
 
             if (result != JOptionPane.OK_OPTION || fileNameField.getText().trim().isEmpty()) {
                 System.out.println("Save canceled.");
