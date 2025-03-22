@@ -107,7 +107,7 @@ public class Detective implements Writable {
      */
     public Suspect removeSuspect(String name) {
         for (int i = 0; i < suspects.size(); i++) {
-            if (suspects.get(i).getName().equals(name)) {
+            if (suspects.get(i).getName().equalsIgnoreCase(name)) {
                 return suspects.remove(i);
             }
         }
@@ -122,7 +122,7 @@ public class Detective implements Writable {
      */
     public Weapon removeWeapon(String name) {
         for (int i = 0; i < weapons.size(); i++) {
-            if (weapons.get(i).getName().equals(name)) {
+            if (weapons.get(i).getName().equalsIgnoreCase(name)) {
                 return weapons.remove(i);
             }
         }
@@ -137,7 +137,7 @@ public class Detective implements Writable {
      */
     public Room removeRoom(String name) {
         for (int i = 0; i < rooms.size(); i++) {
-            if (rooms.get(i).getName().equals(name)) {
+            if (rooms.get(i).getName().equalsIgnoreCase(name)) {
                 return rooms.remove(i);
             }
         }
@@ -174,7 +174,7 @@ public class Detective implements Writable {
      */
     public Suspect getSuspect(String name) {
         for (Suspect s : suspects) {
-            if (s.getName().equals(name)) {
+            if (s.getName().equalsIgnoreCase(name)) {
                 return s;
             }
         }
@@ -187,7 +187,7 @@ public class Detective implements Writable {
      */
     public Weapon getWeapon(String name) {
         for (Weapon w : weapons) {
-            if (w.getName().equals(name)) {
+            if (w.getName().equalsIgnoreCase(name)) {
                 return w;
             }
         }
@@ -200,7 +200,7 @@ public class Detective implements Writable {
      */
     public Room getRoom(String name) {
         for (Room r : rooms) {
-            if (r.getName().equals(name)) {
+            if (r.getName().equalsIgnoreCase(name)) {
                 return r;
             }
         }

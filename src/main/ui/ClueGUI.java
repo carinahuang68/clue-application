@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.*;
@@ -24,16 +23,14 @@ import model.ClueGame;
 
 // @SuppressWarnings("methodlength")
 
-public class ClueGUI extends JPanel {
+public class ClueGUI {
     private String filePath;
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
 
     private JFrame frame = new JFrame("Clue Application");
-    private static final int frameWidth = 800;
+    private static final int frameWidth = 1000;
     private static final int frameHeight = 600;
-    private JPanel mainPanel;
-    private CardLayout cardLayout;
     JScrollPane detectiveNotes;
     JTextArea notes;
     JButton saveButton;
@@ -210,13 +207,7 @@ public class ClueGUI extends JPanel {
             JPanel panel = new JPanel();
             panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS)); // Use vertical layout for stacking components
 
-            // Create JTextArea for the card names reference
-            JTextArea cardNamesTextArea = new JTextArea(5, 35); // 5 rows, 30 columns
-            cardNamesTextArea.setText(getCardNames());
-            cardNamesTextArea.setWrapStyleWord(true); // Enable word wrapping
-            cardNamesTextArea.setLineWrap(true); // Enable line wrapping
-            cardNamesTextArea.setEditable(false); // Make it non-editable
-            JScrollPane scrollPane = new JScrollPane(cardNamesTextArea);
+            JScrollPane scrollPane = getCardNamesScrollPane();
             panel.add(scrollPane);
 
             JTextField[] handCardFields = new JTextField[numHandCardsPerPlayer];
@@ -262,6 +253,17 @@ public class ClueGUI extends JPanel {
 
     }
 
+    private JScrollPane getCardNamesScrollPane() {
+        // Create JTextArea for the card names reference
+        JTextArea cardNamesTextArea = new JTextArea(5, 35); // 5 rows, 30 columns
+        cardNamesTextArea.setText(getCardNames());
+        cardNamesTextArea.setWrapStyleWord(true); // Enable word wrapping
+        cardNamesTextArea.setLineWrap(true); // Enable line wrapping
+        cardNamesTextArea.setEditable(false); // Make it non-editable
+        JScrollPane scrollPane = new JScrollPane(cardNamesTextArea);
+        return scrollPane;
+    }
+
     private String getCardNames() {
         String cardNames = "Card names reference: \n" +
                 "Suspects: " + Suspect.names() + "\n" +
@@ -297,7 +299,7 @@ public class ClueGUI extends JPanel {
             addPlayerToOrderedPlayer();
         }
         System.out.println("Ordered players: " + orderedPlayers);
-        setUpMainFrame();
+        setUpFrame();
         runGame();
     }
 
@@ -312,41 +314,58 @@ public class ClueGUI extends JPanel {
     public void addPlayerToOrderedPlayer() {
         while ((game.getPlayer(currentInput) == null && !myName.equals(currentInput))
                 | orderedPlayers.contains(currentInput)) {
-            JOptionPane.showMessageDialog(null,
-                    "Invalid player name!",
-                    "Invalid Input", JOptionPane.ERROR_MESSAGE);
-            currentInput = JOptionPane.showInputDialog("Please enter again: ");
+            invalidName("player");
         }
         orderedPlayers.add(currentInput);
         System.out.println();
     }
 
-    public void setUpMainFrame() {
+    public void setUpFrame() {
+        JPanel bottomPanel = getBottomPanel();
+        JPanel leftPanel = getLeftPanel();
+        JPanel mainPanel = getMainPanel();
+        // Add panels to frame
+        frame.add(bottomPanel, BorderLayout.SOUTH);
+        frame.add(leftPanel, BorderLayout.WEST);
+        frame.add(mainPanel, BorderLayout.CENTER);
+    }
 
-        // Bottom Panel
-        JPanel bottomPanel = new JPanel(new BorderLayout());
-        bottomPanel.setBorder(new EmptyBorder(5, 15, 10, 15));
-        JPanel bottomRow = new JPanel(new BorderLayout());
-        quitButton = new JButton("Quit");
-        nextPlayerLabel = new JLabel("Next player: ", JLabel.CENTER);
-        nextButton = new JButton("Next");
-        bottomRow.add(quitButton, BorderLayout.WEST);
-        bottomRow.add(nextPlayerLabel, BorderLayout.CENTER);
-        bottomRow.add(nextButton, BorderLayout.EAST);
-        bottomPanel.add(bottomRow, BorderLayout.SOUTH);
+    private JPanel getMainPanel() {
+        JPanel mainPanel = new JPanel(new BorderLayout());
+        notes = new JTextArea("Detective Notes...");
+        notes.setLineWrap(false);
+        notes.setWrapStyleWord(true);
+        detectiveNotes = new JScrollPane(notes);
+        mainPanel.add(detectiveNotes, BorderLayout.CENTER);
+        JPanel buttons = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        removeCardButton = new JButton("Remove Card");
+        addCardButton = new JButton("Add Card");
+        eliminatePlayerButton = new JButton("Eliminate Player");
+        saveButton = new JButton("Save");
+        buttons.add(removeCardButton);
+        buttons.add(addCardButton);
+        buttons.add(eliminatePlayerButton);
+        buttons.add(saveButton);
+        mainPanel.add(buttons, BorderLayout.SOUTH);
+        return mainPanel;
+    }
 
-        // Left Panel:
+    private JPanel getLeftPanel() {
         JPanel leftPanel = new JPanel();
         leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
         leftPanel.setPreferredSize(new Dimension(250, 400));
-        // image label
-        ImageIcon originalIcon = new ImageIcon("image/detective.jpeg"); // Load image
-        Image originalImage = originalIcon.getImage();
-        Image resizedImage = originalImage.getScaledInstance(250, 350, Image.SCALE_SMOOTH);
-        ImageIcon resizedIcon = new ImageIcon(resizedImage);
-        JLabel imageLabel = new JLabel(resizedIcon);
-        imageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        // status panel
+        JLabel imageLabel = getImageLabel();
+        JPanel statusPanel = getStatusPanel();
+        // Add image label
+        leftPanel.add(imageLabel);
+        // Add spacing between image and status panel
+        leftPanel.add(Box.createRigidArea(new Dimension(0, 10))); // 10px vertical gap
+        // Add status panel
+        leftPanel.add(statusPanel);
+        return leftPanel;
+    }
+
+    private JPanel getStatusPanel() {
         JPanel statusPanel = new JPanel(new GridLayout(6, 1));
         statusPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         // initialize labels
@@ -366,35 +385,32 @@ public class ClueGUI extends JPanel {
         statusPanel.add(numCardsInRoomLabel);
         statusPanel.add(progressLabel);
         statusPanel.add(saveStatusLabel);
-        // Add image label
-        leftPanel.add(imageLabel);
-        // Add spacing between image and status panel
-        leftPanel.add(Box.createRigidArea(new Dimension(0, 10))); // 10px vertical gap
-        // Add status panel
-        leftPanel.add(statusPanel);
+        return statusPanel;
+    }
 
-        // Main Panel
-        JPanel mainPanel = new JPanel(new BorderLayout());
-        notes = new JTextArea("Detective Notes...");
-        notes.setLineWrap(false);
-        notes.setWrapStyleWord(true);
-        detectiveNotes = new JScrollPane(notes);
-        mainPanel.add(detectiveNotes, BorderLayout.CENTER);
-        JPanel buttons = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        removeCardButton = new JButton("Remove Card");
-        addCardButton = new JButton("Add Card");
-        eliminatePlayerButton = new JButton("Eliminate Player");
-        saveButton = new JButton("Save");
-        buttons.add(removeCardButton);
-        buttons.add(addCardButton);
-        buttons.add(eliminatePlayerButton);
-        buttons.add(saveButton);
-        mainPanel.add(buttons, BorderLayout.SOUTH);
+    private JLabel getImageLabel() {
+        // image label
+        ImageIcon originalIcon = new ImageIcon("image/detective.jpeg"); // Load image
+        Image originalImage = originalIcon.getImage();
+        Image resizedImage = originalImage.getScaledInstance(250, 350, Image.SCALE_SMOOTH);
+        ImageIcon resizedIcon = new ImageIcon(resizedImage);
+        JLabel imageLabel = new JLabel(resizedIcon);
+        imageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        return imageLabel;
+    }
 
-        // Add panels to frame
-        frame.add(bottomPanel, BorderLayout.SOUTH);
-        frame.add(leftPanel, BorderLayout.WEST);
-        frame.add(mainPanel, BorderLayout.CENTER);
+    private JPanel getBottomPanel() {
+        JPanel bottomPanel = new JPanel(new BorderLayout());
+        bottomPanel.setBorder(new EmptyBorder(5, 15, 10, 15));
+        JPanel bottomRow = new JPanel(new BorderLayout());
+        quitButton = new JButton("Quit");
+        nextPlayerLabel = new JLabel("Next player: ", JLabel.CENTER);
+        nextButton = new JButton("Next");
+        bottomRow.add(quitButton, BorderLayout.WEST);
+        bottomRow.add(nextPlayerLabel, BorderLayout.CENTER);
+        bottomRow.add(nextButton, BorderLayout.EAST);
+        bottomPanel.add(bottomRow, BorderLayout.SOUTH);
+        return bottomPanel;
     }
 
     // EFFECTS: runs the game
@@ -422,7 +438,8 @@ public class ClueGUI extends JPanel {
         numPlayerLabel.setText("# of players left: " + game.getNumPlayersRemaining());
         // calculate progress
         int numEliminatedCards = game.getDetective().getNumCardsEliminated();
-        progressLabel.setText("Progress: " + numEliminatedCards + "/" + Card.NAMES.length);
+        int total = Card.NAMES.length - 3;
+        progressLabel.setText("Progress: " + numEliminatedCards + "/" + total);
         nextPlayerLabel.setText("Next player: " + getNextPlayer());
         frame.revalidate();
         frame.repaint();
@@ -482,16 +499,155 @@ public class ClueGUI extends JPanel {
         if (currentPlayer.equals(myName)) {
             detectivesTurn();
         } else {
-            playersTurn(currentPlayer);
+            playersTurn();
+        }
+
+        updateFrame();
+    }
+
+     /*
+     * REQUIRES: it's your (user's) turn
+     * MODIFIES: this
+     * EFFECTS: runs the detective's (user's) turn
+     */
+    public void detectivesTurn() {
+        JOptionPane.showMessageDialog(frame, "Your turn! \n Please roll the dice.", "Message", JOptionPane.INFORMATION_MESSAGE);
+        int enteredRoom = JOptionPane.showConfirmDialog(frame, "Entered a room?", "Confirm", JOptionPane.YES_NO_OPTION);
+        if (enteredRoom == JOptionPane.YES_OPTION) {
+            System.out.println("Detective entered a room");
+            int chechCardInRoom = JOptionPane.showConfirmDialog(frame, "Check card in room?", "Confirm", JOptionPane.YES_NO_OPTION);
+            if (chechCardInRoom == JOptionPane.YES_OPTION) {
+                checkCardInRoom();
+                System.out.println("Detective checked card in room");
+            }
+            detectiveAskQuestion();
         }
     }
 
-    public void detectivesTurn() {
-
+    /*
+     * REQUIRES: detective has entered a room and there is a hidden card inside
+     * MODIFIES: this
+     * EFFECTS: lets user enter the hidden card's name and eliminates the card from
+     * the detective's potential murder cards
+     */
+    public void checkCardInRoom() {
+        currentInput = JOptionPane.showInputDialog(frame, "Enter card's name:");
+        while (!Card.contains(currentInput) | currentInput.isEmpty()) {
+            invalidName("card");
+        }
+        game.getDetective().eliminateCard(currentInput);
     }
 
-    public void playersTurn(String currentPlayer) {
+    /*
+     * REQUIRES: detective has entered a room
+     * MODIFIES: this
+     * EFFECTS: updates no cards to players who answered "no" to you
+     * view one of the player's hand card who answered "yes"
+     */
+    public void detectiveAskQuestion() {
+        JScrollPane cardNamesPanel = getCardNamesScrollPane();
 
+        JPanel inputPanel = new JPanel(new GridLayout(3, 2, 10, 10)); // 3 rows, 2 columns
+        inputPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        JTextField suspectField = new JTextField();
+        JTextField weaponField = new JTextField();
+        JTextField roomField = new JTextField();
+        // Add labels and input fields to the panel
+        inputPanel.add(new JLabel("Suspect:"));
+        inputPanel.add(suspectField);
+        inputPanel.add(new JLabel("Weapon:"));
+        inputPanel.add(weaponField);
+        inputPanel.add(new JLabel("Room:"));
+        inputPanel.add(roomField);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.add(cardNamesPanel);
+        panel.add(inputPanel);
+
+        // Show the custom input dialog
+        int option = JOptionPane.showConfirmDialog(null, inputPanel, "Clue Question", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+        if (option == JOptionPane.OK_OPTION) {
+            String suspect = suspectField.getText();
+            String weapon = weaponField.getText();
+            String room = roomField.getText();
+
+            // Validate inputs
+            while (!suspect.trim().isEmpty() | !Suspect.contains(suspect)) {
+                invalidName("suspect");
+                suspect = currentInput;
+            }
+            while (!weapon.trim().isEmpty() | !Weapon.contains(weapon)) {
+                invalidName("weapon");
+                weapon = currentInput;
+            }
+            while (!room.trim().isEmpty() | !Room.contains(room)) {
+                invalidName("room");
+                room = currentInput;
+            }
+            inputPlayersAnswer(suspect, weapon, room);
+        }
+    }
+
+    public void inputPlayersAnswer(String suspect, String weapon, String room) {
+        List<String> askedPlayers = new ArrayList<>();
+        currentInput = JOptionPane.showInputDialog(frame, "Enter first player to ask: ");
+        while(game.getPlayer(currentInput) == null) {
+            invalidName("player");
+        }
+        String currentAskedPlayer = currentInput;
+        String question = "Does " + currentAskedPlayer + " have one of the cards?";
+        int answer = JOptionPane.showConfirmDialog(frame, question, "Player's answer", JOptionPane.YES_NO_OPTION);
+        askedPlayers.add(currentAskedPlayer);
+
+        while (answer == JOptionPane.NO_OPTION && askedPlayers.size() < game.getPlayers().size()) {
+            game.addNoCardsToPlayer(currentAskedPlayer, suspect, weapon, room);
+            currentInput = JOptionPane.showInputDialog(frame, "Enter the next player to ask: ");
+            while(game.getPlayer(currentInput) == null | askedPlayers.contains(currentInput)) {
+                invalidName("player");
+            }
+            currentAskedPlayer = currentInput;
+            answer = JOptionPane.showConfirmDialog(frame, question, "Player's answer", JOptionPane.YES_NO_OPTION);
+            askedPlayers.add(currentAskedPlayer);
+        }
+
+        if (answer == JOptionPane.YES_OPTION) {
+            viewCard(currentAskedPlayer);
+        }
+    }
+
+    public void viewCard(String player) {
+        String message = "Enter " + player + "'s card you just viewed: ";
+        currentInput = JOptionPane.showInputDialog(frame, message);
+        while (!Card.contains(currentInput)) {
+            invalidName("card");
+        }
+        game.addHandCardToPlayer(player, currentInput);
+    }
+
+    public void playersTurn() {
+        String title = currentPlayer + "'s turn:";
+        String question = "Did they enter a room?";
+        int answer = JOptionPane.showConfirmDialog(frame, question, title, JOptionPane.YES_NO_CANCEL_OPTION);
+        if (answer == JOptionPane.YES_OPTION) {
+            playerAskQuestion();
+        }
+    }
+
+    public void playerAskQuestion() {
+        
+    }
+
+    /*
+     * EFFECTS: Inform user that they entered an invalid name of type
+     *          and let user re enter the type name again
+     */
+    private void invalidName(String type) {
+        JOptionPane.showMessageDialog(null,
+                "Invalid " + type + " name!",
+                "Invalid Input", JOptionPane.ERROR_MESSAGE);
+        currentInput = JOptionPane.showInputDialog("Please enter again: ");
     }
 
     /*
@@ -529,12 +685,12 @@ public class ClueGUI extends JPanel {
      */
     public String getMyNotes() {
         Detective detective = game.getDetective();
-        return "-----------------------------------------------------------------------------------------\n" +
+        return "---------------------------------------------------------------------------------------------------------------------------------\n" +
                 "Your hand cards: " + detective.getHandcards() + "\n" +
                 "Potential suspects: " + detective.getSuspects() + "\n" +
                 "Potential weapons: " + detective.getWeapons() + "\n" +
                 "Potential rooms: " + detective.getRooms() + "\n" +
-                "-----------------------------------------------------------------------------------------\n";
+                "---------------------------------------------------------------------------------------------------------------------------------\n";
     }
 
     public void foundSecretMurder() {

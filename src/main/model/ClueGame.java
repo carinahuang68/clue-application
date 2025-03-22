@@ -50,6 +50,35 @@ public class ClueGame {
         return null;
     }
 
+    /*
+     * MODIFIES: this
+     * REQUIRES: name must be a player's name and all other parameters are valid
+     * EFFECTS: adds all cards to player's no card
+     */
+    public void addNoCardsToPlayer(String name, String suspect, String weapon, String room) {
+        Player player = getPlayer(name);
+        player.addNoCard(suspect);
+        player.addNoCard(weapon);
+        player.addNoCard(room);
+        player.checkUncheckedCards(detective);
+    }
+
+    /*
+     * REQUIRES: name must be a player's name and card must be a card name
+     * MODIFIES: this
+     * EFFECTS: adds hand card to player and add the card to other player's no cards
+     */
+    public void addHandCardToPlayer(String name, String card) {
+        Player player = getPlayer(name);
+        player.addHandCard(card);
+        for (Player p : players) {
+            if (!p.equals(player)) {
+                p.addNoCard(card);
+                p.checkUncheckedCards(detective);
+            }
+        }
+    }
+
     public void eliminatePlayer(String name) {
         eliminatedPlayers.add(name);
     }
