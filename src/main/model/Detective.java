@@ -65,6 +65,27 @@ public class Detective implements Writable {
         }
     }
 
+     /*
+     * MODIFIES: this
+     * EFFECTS: adds card to the detective's corresposding list of
+     * potential murders
+     */
+    public void addCard(String name) {
+        if (Suspect.contains(name)) {
+            if (!suspects.contains(new Suspect(name))) {
+                suspects.add(new Suspect(name));
+            }
+        } else if (Weapon.contains(name)){
+            if (!weapons.contains(new Weapon(name))){
+                weapons.add(new Weapon(name));
+            }
+        } else if (Room.contains(name)){
+            if (!rooms.contains(new Room(name))) {
+                rooms.add(new Room(name));
+            }
+        }
+    }
+
     /*
      * MODIFIES: this
      * EFFECTS: set suspects according to the given list of suspect names

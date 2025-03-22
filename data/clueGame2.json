@@ -9,8 +9,7 @@
         "myweapons": [],
         "myrooms": [
             "Kitchen",
-            "Library",
-            "Study"
+            "Library"
         ],
         "name": "thomas",
         "mysuspects": ["Scarlett"]

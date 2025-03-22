@@ -57,10 +57,12 @@ public class ClueGame {
      */
     public void addNoCardsToPlayer(String name, String suspect, String weapon, String room) {
         Player player = getPlayer(name);
-        player.addNoCard(suspect);
-        player.addNoCard(weapon);
-        player.addNoCard(room);
-        player.checkUncheckedCards(detective);
+        if (player != null) {
+            player.addNoCard(suspect);
+            player.addNoCard(weapon);
+            player.addNoCard(room);
+            player.checkUncheckedCards(detective);
+        }
     }
 
     /*
@@ -70,17 +72,36 @@ public class ClueGame {
      */
     public void addHandCardToPlayer(String name, String card) {
         Player player = getPlayer(name);
-        player.addHandCard(card);
-        for (Player p : players) {
-            if (!p.equals(player)) {
-                p.addNoCard(card);
-                p.checkUncheckedCards(detective);
+        if (player != null) {
+            player.addHandCard(card);
+            for (Player p : players) {
+                if (!p.equals(player)) {
+                    p.addNoCard(card);
+                    p.checkUncheckedCards(detective);
+                }
             }
         }
     }
 
+    /*
+     * REQUIRES: name is a player's name
+     * 
+     */
     public void eliminatePlayer(String name) {
-        eliminatedPlayers.add(name);
+        if (!eliminatedPlayers.contains(name)) {
+            eliminatedPlayers.add(name);
+        }
+    }
+
+    public List<String> getRemainingPlayers(List<String> allPlayers) {
+        List<String> remainingPlayers = new ArrayList<>();
+        for (String player : allPlayers) {
+            remainingPlayers.add(player);
+        }
+        for (String eliminatedPlayer : eliminatedPlayers) {
+            remainingPlayers.remove(eliminatedPlayer);
+        }
+        return remainingPlayers;
     }
 
     public int getNumPlayersRemaining() {

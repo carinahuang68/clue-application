@@ -60,16 +60,18 @@ public class Player implements Writable {
      * EFFECTS: add new card with name directly to handcards
      */
     public void addHandCard(String name) {
-        if (Suspect.contains(name)) {
-            Suspect s = new Suspect(name);
-            handCards.add(s);
-        } else if (Weapon.contains(name)) {
-            Weapon w = new Weapon(name);
-            handCards.add(w);
-        } else {
-            Room r = new Room(name);
-            handCards.add(r);
-        }
+        if (!handCardNames().contains(name)) {
+            if (Suspect.contains(name)) {
+                Suspect s = new Suspect(name);
+                handCards.add(s);
+            } else if (Weapon.contains(name)) {
+                Weapon w = new Weapon(name);
+                handCards.add(w);
+            } else {
+                Room r = new Room(name);
+                handCards.add(r);
+            }
+        } 
     }
 
     /*
@@ -83,6 +85,16 @@ public class Player implements Writable {
             removeUncheckedCard(name);
         }
     }
+
+    // // Custom method to check if list contains string (case-insensitive)
+    // private boolean containsIgnoreCase(List<String> list, String name) {
+    //     for (String s : list) {
+    //         if (s.equalsIgnoreCase(name)) {
+    //             return true;
+    //         }
+    //     }
+    //     return false;
+    // }
 
     /*
      * REQUIRES: Card.contains(name)

@@ -42,6 +42,60 @@ public class TestDetective {
     }
 
     @Test
+    public void testAddSuspectCard() {
+        d.eliminateCard("green");
+        assertEquals(4, d.getSuspects().size());
+        d.addCard("mustard");
+        assertEquals(5, d.getSuspects().size());
+        assertTrue(d.getSuspects().contains(new Suspect("Mustard")));
+        d.addCard("Peacock");
+        assertEquals(5, d.getSuspects().size());
+        d.eliminateCard("plum");
+        assertEquals(4, d.getSuspects().size());
+        d.addCard("plum");
+        assertEquals(5, d.getSuspects().size());
+        d.addCard("plum");
+        assertEquals(5, d.getSuspects().size());
+    }
+
+    @Test
+    public void testAddWeaponCard() {
+        d.addCard("revolver");
+        assertEquals(6, d.getWeapons().size());
+        d.eliminateCard("revolver");
+        assertEquals(5, d.getWeapons().size());
+        d.addCard("Green");
+        assertEquals(5, d.getWeapons().size());
+        d.addCard("revolver");
+        assertEquals(6, d.getWeapons().size());
+        d.eliminateCard("knife");
+        d.eliminateCard("candlestick");
+        assertEquals(4, d.getWeapons().size());
+        d.addCard("knife");
+        assertEquals(5, d.getWeapons().size());
+        d.addCard("knife");
+        assertEquals(5, d.getWeapons().size());
+    }
+
+    @Test
+    public void testGetNumCardsEliminated() {
+        assertEquals(4, d.getNumCardsEliminated());
+    }
+
+    @Test
+    public void testAddRoomCard() {
+        d.addCard("study");
+        assertEquals(8, d.getRooms().size());
+        d.eliminateCard("library");
+        assertEquals(7, d.getRooms().size());
+        d.addCard("library");
+        d.addCard("library");
+        assertEquals(8, d.getRooms().size());
+        d.addCard("ee");
+        assertEquals(8, d.getRooms().size());
+    }
+
+    @Test
     public void testEliminateCard() {
         d.eliminateCard("Knife");
         assertEquals(4, d.getWeapons().size());

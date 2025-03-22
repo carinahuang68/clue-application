@@ -45,6 +45,7 @@ public class TestPlayer {
         assertEquals("Green", p.getHandCards().get(1).getName());
         assertEquals(5, c.getSuspects().size());
         assertEquals("Peacock", c.getSuspects().get(2).getName());
+        assertFalse(p.addHandCard("Green", c));
 
         // add room hand card
         assertTrue(p.addHandCard("Kitchen", c));
@@ -52,6 +53,7 @@ public class TestPlayer {
         assertEquals("Kitchen", p.getHandCards().get(2).getName());
         assertEquals(8, c.getRooms().size());
         assertEquals("Ball room", c.getRooms().get(3).getName());
+        assertFalse(p.addHandCard("Kitchen", c));
     }
 
     @Test

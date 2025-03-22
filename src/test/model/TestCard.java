@@ -61,4 +61,33 @@ public class TestCard {
         assertEquals("Knife", knife.toString());
     }
 
+    @SuppressWarnings("unlikely-arg-type")
+    @Test
+    public void testEquals() {
+        Player player = new Player("Rope");
+        Card card = new Card("Rope");
+        Card cardNull2 = new Card(null);
+        Card cardNull1 = new Card(null);
+        assertFalse(cardNull1.equals(card));
+        assertTrue(cardNull1.equals(cardNull2));
+        assertTrue(card.equals(card));
+        assertFalse(card.equals(null));
+        assertFalse(card.equals(player));
+    }
+
+    @Test
+    public void testHashCode() {
+        Card card1 = new Card("Knife"); // case sensitive
+        Card card2 = new Card("Knife");
+        assertEquals(card1.hashCode(), card2.hashCode());
+
+        Card card3 = new Card("knife"); // case insensitive
+        assertEquals(card1.hashCode(), card3.hashCode());
+
+        Card card4 = new Card(null);
+        Card card5 = new Card(null);
+
+        assertEquals(card4.hashCode(), card5.hashCode());
+    }
+
 }

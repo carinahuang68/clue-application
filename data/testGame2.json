@@ -1,20 +1,20 @@
 {
     "detective": {
         "myhandcards": [
-            "Revolver",
+            "Mustard",
+            "Knife",
             "Hall",
-            "Plum"
+            "Dining room"
         ],
         "myweapons": [
-            "Knife",
             "Candlestick",
+            "Revolver",
             "Rope",
             "Lead pipe",
             "Wrench"
         ],
         "myrooms": [
             "Lounge",
-            "Dining room",
             "Kitchen",
             "Ball room",
             "Conservatory",
@@ -24,7 +24,7 @@
         ],
         "name": "a",
         "mysuspects": [
-            "Mustard",
+            "Plum",
             "Green",
             "Peacock",
             "Scarlett",
@@ -35,24 +35,16 @@
         {
             "handcards": [],
             "name": "b",
-            "nocards": [
-                "Mustard",
-                "knife",
-                "study",
-                "white",
-                "rope",
-                "kitchen"
-            ],
+            "nocards": [],
             "uncheckedcards": []
         },
         {
             "handcards": [],
             "name": "c",
             "nocards": [
-                "Mustard",
-                "knife",
-                "study",
-                "white"
+                "Plum",
+                "CandleStick",
+                "Lounge"
             ],
             "uncheckedcards": []
         },
@@ -60,24 +52,9 @@
             "handcards": [],
             "name": "d",
             "nocards": [
-                "Mustard",
-                "white"
-            ],
-            "uncheckedcards": []
-        },
-        {
-            "handcards": ["white"],
-            "name": "e",
-            "nocards": ["Mustard"],
-            "uncheckedcards": []
-        },
-        {
-            "handcards": ["Mustard"],
-            "name": "f",
-            "nocards": [
-                "white",
-                "rope",
-                "kitchen"
+                "Plum",
+                "CandleStick",
+                "Lounge"
             ],
             "uncheckedcards": []
         }

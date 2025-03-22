@@ -57,7 +57,11 @@ public class ClueGUI {
     private int currentPlayerIndex;
     private String currentPlayer;
     private String currentInput;
-    private int numCardsInRooms;
+    private int numUncheckedCardsInRoom;
+    private String currentSuspect;
+    private String currentWeapon;
+    private String currentRoom;
+    private boolean enteredQuestion = false;
 
     public ClueGUI() {
         openClueWindow();
@@ -188,14 +192,14 @@ public class ClueGUI {
     // show instuctions to set up Clue game
     public void showInstructionsDialog() {
         numHandCardsPerPlayer = (Card.NAMES.length - 3) / numPlayers;
-        numCardsInRooms = (Card.NAMES.length - 3) % numPlayers;
+        numUncheckedCardsInRoom = (Card.NAMES.length - 3) % numPlayers;
         String instructions = "Set up instructions:\n"
                 + "1. Randomly pick one secret suspect card, one secret weapon card, and one secret room card.\n"
                 + "2. Place the 3 secret cards in the confidential folder, without looking at the cards!\n"
                 + "3. Shuffle the remaining cards.\n"
                 + "4. Distribute " + numHandCardsPerPlayer + " cards to each player, including you.\n";
-        if (numCardsInRooms != 0) {
-            instructions += "5. Hide each of the " + numCardsInRooms + " remaining cards in a room.\n";
+        if (numUncheckedCardsInRoom != 0) {
+            instructions += "5. Hide each of the " + numUncheckedCardsInRoom + " remaining cards in a room.\n";
         }
         JOptionPane.showMessageDialog(null, instructions);
     }
@@ -314,7 +318,7 @@ public class ClueGUI {
     public void addPlayerToOrderedPlayer() {
         while ((game.getPlayer(currentInput) == null && !myName.equals(currentInput))
                 | orderedPlayers.contains(currentInput)) {
-            invalidName("player");
+            currentInput = invalidName("player");
         }
         orderedPlayers.add(currentInput);
         System.out.println();
@@ -371,8 +375,8 @@ public class ClueGUI {
         // initialize labels
         fileLabel = new JLabel("Destination: ");
         numPlayerLabel = new JLabel("# of players left: ");
-        numCardsInRooms = (Card.NAMES.length - 3) % game.getNumPlayers();
-        numCardsInRoomLabel = new JLabel("# of cards in room: " + numCardsInRooms);
+        numUncheckedCardsInRoom = (Card.NAMES.length - 3) % game.getNumPlayers();
+        numCardsInRoomLabel = new JLabel("# of unchecked cards in room: ");
         numHandCardsPerPlayer = (Card.NAMES.length - 3) / game.getNumPlayers();
         JLabel numHandCardsPerPlayerLabel = new JLabel("# of hand cards per player: " + numHandCardsPerPlayer);
         progressLabel = new JLabel("Progress: ");
@@ -436,6 +440,7 @@ public class ClueGUI {
         notes.setText(getDetectiveNotes()); // updates detective note
         fileLabel.setText("Destination: " + filePath);
         numPlayerLabel.setText("# of players left: " + game.getNumPlayersRemaining());
+        numCardsInRoomLabel.setText("# of unchecked cards in room: " + numUncheckedCardsInRoom);
         // calculate progress
         int numEliminatedCards = game.getDetective().getNumCardsEliminated();
         int total = Card.NAMES.length - 3;
@@ -456,19 +461,35 @@ public class ClueGUI {
     }
 
     public void removePotentialCard() {
-        // stub
+        String currentInput = JOptionPane.showInputDialog("Enter the potential card you want to remove: ", JOptionPane.OK_CANCEL_OPTION);
+        while (!Card.contains(currentInput)) {
+            currentInput = invalidName("card");
+        }
+        game.getDetective().eliminateCard(currentInput);
+        updateFrame();
     }
 
     public void addPotentialCard() {
-        // stub
+        String currentInput = JOptionPane.showInputDialog("Enter the potential card you want to add: ", JOptionPane.OK_CANCEL_OPTION);
+        while (!Card.contains(currentInput)) {
+            currentInput = invalidName("card");
+            System.out.println("Current Input: " + currentInput);
+        }
+        game.getDetective().addCard(currentInput);
+        updateFrame();
     }
 
     public void eliminatePlayer() {
-        // stub
+        String currentInput = JOptionPane.showInputDialog("Enter the player to eliminate: ", JOptionPane.OK_CANCEL_OPTION);
+        while (!orderedPlayers.contains(currentInput)) {
+            currentInput = invalidName("player");
+        }
+        game.eliminatePlayer(currentInput);
+        updateFrame();
     }
 
     public void quit() {
-        String message = "Do you want to save changed before quitting?";
+        String message = "Do you want to save changes before quitting?";
         int choice = JOptionPane.showConfirmDialog(frame, message, "Comfirm Quit", JOptionPane.YES_NO_CANCEL_OPTION);
 
         if (choice == JOptionPane.YES_OPTION) {
@@ -492,6 +513,10 @@ public class ClueGUI {
             return;
         }
 
+        if (game.getNumPlayersRemaining() == 1) {
+            endGameMessage();
+        }
+
         // Update to the next player
         currentPlayer = getNextPlayer();
         currentPlayerIndex = orderedPlayers.indexOf(currentPlayer);
@@ -505,6 +530,18 @@ public class ClueGUI {
         updateFrame();
     }
 
+    private void endGameMessage() {
+        String remainingPlayer = game.getRemainingPlayers(orderedPlayers).get(0);
+        String message = "All players except " + remainingPlayer + " are eliminated. \n";
+        if (remainingPlayer.equals(myName)) {
+            message += "Congratulations! You Win!";
+        } else {
+            message += remainingPlayer + " wins!";
+        }
+        JOptionPane.showMessageDialog(frame, message, "End Game Message", JOptionPane.DEFAULT_OPTION);
+        quit();
+    }
+
      /*
      * REQUIRES: it's your (user's) turn
      * MODIFIES: this
@@ -512,7 +549,7 @@ public class ClueGUI {
      */
     public void detectivesTurn() {
         JOptionPane.showMessageDialog(frame, "Your turn! \n Please roll the dice.", "Message", JOptionPane.INFORMATION_MESSAGE);
-        int enteredRoom = JOptionPane.showConfirmDialog(frame, "Entered a room?", "Confirm", JOptionPane.YES_NO_OPTION);
+        int enteredRoom = JOptionPane.showConfirmDialog(frame, "Entered a room?", "Confirm", JOptionPane.YES_NO_CANCEL_OPTION);
         if (enteredRoom == JOptionPane.YES_OPTION) {
             System.out.println("Detective entered a room");
             int chechCardInRoom = JOptionPane.showConfirmDialog(frame, "Check card in room?", "Confirm", JOptionPane.YES_NO_OPTION);
@@ -521,6 +558,8 @@ public class ClueGUI {
                 System.out.println("Detective checked card in room");
             }
             detectiveAskQuestion();
+        } else if (enteredRoom == JOptionPane.CANCEL_OPTION) {
+            currentPlayerIndex = (currentPlayerIndex - 1 + orderedPlayers.size()) % orderedPlayers.size();
         }
     }
 
@@ -533,8 +572,9 @@ public class ClueGUI {
     public void checkCardInRoom() {
         currentInput = JOptionPane.showInputDialog(frame, "Enter card's name:");
         while (!Card.contains(currentInput) | currentInput.isEmpty()) {
-            invalidName("card");
+            currentInput = invalidName("card");
         }
+        numUncheckedCardsInRoom--;
         game.getDetective().eliminateCard(currentInput);
     }
 
@@ -545,8 +585,14 @@ public class ClueGUI {
      * view one of the player's hand card who answered "yes"
      */
     public void detectiveAskQuestion() {
-        JScrollPane cardNamesPanel = getCardNamesScrollPane();
+        inputQuestion("Your Question");
+        if (enteredQuestion) {
+            inputPlayersAnswerToDetective();
+        }
+    }
 
+    private void inputQuestion(String title) {
+        JScrollPane cardNamesPanel = getCardNamesScrollPane();
         JPanel inputPanel = new JPanel(new GridLayout(3, 2, 10, 10)); // 3 rows, 2 columns
         inputPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         JTextField suspectField = new JTextField();
@@ -566,48 +612,52 @@ public class ClueGUI {
         panel.add(inputPanel);
 
         // Show the custom input dialog
-        int option = JOptionPane.showConfirmDialog(null, inputPanel, "Clue Question", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+        int option = JOptionPane.showConfirmDialog(null, panel, title, JOptionPane.OK_CANCEL_OPTION);
 
         if (option == JOptionPane.OK_OPTION) {
-            String suspect = suspectField.getText();
-            String weapon = weaponField.getText();
-            String room = roomField.getText();
+            currentSuspect = suspectField.getText();
+            currentWeapon = weaponField.getText();
+            currentRoom = roomField.getText();
 
             // Validate inputs
-            while (!suspect.trim().isEmpty() | !Suspect.contains(suspect)) {
-                invalidName("suspect");
-                suspect = currentInput;
+            while (currentSuspect.trim().isEmpty() | !Suspect.contains(currentSuspect)) {
+                currentSuspect = invalidName("suspect");
             }
-            while (!weapon.trim().isEmpty() | !Weapon.contains(weapon)) {
-                invalidName("weapon");
-                weapon = currentInput;
+            while (currentWeapon.trim().isEmpty() | !Weapon.contains(currentWeapon)) {
+                currentWeapon = invalidName("weapon");
             }
-            while (!room.trim().isEmpty() | !Room.contains(room)) {
-                invalidName("room");
-                room = currentInput;
+            while (currentRoom.trim().isEmpty() | !Room.contains(currentRoom)) {
+                currentRoom = invalidName("room");
             }
-            inputPlayersAnswer(suspect, weapon, room);
+            enteredQuestion = true;
+        } else if (option == JOptionPane.CANCEL_OPTION) {
+            currentPlayerIndex = (currentPlayerIndex - 1 + orderedPlayers.size()) % orderedPlayers.size();
         }
+
     }
 
-    public void inputPlayersAnswer(String suspect, String weapon, String room) {
+    public void inputPlayersAnswerToDetective() {
         List<String> askedPlayers = new ArrayList<>();
-        currentInput = JOptionPane.showInputDialog(frame, "Enter first player to ask: ");
+        String message = getCurrentCards() + "\n" + "Enter first player to ask: ";
+        currentInput = JOptionPane.showInputDialog(frame, message);
+        
         while(game.getPlayer(currentInput) == null) {
-            invalidName("player");
+            currentInput = invalidName("player");
         }
         String currentAskedPlayer = currentInput;
-        String question = "Does " + currentAskedPlayer + " have one of the cards?";
+        String question = "Does " + currentAskedPlayer + " have one of the following cards? \n" + getCurrentCards();
         int answer = JOptionPane.showConfirmDialog(frame, question, "Player's answer", JOptionPane.YES_NO_OPTION);
         askedPlayers.add(currentAskedPlayer);
 
         while (answer == JOptionPane.NO_OPTION && askedPlayers.size() < game.getPlayers().size()) {
-            game.addNoCardsToPlayer(currentAskedPlayer, suspect, weapon, room);
-            currentInput = JOptionPane.showInputDialog(frame, "Enter the next player to ask: ");
+            game.addNoCardsToPlayer(currentAskedPlayer, currentSuspect, currentWeapon, currentRoom);
+            message = getCurrentCards() + "\n" + "Enter the next player to ask: ";
+            currentInput = JOptionPane.showInputDialog(frame, message);
             while(game.getPlayer(currentInput) == null | askedPlayers.contains(currentInput)) {
-                invalidName("player");
+                currentInput = invalidName("player");
             }
             currentAskedPlayer = currentInput;
+            question = "Does " + currentAskedPlayer + " have one of the following cards? \n" + getCurrentCards();
             answer = JOptionPane.showConfirmDialog(frame, question, "Player's answer", JOptionPane.YES_NO_OPTION);
             askedPlayers.add(currentAskedPlayer);
         }
@@ -618,10 +668,10 @@ public class ClueGUI {
     }
 
     public void viewCard(String player) {
-        String message = "Enter " + player + "'s card you just viewed: ";
+        String message = getCurrentCards() + "\n" + "Enter " + player + "'s card you just viewed: ";
         currentInput = JOptionPane.showInputDialog(frame, message);
-        while (!Card.contains(currentInput)) {
-            invalidName("card");
+        while (!currentInput.equals(currentSuspect) && !currentInput.equals(currentWeapon) && !currentInput.equals(currentRoom)) {
+            currentInput = invalidName("card");
         }
         game.addHandCardToPlayer(player, currentInput);
     }
@@ -632,22 +682,78 @@ public class ClueGUI {
         int answer = JOptionPane.showConfirmDialog(frame, question, title, JOptionPane.YES_NO_CANCEL_OPTION);
         if (answer == JOptionPane.YES_OPTION) {
             playerAskQuestion();
+        } else if (answer == JOptionPane.CANCEL_OPTION) {
+            currentPlayerIndex = (currentPlayerIndex - 1 + orderedPlayers.size()) % orderedPlayers.size();
         }
     }
 
     public void playerAskQuestion() {
+        inputQuestion(currentPlayer + "'s Question");
+        if (enteredQuestion) {
+            inputPlayersAnswer();
+        } 
+    }
+
+    public void inputPlayersAnswer() {
+        List<String> remainingPlayers = new ArrayList<>();
+        for (String player : orderedPlayers) {
+            remainingPlayers.add(player);
+        }
+        remainingPlayers.remove(currentPlayer);
+        String message = getCurrentCards() + "\n" + "Enter the first player " + currentPlayer + " asked: ";
+        currentInput = JOptionPane.showInputDialog(frame, message);
+        while(!remainingPlayers.contains(currentInput)) {
+            currentInput = invalidName("player");
+        }
+        String currentAskedPlayer = currentInput;
+        int answer;
+        String question = "";
+        if (currentAskedPlayer.equals(myName)) {
+            question = "Do you have one of the following cards? \n" + getCurrentCards();
+        } else {
+            question = "Does " + currentAskedPlayer + " have one of following cards? \n" + getCurrentCards();
+        }
+        answer = JOptionPane.showConfirmDialog(frame, question, "Answer", JOptionPane.YES_NO_OPTION);
+        remainingPlayers.remove(currentAskedPlayer);
+
+        while (answer == JOptionPane.NO_OPTION && remainingPlayers.size() > 0) {
+            game.addNoCardsToPlayer(currentAskedPlayer, currentSuspect, currentWeapon, currentRoom);
+            message = getCurrentCards() + "\n" + "Enter the next player " + currentPlayer + " asked: ";
+            currentInput = JOptionPane.showInputDialog(frame, message);
+            while(!remainingPlayers.contains(currentInput)) {
+                currentInput = invalidName("player");
+            }
+            currentAskedPlayer = currentInput;
+            if (currentAskedPlayer.equals(myName)) {
+                question = "Do you have one of the following cards? \n" + getCurrentCards();
+                answer = JOptionPane.showConfirmDialog(frame, question, "Player's answer", JOptionPane.YES_NO_OPTION);
+            } else {
+                question = "Does " + currentAskedPlayer + " have one of following cards? \n" + getCurrentCards();
+                answer = JOptionPane.showConfirmDialog(frame, question, "Player's answer", JOptionPane.YES_NO_OPTION);
+            }
+            remainingPlayers.remove(currentAskedPlayer);
+        }
+
+        if (currentAskedPlayer != myName) {
+            if (answer == JOptionPane.YES_OPTION && currentAskedPlayer != myName) {
+                game.getPlayer(currentAskedPlayer).addUncheckedCards(currentSuspect, currentWeapon, currentRoom);
+            } else if (answer == JOptionPane.NO_OPTION) {
+                game.addNoCardsToPlayer(currentAskedPlayer, currentSuspect, currentWeapon, currentRoom);
+            }
+        }
         
     }
 
     /*
-     * EFFECTS: Inform user that they entered an invalid name of type
-     *          and let user re enter the type name again
+     * EFFECTS: Let user re enter the type name again
+     *          and return the new input
      */
-    private void invalidName(String type) {
+    private String invalidName(String type) {
         JOptionPane.showMessageDialog(null,
                 "Invalid " + type + " name!",
                 "Invalid Input", JOptionPane.ERROR_MESSAGE);
         currentInput = JOptionPane.showInputDialog("Please enter again: ");
+        return currentInput;
     }
 
     /*
@@ -667,6 +773,10 @@ public class ClueGUI {
         }
 
         return sb.toString();
+    }
+
+    public String getCurrentCards() {
+        return "Current cards: " + currentSuspect + ", " + currentWeapon + ", " + currentRoom; 
     }
 
     /*
@@ -694,7 +804,15 @@ public class ClueGUI {
     }
 
     public void foundSecretMurder() {
-
+        String message = "Congratulations! You found the secret murder! \n";
+        Detective d = game.getDetective();
+        String suspect = d.getSuspects().get(0).getName();
+        String weapon =  d.getWeapons().get(0).getName();
+        String room = d.getRooms().get(0).getName();
+        message += "Suspect: " + suspect + " \n";
+        message += "Weapon: " + weapon + "\n";
+        message += "Room: " + room + "\n";
+        JOptionPane.showMessageDialog(frame, message);
     }
 
     /*
