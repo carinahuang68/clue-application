@@ -49,8 +49,7 @@ public class ClueApp {
                 numPlayers = ui.nextInt();
             }
             System.out.println();
-            @SuppressWarnings("unused")
-            ClueApp c = new ClueApp(numPlayers);
+            new ClueApp(numPlayers);
         }
     }
 
@@ -64,6 +63,25 @@ public class ClueApp {
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
 
+        String answer = getLoadOption(numPlayers);
+
+        if (answer.equals("s")) {
+            enterPlayerNames();
+            printInstructions();
+            printCardNames();
+            manageMyHandCards();
+        } else {
+            load();
+            myName = detective.getName();
+            printDetectiveNotes();
+        }
+
+        orderPlayers();
+        runGame();
+    }
+
+    // EFFECTS: tells user to select an option and get user's option
+    private String getLoadOption(int numPlayers) {
         this.numPlayers = numPlayers;
         numHandCardsPerPlayer = (Card.NAMES.length - 3) / numPlayers;
         numCardsInRooms = (Card.NAMES.length - 3) % numPlayers;
@@ -80,20 +98,7 @@ public class ClueApp {
             answer = ui.nextLine();
             System.out.println();
         }
-
-        if (answer.equals("s")) {
-            enterPlayerNames();
-            printInstructions();
-            printCardNames();
-            manageMyHandCards();
-        } else {
-            load();
-            myName = detective.getName();
-            printDetectiveNotes();
-        }
-
-        orderPlayers();
-        runGame();
+        return answer;
     }
 
     /*
@@ -216,6 +221,23 @@ public class ClueApp {
     }
 
     public void enterOption() {
+        String answer = getContinueOption();
+
+        if (answer.equals("a")) {
+            save();
+        } else if (answer.equals("c")) {
+            System.out.println();
+        } else if (answer.equals("s")) {
+            save();
+            System.out.println("Hope to see you again. Goodbye!");
+            System.exit(0);
+        } else {
+            System.out.println("Hope you enjoyed the game. Goodbye!");
+            System.exit(0);
+        }
+    }
+
+    private String getContinueOption() {
         System.out.println("Select option:");
         System.out.println("   a: save notes and continue");
         System.out.println("   c: continue");
@@ -230,19 +252,7 @@ public class ClueApp {
             answer = ui.nextLine();
             System.out.println();
         }
-
-        if (answer.equals("a")) {
-            save();
-        } else if (answer.equals("c")) {
-            System.out.println();
-        } else if (answer.equals("s")) {
-            save();
-            System.out.println("Hope to see you again. Goodbye!");
-            System.exit(0);
-        } else {
-            System.out.println("Hope you enjoyed the game. Goodbye!");
-            System.exit(0);
-        }
+        return answer;
     }
 
     /*
@@ -393,6 +403,10 @@ public class ClueApp {
             player.checkUncheckedCards(detective);
             printPlayerNote(player);
         }
+        enterNextPlayer(askingPlayer);
+    }
+
+    private void enterNextPlayer(String askingPlayer) {
         System.out.print("Enter the next player " + askingPlayer + " asked: ");
         currentAskedPlayer = ui.nextLine();
         if (currentAskedPlayer.equals(myName)) {

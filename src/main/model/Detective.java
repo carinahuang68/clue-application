@@ -65,7 +65,7 @@ public class Detective implements Writable {
         }
     }
 
-     /*
+    /*
      * MODIFIES: this
      * EFFECTS: adds card to the detective's corresposding list of
      * potential murders
@@ -75,11 +75,11 @@ public class Detective implements Writable {
             if (!suspects.contains(new Suspect(name))) {
                 suspects.add(new Suspect(name));
             }
-        } else if (Weapon.contains(name)){
-            if (!weapons.contains(new Weapon(name))){
+        } else if (Weapon.contains(name)) {
+            if (!weapons.contains(new Weapon(name))) {
                 weapons.add(new Weapon(name));
             }
-        } else if (Room.contains(name)){
+        } else if (Room.contains(name)) {
             if (!rooms.contains(new Room(name))) {
                 rooms.add(new Room(name));
             }
@@ -273,5 +273,5 @@ public class Detective implements Writable {
         }
         return names;
     }
-    
+
 }

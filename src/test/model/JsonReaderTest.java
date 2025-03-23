@@ -44,7 +44,6 @@ public class JsonReaderTest {
         }
     }
 
-
     @Test
     void testReaderEmptyDetective() {
         JsonReader reader = new JsonReader("./data/testReaderEmpty.json");
@@ -84,7 +83,6 @@ public class JsonReaderTest {
             assertEquals(6, players.get(2).getNoCards().size());
             assertEquals(1, players.get(2).getUncheckedCards().size());
             assertEquals(3, players.get(2).getUncheckedCards().get(0).size());
-            
 
             Detective d = reader.readDetective();
             assertEquals("Car", d.getName());

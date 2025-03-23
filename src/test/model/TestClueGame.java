@@ -21,8 +21,8 @@ public class TestClueGame {
     @BeforeEach
     public void runBefore() {
         String detectiveName = "d";
-        String[] playerNames = {"a", "b", "c"};
-        String[] myHandCards = {"hall", "Plum", "study", "knife"};
+        String[] playerNames = { "a", "b", "c" };
+        String[] myHandCards = { "hall", "Plum", "study", "knife" };
         testNewGame = new ClueGame(detectiveName, playerNames, myHandCards);
 
         JsonReader jsonReader = new JsonReader("data/clueDemo.json");
@@ -115,6 +115,5 @@ public class TestClueGame {
         testGame.eliminatePlayer("J");
         assertEquals("Carina", testGame.getRemainingPlayers(allPlayers).get(0));
     }
-    
 
 }

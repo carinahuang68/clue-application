@@ -71,7 +71,7 @@ public class Player implements Writable {
                 Room r = new Room(name);
                 handCards.add(r);
             }
-        } 
+        }
     }
 
     /*
@@ -88,12 +88,12 @@ public class Player implements Writable {
 
     // // Custom method to check if list contains string (case-insensitive)
     // private boolean containsIgnoreCase(List<String> list, String name) {
-    //     for (String s : list) {
-    //         if (s.equalsIgnoreCase(name)) {
-    //             return true;
-    //         }
-    //     }
-    //     return false;
+    // for (String s : list) {
+    // if (s.equalsIgnoreCase(name)) {
+    // return true;
+    // }
+    // }
+    // return false;
     // }
 
     /*

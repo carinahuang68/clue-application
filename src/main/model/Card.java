@@ -44,20 +44,24 @@ public class Card {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         Card other = (Card) obj;
         if (name == null) {
-            if (other.name != null)
+            if (other.name != null) {
                 return false;
-        } else if (!name.equalsIgnoreCase(other.name))
+            }
+        } else if (!name.equalsIgnoreCase(other.name)) {
             return false;
+        }
         return true;
     }
 
-    
 }

@@ -37,8 +37,8 @@ I’m interested in this project because I like playing Clue. The idea of buildi
 
 # Instructions for End User
 - You can generate the first required action related to the user story "adding multiple cards to Player" by clicking the **'next turn'** button,    which automatically adds cards according to your input of information from each player's turn 
-- You can generate the second required action related to the user story adding or removing a potential card to Detective by manually clicking the 'add a potential card' or 'remove a potential card' button. The add card button is ideally used only in case of errors and the remove card button is ideally used to eliminate potential cards from the your guesses from the unchecked card sets of a player
-- You can locate my visual component from the left side of main frame after the game is loaded or set-up succesfully 
+- You can generate the second required action related to the user story adding or removing a potential card to Detective by manually clicking the 'add a potential card' or 'remove a potential card' button. The add card button is ideally used only in case of errors and the remove card button is ideally used to eliminate potential cards from your guesses according to the unchecked card sets of Player
+- You can locate my visual component from the left side of main frame after the game is loaded or set-up  
 - You can save the state of my application by clicking the 'save' button in the main frame
-- You can reload the state of my application by clicking 'load game' from the first dialog that appears after you run the application
+- You can reload the state of my application by clicking 'load game' from the first pop-up window of the application
 - You can add a player to the list of eliminated player by clicking 'eliminate player' to avoid running the players turn as you click 'next'
