@@ -29,7 +29,7 @@ public class ClueGUI {
     private JsonReader jsonReader;
 
     private JFrame frame = new JFrame("Clue Application");
-    private static final int frameWidth = 1000;
+    private static final int frameWidth = 900;
     private static final int frameHeight = 600;
     JScrollPane detectiveNotes;
     JTextArea notes;
@@ -342,8 +342,8 @@ public class ClueGUI {
         detectiveNotes = new JScrollPane(notes);
         mainPanel.add(detectiveNotes, BorderLayout.CENTER);
         JPanel buttons = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        removeCardButton = new JButton("Remove Card");
-        addCardButton = new JButton("Add Card");
+        removeCardButton = new JButton("Remove a Potential Card");
+        addCardButton = new JButton("Add a Potential Card");
         eliminatePlayerButton = new JButton("Eliminate Player");
         saveButton = new JButton("Save");
         buttons.add(removeCardButton);
@@ -393,7 +393,6 @@ public class ClueGUI {
     }
 
     private JLabel getImageLabel() {
-        // image label
         ImageIcon originalIcon = new ImageIcon("image/detective.jpeg"); // Load image
         Image originalImage = originalIcon.getImage();
         Image resizedImage = originalImage.getScaledInstance(250, 350, Image.SCALE_SMOOTH);
@@ -409,7 +408,7 @@ public class ClueGUI {
         JPanel bottomRow = new JPanel(new BorderLayout());
         quitButton = new JButton("Quit");
         nextPlayerLabel = new JLabel("Next player: ", JLabel.CENTER);
-        nextButton = new JButton("Next");
+        nextButton = new JButton("Next turn");
         bottomRow.add(quitButton, BorderLayout.WEST);
         bottomRow.add(nextPlayerLabel, BorderLayout.CENTER);
         bottomRow.add(nextButton, BorderLayout.EAST);

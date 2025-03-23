@@ -22,7 +22,6 @@ I’m interested in this project because I like playing Clue. The idea of buildi
 
 
 ## User Stories
-
 - I want to be able to remove suspects, weapons, and rooms from each of the corresponding list of potential murder cards
 - I want to be able to add cards to a player's list of cards they have and list of cards they don't have
 - I want to be able to add cards to a player's list of cards they can potentially have when a player answers 'yes' to another player's question
@@ -30,9 +29,16 @@ I’m interested in this project because I like playing Clue. The idea of buildi
 - I want to be able to select the suspect, weapon, and room when a player states their three suspecting objects 
 - I want to be able to select the player who has been asked and enter 'yes' or 'no' depending on what the player answered 
 - I want to be able to check if the suspect, weapon, or room is found (Ex. the suspect is found when there is only one suspect left in the list of potential suspect cards)
-
 - I want to be able to add and remove card directly to potential cards 
 
 ## Data Persistence User Stories
 - As a user, when I select the quit option from the application menu, I want to be reminded to save detective and list of player to file and have the option to do so or not.
-- As a user, when I start the application, I want to be given the option to load detective and list of player from file.
+- As a user, when I start the application, I want to be given the option to load detective and players from file.
+
+# Instructions for End User
+- You can generate the first required action related to the user story "adding multiple cards to Player" by clicking the **'next turn'** button,    which automatically adds cards according to your input of information from each player's turn 
+- You can generate the second required action related to the user story adding or removing a potential card to Detective by manually clicking the 'add a potential card' or 'remove a potential card' button. The add card button is ideally used only in case of errors and the remove card button is ideally used to eliminate potential cards from the your guesses from the unchecked card sets of a player
+- You can locate my visual component from the left side of main frame after the game is loaded or set-up succesfully 
+- You can save the state of my application by clicking the 'save' button in the main frame
+- You can reload the state of my application by clicking 'load game' from the first dialog that appears after you run the application
+- You can add a player to the list of eliminated player by clicking 'eliminate player' to avoid running the players turn as you click 'next'
