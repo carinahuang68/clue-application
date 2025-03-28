@@ -44,8 +44,8 @@ I’m interested in this project because I like playing Clue. The idea of buildi
 - You can add a player to the list of eliminated player by clicking 'eliminate player' to avoid running the players turn as you click 'next'
 
 # Phase 4: Task 2
-Thu Mar 27 20:54:27 PDT 2025
-Removed Revolver from detective's potential weapons.
+Thu Mar 27 20:54:27 PDT 2025<br>
+Removed Revolver from detective's potential weapons.<br><br>
 Thu Mar 27 20:54:27 PDT 2025
 Removed Hall from detective's potential rooms.
 Thu Mar 27 20:54:27 PDT 2025
