@@ -22,7 +22,7 @@ import model.Card;
 import model.ClueGame;
 
 // @SuppressWarnings("methodlength")
-
+// represents a clue graphical user interface, containing all information required to load the game interface
 public class ClueGUI {
     private String filePath;
     private JsonWriter jsonWriter;

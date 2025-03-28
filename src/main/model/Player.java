@@ -85,17 +85,7 @@ public class Player implements Writable {
             removeUncheckedCard(name);
         }
     }
-
-    // // Custom method to check if list contains string (case-insensitive)
-    // private boolean containsIgnoreCase(List<String> list, String name) {
-    // for (String s : list) {
-    // if (s.equalsIgnoreCase(name)) {
-    // return true;
-    // }
-    // }
-    // return false;
-    // }
-
+    
     /*
      * REQUIRES: Card.contains(name)
      * MODIFIES: this
