@@ -20,6 +20,8 @@ import persistence.JsonWriter;
 import model.Detective;
 import model.Card;
 import model.ClueGame;
+import model.EventLog;
+import model.Event;
 
 // @SuppressWarnings("methodlength")
 // represents a clue graphical user interface, containing all information required to load the game interface
@@ -554,12 +556,22 @@ public class ClueGUI {
         if (choice == JOptionPane.YES_OPTION) {
             System.out.println("User saved and quit.");
             save();
+            printLog();
             System.exit(0);
         } else if (choice == JOptionPane.NO_OPTION) {
             System.out.println("User quit without saving.");
+            printLog();
             System.exit(0);
         } else if (choice == JOptionPane.CANCEL_OPTION) {
             System.out.println("User canceled quitting.");
+        }
+    }
+
+    private void printLog() {
+        EventLog log = EventLog.getInstance();
+        for (Event next : log) {
+            System.out.println(next.toString());
+            System.out.println();
         }
     }
 

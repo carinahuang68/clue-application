@@ -25,15 +25,13 @@
         "name": "a",
         "mysuspects": [
             "Mustard",
-            "Green",
             "Peacock",
-            "Scarlett",
             "White"
         ]
     },
     "players": [
         {
-            "handcards": [],
+            "handcards": ["Plum"],
             "name": "b",
             "nocards": [
                 "Mustard",
@@ -41,7 +39,8 @@
                 "study",
                 "white",
                 "rope",
-                "kitchen"
+                "kitchen",
+                "Scarlett"
             ],
             "uncheckedcards": []
         },
@@ -52,24 +51,45 @@
                 "Mustard",
                 "knife",
                 "study",
-                "white"
+                "white",
+                "Plum",
+                "Scarlett"
             ],
-            "uncheckedcards": []
+            "uncheckedcards": [[
+                "Peacock",
+                "Lead pipe",
+                "Billiard room"
+            ]]
         },
         {
             "handcards": [],
             "name": "d",
             "nocards": [
                 "Mustard",
-                "white"
+                "white",
+                "Plum",
+                "Knife",
+                "Kitchen",
+                "Scarlett"
             ],
             "uncheckedcards": []
         },
         {
-            "handcards": ["white"],
+            "handcards": [
+                "white",
+                "Scarlett"
+            ],
             "name": "e",
-            "nocards": ["Mustard"],
-            "uncheckedcards": []
+            "nocards": [
+                "Mustard",
+                "Plum",
+                "Knife",
+                "Kitchen"
+            ],
+            "uncheckedcards": [[
+                "Scarlett",
+                "Dining Room"
+            ]]
         },
         {
             "handcards": ["Mustard"],
@@ -77,9 +97,17 @@
             "nocards": [
                 "white",
                 "rope",
-                "kitchen"
+                "kitchen",
+                "Plum",
+                "Scarlett",
+                "Wrench",
+                "Kitchen"
             ],
-            "uncheckedcards": []
+            "uncheckedcards": [[
+                "White",
+                "Candlestick",
+                "Conservatory"
+            ]]
         }
     ]
 }
