@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+// represents a clue game with a detective and multiple players
 public class ClueGame {
     private int numPlayers;
     private List<Player> players;

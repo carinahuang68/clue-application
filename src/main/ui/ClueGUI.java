@@ -23,8 +23,7 @@ import model.ClueGame;
 import model.EventLog;
 import model.Event;
 
-// @SuppressWarnings("methodlength")
-// represents a clue graphical user interface, containing all information required to load the game interface
+// represents a graphical user interface for a clue game, containing all information required to load the game interface
 public class ClueGUI {
     private String filePath;
     private JsonWriter jsonWriter;

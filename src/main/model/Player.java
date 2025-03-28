@@ -6,7 +6,7 @@ import org.json.JSONObject;
 
 import persistence.Writable;
 
-// represents another player with name
+// represents anoth player with name
 public class Player implements Writable {
 
     private String name;

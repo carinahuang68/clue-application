@@ -13,7 +13,7 @@ import persistence.JsonWriter;
 import model.Detective;
 import model.Card;
 
-// represents the game Clue, containing all information needed
+// represents the console version of UI for the clue game
 public class ClueApp {
 
     private static final String JSON_STORE = "./data/clueGame.json";
