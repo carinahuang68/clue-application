@@ -112,7 +112,7 @@ public class ClueGame {
      */
     public void addPotentialCard(String card) {
         detective.addCard(card);
-        EventLog.getInstance().logEvent(new Event("Added " + card + " to detective's potential cards manually..."));
+        EventLog.getInstance().logEvent(new Event("Added " + card + " to detective's potential cards manually."));
     }
 
     /*
