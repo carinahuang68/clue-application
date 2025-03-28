@@ -518,7 +518,7 @@ public class ClueGUI {
         while (!Card.contains(currentInput)) {
             currentInput = invalidName("card");
         }
-        game.getDetective().eliminateCard(currentInput);
+        game.removePotentialCard(currentInput);
         updateFrame();
     }
 
@@ -530,7 +530,7 @@ public class ClueGUI {
             currentInput = invalidName("card");
             System.out.println("Current Input: " + currentInput);
         }
-        game.getDetective().addCard(currentInput);
+        game.addPotentialCard(currentInput);
         updateFrame();
     }
 
@@ -647,7 +647,7 @@ public class ClueGUI {
             currentInput = invalidName("card");
         }
         numUncheckedCardsInRoom--;
-        game.getDetective().eliminateCard(currentInput);
+        game.removePotentialCard(currentInput);
     }
 
     /*
@@ -847,7 +847,7 @@ public class ClueGUI {
 
         if (currentAskedPlayer != myName) {
             if (answer == JOptionPane.YES_OPTION && currentAskedPlayer != myName) {
-                game.getPlayer(currentAskedPlayer).addUncheckedCards(currentSuspect, currentWeapon, currentRoom);
+                game.addUncheckedCardsToPlayer(currentAskedPlayer, currentSuspect, currentWeapon, currentRoom);
             } else if (answer == JOptionPane.NO_OPTION) {
                 game.addNoCardsToPlayer(currentAskedPlayer, currentSuspect, currentWeapon, currentRoom);
             }

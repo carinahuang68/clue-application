@@ -70,14 +70,21 @@ public class TestClueGame {
 
     @Test
     public void testAddHandCardsToPlayerValid() {
-        assertTrue(testGame.getPlayer("K").handCardNames().contains("Green"));
-        testGame.addHandCardToPlayer("K", "Green");
         assertEquals(2, testGame.getPlayer("K").getHandCards().size());
+        assertEquals(4, testGame.getDetective().getSuspects().size());
+        testGame.addHandCardToPlayer("K", "Plum");
+        assertEquals(3, testGame.getPlayer("K").getHandCards().size());
+        assertEquals(3, testGame.getDetective().getSuspects().size());
+        assertEquals(9, testGame.getPlayer("I").getNoCards().size());
+        assertEquals(7, testGame.getPlayer("J").getNoCards().size());
     }
 
     @Test
     public void testAddHandCardToPlayerInvalid() {
         testGame.addHandCardToPlayer("Carina", "Green");
+        assertEquals(2, testGame.getPlayer("K").getHandCards().size());
+        assertTrue(testGame.getPlayer("K").handCardNames().contains("Green"));
+        testGame.addHandCardToPlayer("K", "Green");
         assertEquals(2, testGame.getPlayer("K").getHandCards().size());
     }
 
@@ -114,6 +121,30 @@ public class TestClueGame {
         testGame.eliminatePlayer("K");
         testGame.eliminatePlayer("J");
         assertEquals("Carina", testGame.getRemainingPlayers(allPlayers).get(0));
+    }
+
+    @Test
+    public void testAddUncheckedCardsToPlayer() {
+        testGame.addUncheckedCardsToPlayer("K", "Peacock", "Candlestick", "Library");
+        assertEquals(2, testGame.getPlayer("K").getUncheckedCards().get(0).size());
+    }
+
+    @Test
+    public void testRemovePotentialCard() {
+        assertEquals(5, testGame.getDetective().getRooms().size());
+        testGame.removePotentialCard("Knife");
+        assertEquals(4, testGame.getDetective().getWeapons().size());
+        testGame.removePotentialCard("Lounge");
+        assertEquals(4, testGame.getDetective().getRooms().size());
+    }
+
+    @Test
+    public void testAddPotentialCard() {
+        assertEquals(5, testGame.getDetective().getRooms().size());
+        testGame.addPotentialCard("Lounge");
+        assertEquals(5, testGame.getDetective().getRooms().size());
+        testGame.addPotentialCard("Study");
+        assertEquals(6, testGame.getDetective().getRooms().size());
     }
 
 }

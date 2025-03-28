@@ -34,6 +34,7 @@ public class Player implements Writable {
             Suspect s = c.removeSuspect(name);
             if (s != null) {
                 handCards.add(s);
+                EventLog.getInstance().logEvent(new Event("Added " + name + " to " + this.name + "'s hand cards."));
                 return true;
             }
             return false;
@@ -41,6 +42,7 @@ public class Player implements Writable {
             Weapon w = c.removeWeapon(name);
             if (w != null) {
                 handCards.add(w);
+                EventLog.getInstance().logEvent(new Event("Added " + name + " to " + this.name + "'s hand cards."));
                 return true;
             }
             return false;
@@ -48,6 +50,7 @@ public class Player implements Writable {
             Room r = c.removeRoom(name);
             if (r != null) {
                 handCards.add(r);
+                EventLog.getInstance().logEvent(new Event("Added " + name + " to " + this.name + "'s hand cards."));
                 return true;
             }
             return false;
@@ -71,6 +74,7 @@ public class Player implements Writable {
                 Room r = new Room(name);
                 handCards.add(r);
             }
+            EventLog.getInstance().logEvent(new Event("Added " + name + " to " + this.name + "'s hand cards."));
         }
     }
 
@@ -82,6 +86,7 @@ public class Player implements Writable {
     public void addNoCard(String name) {
         if (!noCards.contains(name)) {
             noCards.add(name);
+            EventLog.getInstance().logEvent(new Event("Added " + name + " to " + this.name + "'s no cards."));
             removeUncheckedCard(name);
         }
     }
@@ -116,6 +121,7 @@ public class Player implements Writable {
             }
         }
         uncheckedCards.add(newUncheckedCards);
+        EventLog.getInstance().logEvent(new Event("Added " + newUncheckedCards + " to " + this.name + "'s unchecked sets"));
     }
 
     /*
@@ -137,6 +143,7 @@ public class Player implements Writable {
             for (String s : uncheckedSet) {
                 if (s.equals(name)) {
                     uncheckedSet.remove(s);
+                    EventLog.getInstance().logEvent(new Event("Removed " + name + " from " + this.name + "'s unchecked cards."));
                     break;
                 }
             }
@@ -157,6 +164,7 @@ public class Player implements Writable {
             if (uncheckedSet.size() == 1) {
                 addHandCard(uncheckedSet.get(0), c);
                 uncheckedCards.remove(i);
+                EventLog.getInstance().logEvent(new Event("Removed a set of unchecked cards from " + this.name));
                 hasProgress = true;
             } else {
                 i++;

@@ -129,6 +129,7 @@ public class Detective implements Writable {
     public Suspect removeSuspect(String name) {
         for (int i = 0; i < suspects.size(); i++) {
             if (suspects.get(i).getName().equalsIgnoreCase(name)) {
+                EventLog.getInstance().logEvent(new Event("Removed " + name + " from detective's potential suspects."));
                 return suspects.remove(i);
             }
         }
@@ -144,6 +145,7 @@ public class Detective implements Writable {
     public Weapon removeWeapon(String name) {
         for (int i = 0; i < weapons.size(); i++) {
             if (weapons.get(i).getName().equalsIgnoreCase(name)) {
+                EventLog.getInstance().logEvent(new Event("Removed " + name + " from detective's potential weapons."));
                 return weapons.remove(i);
             }
         }
@@ -159,6 +161,7 @@ public class Detective implements Writable {
     public Room removeRoom(String name) {
         for (int i = 0; i < rooms.size(); i++) {
             if (rooms.get(i).getName().equalsIgnoreCase(name)) {
+                EventLog.getInstance().logEvent(new Event("Removed " + name + " from detective's potential rooms."));
                 return rooms.remove(i);
             }
         }

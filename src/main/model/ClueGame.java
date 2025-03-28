@@ -74,6 +74,7 @@ public class ClueGame {
         Player player = getPlayer(name);
         if (player != null) {
             player.addHandCard(card);
+            detective.eliminateCard(card);
             for (Player p : players) {
                 if (!p.equals(player)) {
                     p.addNoCard(card);
@@ -81,6 +82,36 @@ public class ClueGame {
                 }
             }
         }
+    }
+
+    /*
+     * REQUIRES: all parameters must be a valid name of player or card name
+     * MODIFIES: this
+     * EFFECTS: adds three unchecked cards to player name
+     */
+    public void addUncheckedCardsToPlayer(String name, String suspect, String weapon, String room) {
+        Player player = getPlayer(name);
+        player.addUncheckedCards(suspect, weapon, room);
+    }
+
+    /*
+     * REQUIRES: card must be a valid card name
+     * MODIFES: this
+     * EFFECTS: removes card from detective's corresponding potential card list
+     */
+    public void removePotentialCard(String card) {
+        EventLog.getInstance().logEvent(new Event("Removing a potential card manually..."));
+        detective.eliminateCard(card);
+    } 
+
+    /*
+     * REQUIRES: card must be a valid card name
+     * MODIFES: this
+     * EFFECTS: adds card to detective's corresponding potential card list
+     */
+    public void addPotentialCard(String card) {
+        EventLog.getInstance().logEvent(new Event("Adding a potential card manually..."));
+        detective.addCard(card);
     }
 
     /*
