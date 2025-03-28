@@ -62,7 +62,7 @@ public class Player implements Writable {
      * EFFECTS: add new card with name directly to handcards
      */
     public void addHandCard(String name) {
-        if (!handCardNames().contains(name)) {
+        if (!containsEqualIgnoreCase(handCardNames(), name)) {
             if (Suspect.contains(name)) {
                 Suspect s = new Suspect(name);
                 handCards.add(s);
@@ -83,7 +83,7 @@ public class Player implements Writable {
      * EFFECTS: adds card name to noCards and removes it from uncheckedCards
      */
     public void addNoCard(String name) {
-        if (!noCards.contains(name)) {
+        if (!containsEqualIgnoreCase(noCards, name)) {
             noCards.add(name);
             EventLog.getInstance().logEvent(new Event("Added " + name + " to " + this.name + "'s no cards."));
             removeUncheckedCard(name);
@@ -113,7 +113,7 @@ public class Player implements Writable {
         int i = 0;
         while (i < newUncheckedCards.size()) {
             String currentCard = newUncheckedCards.get(i);
-            if (noCards.contains(currentCard)) {
+            if (containsEqualIgnoreCase(noCards, currentCard)) {
                 newUncheckedCards.remove(currentCard);
             } else {
                 i++;
@@ -141,7 +141,7 @@ public class Player implements Writable {
     public void removeUncheckedCard(String name) {
         for (List<String> uncheckedSet : uncheckedCards) {
             for (String s : uncheckedSet) {
-                if (s.equals(name)) {
+                if (s.equalsIgnoreCase(name)) {
                     uncheckedSet.remove(s);
                     EventLog.getInstance()
                             .logEvent(new Event("Removed " + name + " from " + this.name + "'s unchecked cards."));
@@ -172,6 +172,16 @@ public class Player implements Writable {
             }
         }
         return hasProgress;
+    }
+
+    // EFFECTS: returns true if name is found in cards, ignoring cases
+    private boolean containsEqualIgnoreCase(List<String> cards, String name) {
+        for (String card : cards) {
+            if (card.equalsIgnoreCase(name)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public String getName() {

@@ -59,7 +59,7 @@ public class TestPlayer {
     @Test
     public void addOneHandCardTwice() {
         assertTrue(p.addHandCard("Wrench", c));
-        assertFalse(p.addHandCard("Wrench", c));
+        assertFalse(p.addHandCard("wrench", c));
         assertEquals(1, p.getHandCards().size());
         assertEquals(5, c.getWeapons().size());
 
@@ -70,6 +70,8 @@ public class TestPlayer {
         p.addNoCard("Green");
         assertEquals(1, p.getNoCards().size());
         assertEquals("Green", p.getNoCards().get(0));
+        p.addNoCard("green");
+        assertEquals(1, p.getNoCards().size());
     }
 
     @Test
@@ -103,7 +105,7 @@ public class TestPlayer {
     public void testRemoveUncheckedCard() {
         p.addUncheckedCards("White", "Rope", "Hall");
         p.addUncheckedCards("White", "Candlestick", "Hall");
-        p.removeUncheckedCard("Hall");
+        p.removeUncheckedCard("hall");
         assertEquals(2, p.getUncheckedCards().size());
         assertEquals(2, p.getUncheckedCards().get(0).size());
         assertEquals(2, p.getUncheckedCards().get(1).size());

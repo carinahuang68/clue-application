@@ -110,8 +110,8 @@ public class ClueGame {
      * EFFECTS: adds card to detective's corresponding potential card list
      */
     public void addPotentialCard(String card) {
-        EventLog.getInstance().logEvent(new Event("Adding a potential card manually..."));
         detective.addCard(card);
+        EventLog.getInstance().logEvent(new Event("Added " + card + " to detective's potential cards manually..."));
     }
 
     /*
