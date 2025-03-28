@@ -46,59 +46,59 @@ I’m interested in this project because I like playing Clue. The idea of buildi
 # Phase 4: Task 2
 Thu Mar 27 20:54:27 PDT 2025<br>
 Removed Revolver from detective's potential weapons.<br><br>
-Thu Mar 27 20:54:27 PDT 2025
-Removed Hall from detective's potential rooms.
-Thu Mar 27 20:54:27 PDT 2025
-Removed Plum from detective's potential suspects.
-Thu Mar 27 20:54:27 PDT 2025
-Added white to e's hand cards.
-Thu Mar 27 20:54:27 PDT 2025
-Added Mustard to f's hand cards.
-Thu Mar 27 20:55:15 PDT 2025
-Adding a potential card manually...
-Thu Mar 27 20:55:24 PDT 2025
-Removing a potential card manually...
-Thu Mar 27 20:55:24 PDT 2025
-Removed plum from detective's potential suspects.
-Thu Mar 27 20:56:00 PDT 2025
-Removing a potential card manually...
-Thu Mar 27 20:56:00 PDT 2025
-Removed Green from detective's potential suspects.
-Thu Mar 27 20:57:32 PDT 2025
-Added Plum to d's no cards.
-Thu Mar 27 20:57:32 PDT 2025
-Added Knife to d's no cards.
-Thu Mar 27 20:57:32 PDT 2025
-Added Kitchen to d's no cards.
-Thu Mar 27 20:58:09 PDT 2025
-Added Plum to e's no cards.
-Thu Mar 27 20:58:09 PDT 2025
-Added Knife to e's no cards.
-Thu Mar 27 20:58:09 PDT 2025
-Added Kitchen to e's no cards.
-Thu Mar 27 20:58:30 PDT 2025
-Added Plum to b's hand cards.
-Thu Mar 27 20:58:30 PDT 2025
-Added Plum to c's no cards.
-Thu Mar 27 20:58:30 PDT 2025
-Added Plum to f's no cards.
-Thu Mar 27 21:01:43 PDT 2025
-Added [Scarlett, Dining Room] to e's unchecked sets
-Thu Mar 27 21:06:04 PDT 2025
-Added [White, Candlestick, Conservatory] to f's unchecked sets
-Thu Mar 27 21:09:46 PDT 2025
-Added [Peacock, Lead pipe, Billiard room] to c's unchecked sets
-Thu Mar 27 21:11:28 PDT 2025
-Added Scarlett to f's no cards.
-Thu Mar 27 21:11:28 PDT 2025
-Added Wrench to f's no cards.
-Thu Mar 27 21:11:28 PDT 2025
-Added Kitchen to f's no cards.
-Thu Mar 27 21:11:42 PDT 2025
-Added Scarlett to e's hand cards.
-Thu Mar 27 21:11:42 PDT 2025
-Removed Scarlett from detective's potential suspects.
-Thu Mar 27 21:11:42 PDT 2025
+Thu Mar 27 20:54:27 PDT 2025<br>
+Removed Hall from detective's potential rooms.<br><br>
+Thu Mar 27 20:54:27 PDT 2025<br>
+Removed Plum from detective's potential suspects.<br><br>
+Thu Mar 27 20:54:27 PDT 2025<br>
+Added white to e's hand cards.<br><br>
+Thu Mar 27 20:54:27 PDT 2025<br>
+Added Mustard to f's hand cards.<br><br>
+Thu Mar 27 20:55:15 PDT 2025<br>
+Adding a potential card manually...<br><br>
+Thu Mar 27 20:55:24 PDT 2025<br>
+Removing a potential card manually...<br><br>
+Thu Mar 27 20:55:24 PDT 2025<br>
+Removed plum from detective's potential suspects.<br><br>
+Thu Mar 27 20:56:00 PDT 2025<br>
+Removing a potential card manually...<br><br>
+Thu Mar 27 20:56:00 PDT 2025<br>
+Removed Green from detective's potential suspects.<br><br>
+Thu Mar 27 20:57:32 PDT 2025<br>
+Added Plum to d's no cards.<br><br>
+Thu Mar 27 20:57:32 PDT 2025<br>
+Added Knife to d's no cards.<br><br>
+Thu Mar 27 20:57:32 PDT 2025<br>
+Added Kitchen to d's no cards.<br><br>
+Thu Mar 27 20:58:09 PDT 2025<br>
+Added Plum to e's no cards.<br><br>
+Thu Mar 27 20:58:09 PDT 2025<br>
+Added Knife to e's no cards.<br><br>
+Thu Mar 27 20:58:09 PDT 2025<br>
+Added Kitchen to e's no cards.<br><br>
+Thu Mar 27 20:58:30 PDT 2025<br>
+Added Plum to b's hand cards.<br><br>
+Thu Mar 27 20:58:30 PDT 2025<br>
+Added Plum to c's no cards.<br><br>
+Thu Mar 27 20:58:30 PDT 2025<br>
+Added Plum to f's no cards.<br><br>
+Thu Mar 27 21:01:43 PDT 2025<br>
+Added [Scarlett, Dining Room] to e's unchecked sets<br><br>
+Thu Mar 27 21:06:04 PDT 2025<br>
+Added [White, Candlestick, Conservatory] to f's unchecked sets<br><br>
+Thu Mar 27 21:09:46 PDT 2025<br>
+Added [Peacock, Lead pipe, Billiard room] to c's unchecked sets<br><br>
+Thu Mar 27 21:11:28 PDT 2025<br>
+Added Scarlett to f's no cards.<br><br>
+Thu Mar 27 21:11:28 PDT 2025<br>
+Added Wrench to f's no cards.<br><br>
+Thu Mar 27 21:11:28 PDT 2025<br>
+Added Kitchen to f's no cards.<br><br>
+Thu Mar 27 21:11:42 PDT 2025<br>
+Added Scarlett to e's hand cards.<br><br>
+Thu Mar 27 21:11:42 PDT 2025<br>
+Removed Scarlett from detective's potential suspects.<br><br>
+Thu Mar 27 21:11:42 PDT 2025<br>
 Added Scarlett to b's no cards.
 Thu Mar 27 21:11:42 PDT 2025
 Added Scarlett to c's no cards.
