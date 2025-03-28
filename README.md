@@ -99,8 +99,8 @@ Added Scarlett to e's hand cards.<br><br>
 Thu Mar 27 21:11:42 PDT 2025<br>
 Removed Scarlett from detective's potential suspects.<br><br>
 Thu Mar 27 21:11:42 PDT 2025<br>
-Added Scarlett to b's no cards.
-Thu Mar 27 21:11:42 PDT 2025
-Added Scarlett to c's no cards.
-Thu Mar 27 21:11:42 PDT 2025
+Added Scarlett to b's no cards.<br><br>
+Thu Mar 27 21:11:42 PDT 2025<br>
+Added Scarlett to c's no cards.<br><br>
+Thu Mar 27 21:11:42 PDT 2025<br>
 Added Scarlett to d's no cards.
