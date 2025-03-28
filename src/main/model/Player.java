@@ -30,11 +30,11 @@ public class Player implements Writable {
      * returns true if a Card has been added to handCards, else false
      */
     public boolean addHandCard(String name, Detective c) {
+        EventLog.getInstance().logEvent(new Event("Added " + name + " to " + this.name + "'s hand cards."));
         if (Suspect.contains(name)) {
             Suspect s = c.removeSuspect(name);
             if (s != null) {
                 handCards.add(s);
-                EventLog.getInstance().logEvent(new Event("Added " + name + " to " + this.name + "'s hand cards."));
                 return true;
             }
             return false;
@@ -42,7 +42,6 @@ public class Player implements Writable {
             Weapon w = c.removeWeapon(name);
             if (w != null) {
                 handCards.add(w);
-                EventLog.getInstance().logEvent(new Event("Added " + name + " to " + this.name + "'s hand cards."));
                 return true;
             }
             return false;
@@ -50,11 +49,11 @@ public class Player implements Writable {
             Room r = c.removeRoom(name);
             if (r != null) {
                 handCards.add(r);
-                EventLog.getInstance().logEvent(new Event("Added " + name + " to " + this.name + "'s hand cards."));
                 return true;
             }
             return false;
         }
+
     }
 
     /*
@@ -90,7 +89,7 @@ public class Player implements Writable {
             removeUncheckedCard(name);
         }
     }
-    
+
     /*
      * REQUIRES: Card.contains(name)
      * MODIFIES: this
@@ -121,7 +120,8 @@ public class Player implements Writable {
             }
         }
         uncheckedCards.add(newUncheckedCards);
-        EventLog.getInstance().logEvent(new Event("Added " + newUncheckedCards + " to " + this.name + "'s unchecked sets"));
+        EventLog.getInstance()
+                .logEvent(new Event("Added " + newUncheckedCards + " to " + this.name + "'s unchecked sets"));
     }
 
     /*
@@ -143,7 +143,8 @@ public class Player implements Writable {
             for (String s : uncheckedSet) {
                 if (s.equals(name)) {
                     uncheckedSet.remove(s);
-                    EventLog.getInstance().logEvent(new Event("Removed " + name + " from " + this.name + "'s unchecked cards."));
+                    EventLog.getInstance()
+                            .logEvent(new Event("Removed " + name + " from " + this.name + "'s unchecked cards."));
                     break;
                 }
             }
