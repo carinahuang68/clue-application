@@ -66,6 +66,10 @@ public class ClueGUI {
     private String currentRoom;
     private boolean enteredQuestion = false;
 
+    public static void main(String[] args) {
+        new ClueGUI();
+    }
+
     // EFFECTS: runs the CLUE application - GUI
     public ClueGUI() {
         openClueWindow();
