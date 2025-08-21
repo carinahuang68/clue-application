@@ -750,10 +750,10 @@ public class ClueGUI {
         String question = "Does " + currentAskedPlayer + " have one of the following cards? \n" + getCurrentCards();
         int answer = JOptionPane.showConfirmDialog(frame, question, "Player's answer", JOptionPane.YES_NO_OPTION);
         askedPlayers.add(currentAskedPlayer);
-        game.addNoCardsToPlayer(currentAskedPlayer, currentSuspect, currentWeapon, currentRoom);
 
         // TODO: Fix bug
         while (answer == JOptionPane.NO_OPTION && askedPlayers.size() < game.getPlayers().size()) {
+            game.addNoCardsToPlayer(currentAskedPlayer, currentSuspect, currentWeapon, currentRoom);
             message = getCurrentCards() + "\n" + "Enter the next player to ask: ";
             currentInput = JOptionPane.showInputDialog(frame, message);
             while (game.getPlayer(currentInput) == null | askedPlayers.contains(currentInput)) {
@@ -763,9 +763,12 @@ public class ClueGUI {
             question = "Does " + currentAskedPlayer + " have one of the following cards? \n" + getCurrentCards();
             answer = JOptionPane.showConfirmDialog(frame, question, "Player's answer", JOptionPane.YES_NO_OPTION);
             askedPlayers.add(currentAskedPlayer);
-            game.addNoCardsToPlayer(currentAskedPlayer, currentSuspect, currentWeapon, currentRoom);
         }
-        yesToDetective(currentAskedPlayer, answer);
+        if (answer == JOptionPane.NO_OPTION) {
+            game.addNoCardsToPlayer(currentAskedPlayer, currentSuspect, currentWeapon, currentRoom);
+        } else {
+            yesToDetective(currentAskedPlayer, answer);
+        }
     }
 
     // EFFECTS: if answer is yes, view card
