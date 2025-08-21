@@ -1,0 +1,74 @@
+{
+    "detective": {
+        "myhandcards": [
+            "study",
+            "scarlett",
+            "peacock",
+            "kitchen",
+            "revolver",
+            "candlestick"
+        ],
+        "myweapons": [
+            "Rope",
+            "Lead pipe",
+            "Wrench"
+        ],
+        "myrooms": [
+            "Lounge",
+            "Dining room",
+            "Ball room",
+            "Conservatory",
+            "Billiard room",
+            "Library"
+        ],
+        "name": "j",
+        "mysuspects": [
+            "Plum",
+            "White"
+        ]
+    },
+    "players": [
+        {
+            "handcards": ["mustard"],
+            "name": "c",
+            "nocards": [
+                "study",
+                "scarlett",
+                "peacock",
+                "kitchen",
+                "revolver",
+                "candlestick",
+                "knife",
+                "lead pipe",
+                "dining room"
+            ],
+            "uncheckedcards": [
+                [
+                    "mustard",
+                    "lounge"
+                ],
+                [
+                    "mustard",
+                    "lounge"
+                ]
+            ]
+        },
+        {
+            "handcards": ["knife"],
+            "name": "s",
+            "nocards": [
+                "study",
+                "scarlett",
+                "peacock",
+                "kitchen",
+                "revolver",
+                "candlestick",
+                "mustard",
+                "white",
+                "lead pipe",
+                "dining room"
+            ],
+            "uncheckedcards": []
+        }
+    ]
+}

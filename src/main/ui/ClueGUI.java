@@ -638,11 +638,13 @@ public class ClueGUI {
                 JOptionPane.YES_NO_CANCEL_OPTION);
         if (enteredRoom == JOptionPane.YES_OPTION) {
             System.out.println("Detective entered a room");
-            int chechCardInRoom = JOptionPane.showConfirmDialog(frame, "Check card in room?", "Confirm",
-                    JOptionPane.YES_NO_OPTION);
-            if (chechCardInRoom == JOptionPane.YES_OPTION) {
-                checkCardInRoom();
-                System.out.println("Detective checked card in room");
+            if (numUncheckedCardsInRoom > 0) {
+                int chechCardInRoom = JOptionPane.showConfirmDialog(frame, "Check card in room?", "Confirm",
+                        JOptionPane.YES_NO_OPTION);
+                if (chechCardInRoom == JOptionPane.YES_OPTION) {
+                    checkCardInRoom();
+                    System.out.println("Detective checked card in room");
+                }
             }
             detectiveAskQuestion();
         } else if (enteredRoom == JOptionPane.CANCEL_OPTION) {
@@ -662,7 +664,8 @@ public class ClueGUI {
             currentInput = invalidName("card");
         }
         numUncheckedCardsInRoom--;
-        game.removePotentialCard(currentInput);
+        // game.removePotentialCard(currentInput);
+        game.checkCardInRoom(currentInput);
     }
 
     /*
@@ -744,8 +747,9 @@ public class ClueGUI {
         String question = "Does " + currentAskedPlayer + " have one of the following cards? \n" + getCurrentCards();
         int answer = JOptionPane.showConfirmDialog(frame, question, "Player's answer", JOptionPane.YES_NO_OPTION);
         askedPlayers.add(currentAskedPlayer);
+        game.addNoCardsToPlayer(currentAskedPlayer, currentSuspect, currentWeapon, currentRoom);
+
         while (answer == JOptionPane.NO_OPTION && askedPlayers.size() < game.getPlayers().size()) {
-            game.addNoCardsToPlayer(currentAskedPlayer, currentSuspect, currentWeapon, currentRoom);
             message = getCurrentCards() + "\n" + "Enter the next player to ask: ";
             currentInput = JOptionPane.showInputDialog(frame, message);
             while (game.getPlayer(currentInput) == null | askedPlayers.contains(currentInput)) {
@@ -755,6 +759,7 @@ public class ClueGUI {
             question = "Does " + currentAskedPlayer + " have one of the following cards? \n" + getCurrentCards();
             answer = JOptionPane.showConfirmDialog(frame, question, "Player's answer", JOptionPane.YES_NO_OPTION);
             askedPlayers.add(currentAskedPlayer);
+            game.addNoCardsToPlayer(currentAskedPlayer, currentSuspect, currentWeapon, currentRoom);
         }
         yesToDetective(currentAskedPlayer, answer);
     }
@@ -875,6 +880,7 @@ public class ClueGUI {
      * EFFECTS: shows an invalid input message and lets user re-enter a name of type
      * type ands return the new input
      */
+    // TODO: fix invalid name
     private String invalidName(String type) {
         JOptionPane.showMessageDialog(null,
                 "Invalid " + type + " name!",
@@ -928,13 +934,13 @@ public class ClueGUI {
     public String getMyNotes() {
         Detective detective = game.getDetective();
         return "---------------------------------------------------------------"
-                + "------------------------------------------------------------------\n"
+                + "------------------------------------------------------------------------------------------------\n"
                 + "Your hand cards: " + detective.getHandcards() + "\n"
                 + "Potential suspects: " + detective.getSuspects() + "\n"
                 + "Potential weapons: " + detective.getWeapons() + "\n"
                 + "Potential rooms: " + detective.getRooms() + "\n"
                 + "------------------------------------------------------"
-                + "---------------------------------------------------------------------------\n";
+                + "---------------------------------------------------------------------------------------------------------\n";
     }
 
     /*
