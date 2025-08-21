@@ -151,4 +151,17 @@ public class TestClueGame {
         assertEquals(6, testGame.getDetective().getRooms().size());
     }
 
+    @Test
+    public void testGetPlayer() {
+        Player player = testGame.getPlayer("I");
+        List<Player> players = testGame.getPlayers();
+        for (Player p : players) {
+            if (p.getName().equals(player.getName())) {
+                assertTrue(p.equals(player));
+            } else {
+                assertFalse(p.equals(player));
+            }
+        }
+    }
+
 }

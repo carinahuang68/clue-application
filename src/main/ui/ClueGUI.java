@@ -518,7 +518,7 @@ public class ClueGUI {
 
     // EFFECTS: shows an input dialog to let user input a potential card to remove
     public void removePotentialCard() {
-        String currentInput = JOptionPane.showInputDialog("Enter the potential card you want to remove: ",
+        currentInput = JOptionPane.showInputDialog("Enter the potential card you want to remove: ",
                 JOptionPane.OK_CANCEL_OPTION);
         while (!Card.contains(currentInput)) {
             currentInput = invalidName("card");
@@ -529,7 +529,7 @@ public class ClueGUI {
 
     // EFFECTS: shows an input dialog to let user input a potential card to add
     public void addPotentialCard() {
-        String currentInput = JOptionPane.showInputDialog("Enter the potential card you want to add: ",
+        currentInput = JOptionPane.showInputDialog("Enter the potential card you want to add: ",
                 JOptionPane.OK_CANCEL_OPTION);
         while (!Card.contains(currentInput)) {
             currentInput = invalidName("card");
@@ -541,7 +541,7 @@ public class ClueGUI {
 
     // EFFECTS: shows an input dialog to let user input a player to eliminate
     public void eliminatePlayer() {
-        String currentInput = JOptionPane.showInputDialog("Enter the player to eliminate: ",
+        currentInput = JOptionPane.showInputDialog("Enter the player to eliminate: ",
                 JOptionPane.OK_CANCEL_OPTION);
         while (!orderedPlayers.contains(currentInput)) {
             currentInput = invalidName("player");
@@ -715,12 +715,15 @@ public class ClueGUI {
 
             // Validate inputs
             while (currentSuspect.trim().isEmpty() | !Suspect.contains(currentSuspect)) {
+                currentInput = currentSuspect;
                 currentSuspect = invalidName("suspect");
             }
             while (currentWeapon.trim().isEmpty() | !Weapon.contains(currentWeapon)) {
+                currentInput = currentWeapon;
                 currentWeapon = invalidName("weapon");
             }
             while (currentRoom.trim().isEmpty() | !Room.contains(currentRoom)) {
+                currentInput = currentRoom;
                 currentRoom = invalidName("room");
             }
             enteredQuestion = true;
@@ -749,6 +752,7 @@ public class ClueGUI {
         askedPlayers.add(currentAskedPlayer);
         game.addNoCardsToPlayer(currentAskedPlayer, currentSuspect, currentWeapon, currentRoom);
 
+        // TODO: Fix bug
         while (answer == JOptionPane.NO_OPTION && askedPlayers.size() < game.getPlayers().size()) {
             message = getCurrentCards() + "\n" + "Enter the next player to ask: ";
             currentInput = JOptionPane.showInputDialog(frame, message);
@@ -882,10 +886,8 @@ public class ClueGUI {
      */
     // TODO: fix invalid name
     private String invalidName(String type) {
-        JOptionPane.showMessageDialog(null,
-                "Invalid " + type + " name!",
-                "Invalid Input", JOptionPane.ERROR_MESSAGE);
-        currentInput = JOptionPane.showInputDialog("Please enter again: ");
+        String message = "'" + currentInput + "' is an invalid " + type + " name!\nPlease enter again:";
+        currentInput = JOptionPane.showInputDialog(null, message, "❌ Invalid Input", JOptionPane.ERROR_MESSAGE);
         return currentInput;
     }
 
