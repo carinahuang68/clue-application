@@ -23,6 +23,9 @@ public class ClueGame {
         List<String> myHandCards = new ArrayList<>();
         for (String handCard : detectiveHandCards) {
             myHandCards.add(handCard);
+            for (Player p : players) {
+                p.addNoCard(handCard);
+            }
         }
         detective = new Detective(detectiveName, myHandCards);
         eliminatedPlayers = new ArrayList<>();
@@ -93,6 +96,7 @@ public class ClueGame {
     public void addUncheckedCardsToPlayer(String name, String suspect, String weapon, String room) {
         Player player = getPlayer(name);
         player.addUncheckedCards(suspect, weapon, room);
+        player.checkUncheckedCards(detective);
     }
 
     /*
@@ -101,7 +105,7 @@ public class ClueGame {
      * EFFECTS: removes card from detective's corresponding potential card list
      */
     public void removePotentialCard(String card) {
-        EventLog.getInstance().logEvent(new Event("Removing a potential card manually..."));
+        EventLog.getInstance().logEvent(new Event("Removed " + card + " manually."));
         detective.eliminateCard(card);
     } 
 
@@ -112,7 +116,7 @@ public class ClueGame {
      */
     public void addPotentialCard(String card) {
         detective.addCard(card);
-        EventLog.getInstance().logEvent(new Event("Added " + card + " to detective's potential cards manually."));
+        EventLog.getInstance().logEvent(new Event("Added " + card + " manually."));
     }
 
     /*

@@ -1,0 +1,93 @@
+{
+    "detective": {
+        "myhandcards": [
+            "mustard",
+            "lead pipe",
+            "hall",
+            "lounge"
+        ],
+        "myweapons": ["Revolver"],
+        "myrooms": ["Kitchen"],
+        "name": "Carina",
+        "mysuspects": ["Scarlett"]
+    },
+    "players": [
+        {
+            "handcards": [
+                "plum",
+                "wrench",
+                "Ball room",
+                "dining room"
+            ],
+            "name": "1",
+            "nocards": [
+                "green",
+                "candlestick",
+                "study",
+                "peacock",
+                "revolver",
+                "billiard room",
+                "white",
+                "rope",
+                "scarlett",
+                "knife",
+                "library"
+            ],
+            "uncheckedcards": [[
+                "wrench",
+                "dining room"
+            ]]
+        },
+        {
+            "handcards": [
+                "Green",
+                "study",
+                "library",
+                "candlestick"
+            ],
+            "name": "2",
+            "nocards": [
+                "plum",
+                "peacock",
+                "wrench",
+                "lounge",
+                "revolver",
+                "billiard room",
+                "lead pipe",
+                "dining room",
+                "scarlett",
+                "knife",
+                "rope"
+            ],
+            "uncheckedcards": [[
+                "green",
+                "candlestick"
+            ]]
+        },
+        {
+            "handcards": [
+                "Peacock",
+                "White",
+                "Billiard room",
+                "rope"
+            ],
+            "name": "3",
+            "nocards": [
+                "plum",
+                "green",
+                "candlestick",
+                "study",
+                "mustard",
+                "wrench",
+                "lounge",
+                "lead pipe",
+                "dining room",
+                "scarlett",
+                "knife",
+                "library",
+                "revolver"
+            ],
+            "uncheckedcards": []
+        }
+    ]
+}

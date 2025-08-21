@@ -41,6 +41,10 @@ public class TestClueGame {
         assertEquals(3, testNewGame.getPlayers().size());
         assertEquals("a", testNewGame.getPlayer("a").getName());
         assertEquals("d", testNewGame.getDetective().getName());
+
+        assertEquals(4, testNewGame.getPlayer("a").getNoCards().size());
+        assertEquals(4, testNewGame.getPlayer("b").getNoCards().size());
+        assertEquals(4, testNewGame.getPlayer("c").getNoCards().size());
     }
 
     @Test

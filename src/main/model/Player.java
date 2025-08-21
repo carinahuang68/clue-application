@@ -120,6 +120,7 @@ public class Player implements Writable {
             }
         }
         uncheckedCards.add(newUncheckedCards);
+        
         EventLog.getInstance()
                 .logEvent(new Event("Added " + newUncheckedCards + " to " + this.name + "'s unchecked sets"));
     }
