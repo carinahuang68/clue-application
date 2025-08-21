@@ -69,6 +69,13 @@ public class ClueGame {
         }
     }
 
+    public void checkCardInRoom(String card) {
+        removePotentialCard(card);
+        for (Player p : players) {
+            p.addNoCard(card);
+        }
+    }
+
     /*
      * REQUIRES: name must be a player's name and card must be a card name
      * MODIFIES: this
