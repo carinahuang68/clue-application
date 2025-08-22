@@ -82,7 +82,6 @@ public class ClueGame {
      * MODIFIES: this
      * EFFECTS: adds hand card to player and add the card to other player's no cards
      */
-    // TODO: fix bug 
     public void addHandCardToPlayer(String name, String card) {
         Player player = getPlayer(name);
         if (player != null) {

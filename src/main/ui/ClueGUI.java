@@ -751,7 +751,6 @@ public class ClueGUI {
         int answer = JOptionPane.showConfirmDialog(frame, question, "Player's answer", JOptionPane.YES_NO_OPTION);
         askedPlayers.add(currentAskedPlayer);
 
-        // TODO: Fix bug
         while (answer == JOptionPane.NO_OPTION && askedPlayers.size() < game.getPlayers().size()) {
             game.addNoCardsToPlayer(currentAskedPlayer, currentSuspect, currentWeapon, currentRoom);
             message = getCurrentCards() + "\n" + "Enter the next player to ask: ";
@@ -887,7 +886,6 @@ public class ClueGUI {
      * EFFECTS: shows an invalid input message and lets user re-enter a name of type
      * type ands return the new input
      */
-    // TODO: fix invalid name
     private String invalidName(String type) {
         String message = "'" + currentInput + "' is an invalid " + type + " name!\nPlease enter again:";
         currentInput = JOptionPane.showInputDialog(null, message, "❌ Invalid Input", JOptionPane.ERROR_MESSAGE);

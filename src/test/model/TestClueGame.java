@@ -45,6 +45,11 @@ public class TestClueGame {
         assertEquals(4, testNewGame.getPlayer("a").getNoCards().size());
         assertEquals(4, testNewGame.getPlayer("b").getNoCards().size());
         assertEquals(4, testNewGame.getPlayer("c").getNoCards().size());
+
+        assertEquals(7, testNewGame.getDetective().getRooms().size());
+        assertEquals(5, testNewGame.getDetective().getSuspects().size());
+        assertEquals(5, testNewGame.getDetective().getWeapons().size());
+
     }
 
     @Test
@@ -162,6 +167,15 @@ public class TestClueGame {
                 assertFalse(p.equals(player));
             }
         }
+    }
+
+    @Test
+    public void testCheckCardInRoom() {
+        testNewGame.checkCardInRoom("lounge");
+        assertEquals(6, testNewGame.getDetective().getRooms().size());
+        assertEquals(5, testNewGame.getPlayer("a").getNoCards().size());
+        assertEquals(5, testNewGame.getPlayer("b").getNoCards().size());
+        assertEquals(5, testNewGame.getPlayer("c").getNoCards().size());
     }
 
 }
