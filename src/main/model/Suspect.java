@@ -4,6 +4,7 @@ package model;
 public class Suspect extends Card {
 
     public static final String[] NAMES = { "Mustard", "Plum", "Green", "Peacock", "Scarlett", "White" };
+    public static final String[] SELECTION = { "", "Mustard", "Plum", "Green", "Peacock", "Scarlett", "White" };
 
     public Suspect(String name) {
         super(name);

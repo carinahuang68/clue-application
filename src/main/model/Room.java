@@ -6,6 +6,9 @@ public class Room extends Card {
     public static final String[] NAMES = { "Hall", "Lounge", "Dining room", "Kitchen", "Ball room", "Conservatory",
             "Billiard room",
             "Library", "Study" };
+    public static final String[] SELECTION = { "", "Hall", "Lounge", "Dining room", "Kitchen", "Ball room", "Conservatory",
+            "Billiard room",
+            "Library", "Study" };
 
     public Room(String name) {
         super(name);

@@ -41,6 +41,9 @@ public class ClueGUI {
     JButton nextButton;
     JButton refreshButton;
     JButton addCardButton;
+    JButton confirmSuspectButton;
+    JButton confirmWeaponButton;
+    JButton confirmRoomButton;
     JButton removeCardButton;
     JButton eliminatePlayerButton;
     JLabel nextPlayerLabel;
@@ -380,14 +383,18 @@ public class ClueGUI {
         detectiveNotes = new JScrollPane(notes);
         mainPanel.add(detectiveNotes, BorderLayout.CENTER);
         JPanel buttons = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        removeCardButton = new JButton("Remove a Potential Card");
-        addCardButton = new JButton("Add a Potential Card");
+        // removeCardButton = new JButton("Remove a Potential Card");
+        // addCardButton = new JButton("Add a Potential Card");
         eliminatePlayerButton = new JButton("Eliminate Player");
-        saveButton = new JButton("Save");
-        buttons.add(removeCardButton);
-        buttons.add(addCardButton);
+        confirmSuspectButton = new JButton("Confirm Suspect");
+        confirmWeaponButton = new JButton("Confirm Weapon");
+        confirmRoomButton = new JButton("Confirm Room");
+        buttons.add(confirmSuspectButton);
+        buttons.add(confirmWeaponButton);
+        buttons.add(confirmRoomButton);
+        // buttons.add(removeCardButton);
+        // buttons.add(addCardButton);
         buttons.add(eliminatePlayerButton);
-        buttons.add(saveButton);
         mainPanel.add(buttons, BorderLayout.SOUTH);
         return mainPanel;
     }
@@ -454,14 +461,19 @@ public class ClueGUI {
      */
     private JPanel getBottomPanel() {
         JPanel bottomPanel = new JPanel(new BorderLayout());
-        bottomPanel.setBorder(new EmptyBorder(5, 15, 10, 15));
+        bottomPanel.setBorder(new EmptyBorder(10, 15, 15, 15));
         JPanel bottomRow = new JPanel(new BorderLayout());
+        JPanel quitAndSave = new JPanel(new FlowLayout(FlowLayout.CENTER));
         quitButton = new JButton("Quit");
+        saveButton = new JButton("Save");
+        quitAndSave.add(quitButton);
+        quitAndSave.add(saveButton);
         nextPlayerLabel = new JLabel("Next player: ", JLabel.CENTER);
         nextButton = new JButton("Next turn");
         nextButton.setBackground(Color.CYAN);
         nextButton.setOpaque(true);
-        bottomRow.add(quitButton, BorderLayout.WEST);
+
+        bottomRow.add(quitAndSave, BorderLayout.WEST);
         bottomRow.add(nextPlayerLabel, BorderLayout.CENTER);
         bottomRow.add(nextButton, BorderLayout.EAST);
         bottomPanel.add(bottomRow, BorderLayout.SOUTH);
@@ -479,12 +491,16 @@ public class ClueGUI {
     // MODIFIES: this
     // EFFECTS: Activates the Clue GUI by adding action listiners to every button
     public void activateGUI() {
-        removeCardButton.addActionListener(e -> removePotentialCard());
-        addCardButton.addActionListener(e -> addPotentialCard());
+        // removeCardButton.addActionListener(e -> removePotentialCard());
+        // addCardButton.addActionListener(e -> addPotentialCard());
         eliminatePlayerButton.addActionListener(e -> eliminatePlayer());
         saveButton.addActionListener(e -> save());
         quitButton.addActionListener(e -> quit());
         nextButton.addActionListener(e -> nextTurn());
+
+        confirmRoomButton.addActionListener(e -> confirmRoom());
+        confirmSuspectButton.addActionListener(e -> confirmSuspect());
+        confirmWeaponButton.addActionListener(e -> confirmWeapon());
     }
 
     /*
@@ -516,27 +532,39 @@ public class ClueGUI {
         return orderedPlayers.get(tempIndex);
     }
 
-    // EFFECTS: shows an input dialog to let user input a potential card to remove
-    public void removePotentialCard() {
-        currentInput = JOptionPane.showInputDialog("Enter the potential card you want to remove: ",
-                JOptionPane.OK_CANCEL_OPTION);
-        while (!Card.contains(currentInput)) {
-            currentInput = invalidName("card");
-        }
-        game.removePotentialCard(currentInput);
-        updateFrame();
+    // // EFFECTS: shows an input dialog to let user input a potential card to remove
+    // public void removePotentialCard() {
+    //     currentInput = JOptionPane.showInputDialog("Enter the potential card you want to remove: ",
+    //             JOptionPane.OK_CANCEL_OPTION);
+    //     while (!Card.contains(currentInput)) {
+    //         currentInput = invalidName("card");
+    //     }
+    //     game.removePotentialCard(currentInput);
+    //     updateFrame();
+    // }
+
+    // // EFFECTS: shows an input dialog to let user input a potential card to add
+    // public void addPotentialCard() {
+    //     currentInput = JOptionPane.showInputDialog("Enter the potential card you want to add: ",
+    //             JOptionPane.OK_CANCEL_OPTION);
+    //     while (!Card.contains(currentInput)) {
+    //         currentInput = invalidName("card");
+    //         System.out.println("Current Input: " + currentInput);
+    //     }
+    //     game.addPotentialCard(currentInput);
+    //     updateFrame();
+    // }
+
+    public void confirmRoom() {
+
     }
 
-    // EFFECTS: shows an input dialog to let user input a potential card to add
-    public void addPotentialCard() {
-        currentInput = JOptionPane.showInputDialog("Enter the potential card you want to add: ",
-                JOptionPane.OK_CANCEL_OPTION);
-        while (!Card.contains(currentInput)) {
-            currentInput = invalidName("card");
-            System.out.println("Current Input: " + currentInput);
-        }
-        game.addPotentialCard(currentInput);
-        updateFrame();
+    public void confirmSuspect() {
+        
+    }
+
+    public void confirmWeapon() {
+        
     }
 
     // EFFECTS: shows an input dialog to let user input a player to eliminate
@@ -649,6 +677,7 @@ public class ClueGUI {
             detectiveAskQuestion();
         } else if (enteredRoom == JOptionPane.CANCEL_OPTION) {
             currentPlayerIndex = (currentPlayerIndex - 1 + orderedPlayers.size()) % orderedPlayers.size();
+            updateFrame();
         }
     }
 
@@ -675,62 +704,184 @@ public class ClueGUI {
      * view one of the player's hand card who answered "yes"
      */
     public void detectiveAskQuestion() {
-        inputQuestion("Your Question");
+        inputQuestionDropDown("Your Question");
         if (enteredQuestion) {
             inputPlayersAnswerToDetective();
         }
     }
+
+    // private void inputQuestion(String title) {
+    //     JScrollPane cardNamesPanel = getCardNamesScrollPane();
+    //     JPanel inputPanel = new JPanel(new GridLayout(3, 2, 10, 10)); // 3 rows, 2 columns
+    //     inputPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+    //     JTextField suspectField = new JTextField();
+    //     JTextField weaponField = new JTextField();
+    //     JTextField roomField = new JTextField();
+    //     inputPanel.add(new JLabel("Suspect:"));
+    //     inputPanel.add(suspectField);
+    //     inputPanel.add(new JLabel("Weapon:"));
+    //     inputPanel.add(weaponField);
+    //     inputPanel.add(new JLabel("Room:"));
+    //     inputPanel.add(roomField);
+
+    //     JPanel panel = new JPanel();
+    //     panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+    //     panel.add(cardNamesPanel);
+    //     panel.add(inputPanel);
+
+    //     int option = JOptionPane.showConfirmDialog(null, panel, title, JOptionPane.OK_CANCEL_OPTION);
+
+    //     if (option == JOptionPane.OK_OPTION) {
+    //         currentSuspect = suspectField.getText();
+    //         currentWeapon = weaponField.getText();
+    //         currentRoom = roomField.getText();
+
+    //         // Validate inputs
+    //         while (currentSuspect.trim().isEmpty() | !Suspect.contains(currentSuspect)) {
+    //             currentInput = currentSuspect;
+    //             currentSuspect = invalidName("suspect");
+    //         }
+    //         while (currentWeapon.trim().isEmpty() | !Weapon.contains(currentWeapon)) {
+    //             currentInput = currentWeapon;
+    //             currentWeapon = invalidName("weapon");
+    //         }
+    //         while (currentRoom.trim().isEmpty() | !Room.contains(currentRoom)) {
+    //             currentInput = currentRoom;
+    //             currentRoom = invalidName("room");
+    //         }
+    //         enteredQuestion = true;
+    //     } else if (option == JOptionPane.CANCEL_OPTION) {
+    //         currentPlayerIndex = (currentPlayerIndex - 1 + orderedPlayers.size()) % orderedPlayers.size();
+    //         updateFrame();
+    //     }
+
+    // }
 
     /*
      * MODIFIES: this
      * EFFECTS: shows a pop up window to let user input suspect, weapon, and room
      * from a player's question
      */
-    @SuppressWarnings("methodlength")
-    private void inputQuestion(String title) {
-        JScrollPane cardNamesPanel = getCardNamesScrollPane();
-        JPanel inputPanel = new JPanel(new GridLayout(3, 2, 10, 10)); // 3 rows, 2 columns
-        inputPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        JTextField suspectField = new JTextField();
-        JTextField weaponField = new JTextField();
-        JTextField roomField = new JTextField();
+    private void inputQuestionDropDown(String title) {
+        JPanel inputPanel = new JPanel(new GridLayout(6, 2, 0, 0)); // 3 rows, 2 columns
+        inputPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
+
+        // Suspect row
+        inputPanel.add(new JLabel(""));
+        JLabel emptySuspectWarning = getEmptyWarning("suspect");
+        inputPanel.add(emptySuspectWarning);
         inputPanel.add(new JLabel("Suspect:"));
-        inputPanel.add(suspectField);
+        JComboBox<String> suspectDropDown = getSuspectDropDown();
+        inputPanel.add(suspectDropDown);
+
+        // Weapon row
+        inputPanel.add(new JLabel(""));
+        JLabel emptyWeaponWarning = getEmptyWarning("weapon");
+        inputPanel.add(emptyWeaponWarning);
         inputPanel.add(new JLabel("Weapon:"));
-        inputPanel.add(weaponField);
+        JComboBox<String> weaponDropDown = getWeaponDropDown();
+        inputPanel.add(weaponDropDown);
+
+        // Room row
+        inputPanel.add(new JLabel(""));
+        JLabel emptyRoomWarning = getEmptyWarning("room");
+        inputPanel.add(emptyRoomWarning);
         inputPanel.add(new JLabel("Room:"));
-        inputPanel.add(roomField);
+        JComboBox<String> roomDropDown = getRoomDropDown();
+        inputPanel.add(roomDropDown);
+
+        // Button row 
+        JButton okButton = new JButton("OK");
+        JButton cancelButton = new JButton("Cancel");
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.add(cancelButton);
+        buttonPanel.add(okButton);
 
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.add(cardNamesPanel);
         panel.add(inputPanel);
+        panel.add(buttonPanel);
+        panel.setBorder(BorderFactory.createEmptyBorder(0, 50, 20, 50));
 
-        int option = JOptionPane.showConfirmDialog(null, panel, title, JOptionPane.OK_CANCEL_OPTION);
+        // Create custom dialog
+        JDialog dialog = new JDialog((Frame) null, title, true);
+        dialog.setContentPane(panel);
+        dialog.pack();
+        dialog.setLocationRelativeTo(null);
 
-        if (option == JOptionPane.OK_OPTION) {
-            currentSuspect = suspectField.getText();
-            currentWeapon = weaponField.getText();
-            currentRoom = roomField.getText();
-
-            // Validate inputs
-            while (currentSuspect.trim().isEmpty() | !Suspect.contains(currentSuspect)) {
-                currentInput = currentSuspect;
-                currentSuspect = invalidName("suspect");
+        okButton.addActionListener(e -> {
+            boolean valid = true;
+    
+            if (suspectDropDown.getSelectedIndex() == 0) {
+                emptySuspectWarning.setVisible(true);
+                valid = false;
+            } else {
+                emptySuspectWarning.setVisible(false);
             }
-            while (currentWeapon.trim().isEmpty() | !Weapon.contains(currentWeapon)) {
-                currentInput = currentWeapon;
-                currentWeapon = invalidName("weapon");
+    
+            if (weaponDropDown.getSelectedIndex() == 0) {
+                emptyWeaponWarning.setVisible(true);;
+                valid = false;
+            } else {
+                emptyWeaponWarning.setVisible(false);
             }
-            while (currentRoom.trim().isEmpty() | !Room.contains(currentRoom)) {
-                currentInput = currentRoom;
-                currentRoom = invalidName("room");
+    
+            if (roomDropDown.getSelectedIndex() == 0) {
+                emptyRoomWarning.setVisible(true);
+                valid = false;
+            } else {
+                emptyRoomWarning.setVisible(false);
             }
-            enteredQuestion = true;
-        } else if (option == JOptionPane.CANCEL_OPTION) {
+    
+            if (valid) {
+                dialog.dispose();
+                enteredQuestion = true;
+                // continue game logic here
+            } 
+        });
+    
+        // Cancel button logic
+        cancelButton.addActionListener(e -> {
+            dialog.dispose();
             currentPlayerIndex = (currentPlayerIndex - 1 + orderedPlayers.size()) % orderedPlayers.size();
-        }
+            updateFrame();
+        });
 
+        dialog.setVisible(true);
+    }
+
+    private JLabel getEmptyWarning(String type) {
+        JLabel warning = new JLabel("You must select a " + type + "!");
+        warning.setForeground(Color.RED);
+        warning.setVisible(false);
+        return warning;
+    }
+
+    private JComboBox<String> getSuspectDropDown() {
+        JComboBox<String> comboBox = new JComboBox<>(Suspect.SELECTION);
+        comboBox.addActionListener(e -> {
+            currentSuspect = (String) comboBox.getSelectedItem();
+            System.out.println(currentSuspect + " selected");
+        });
+        return comboBox;
+    }
+
+    private JComboBox<String> getWeaponDropDown() {
+        JComboBox<String> comboBox = new JComboBox<>(Weapon.SELECTION);
+        comboBox.addActionListener(e -> {
+            currentWeapon = (String) comboBox.getSelectedItem();
+            System.out.println(currentWeapon + " selected");
+        });
+        return comboBox;
+    }
+
+    private JComboBox<String> getRoomDropDown() {
+        JComboBox<String> comboBox = new JComboBox<>(Room.SELECTION);
+        comboBox.addActionListener(e -> {
+            currentRoom = (String) comboBox.getSelectedItem();
+            System.out.println(currentRoom + " selected");
+        });
+        return comboBox;
     }
 
     /*
@@ -786,8 +937,8 @@ public class ClueGUI {
     public void viewCard(String player) {
         String message = getCurrentCards() + "\n" + "Enter " + player + "'s card you just viewed: ";
         currentInput = JOptionPane.showInputDialog(frame, message);
-        while (!currentInput.equals(currentSuspect) && !currentInput.equals(currentWeapon)
-                && !currentInput.equals(currentRoom)) {
+        while (!currentInput.equalsIgnoreCase(currentSuspect) && !currentInput.equalsIgnoreCase(currentWeapon)
+                && !currentInput.equalsIgnoreCase(currentRoom)) {
             currentInput = invalidName("card");
         }
         game.addHandCardToPlayer(player, currentInput);
@@ -807,6 +958,7 @@ public class ClueGUI {
             playerAskQuestion();
         } else if (answer == JOptionPane.CANCEL_OPTION) {
             currentPlayerIndex = (currentPlayerIndex - 1 + orderedPlayers.size()) % orderedPlayers.size();
+            updateFrame();
         }
     }
 
@@ -817,7 +969,7 @@ public class ClueGUI {
      * other players' answers
      */
     public void playerAskQuestion() {
-        inputQuestion(currentPlayer + "'s Question");
+        inputQuestionDropDown(currentPlayer + "'s Question");
         if (enteredQuestion) {
             inputPlayersAnswer();
         }

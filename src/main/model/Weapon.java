@@ -4,6 +4,7 @@ package model;
 public class Weapon extends Card {
 
     public static final String[] NAMES = { "Knife", "Candlestick", "Revolver", "Rope", "Lead pipe", "Wrench" };
+    public static final String[] SELECTION = { "", "Knife", "Candlestick", "Revolver", "Rope", "Lead pipe", "Wrench" };
 
     public Weapon(String name) {
         super(name);
